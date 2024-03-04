@@ -60,5 +60,33 @@ We distinguish two types of linking:
 - static linking, that combine libraries and program code into the binary program image;
 - dynamic linked libraries (DLL) that link libraries to user program when they have to be executed. The advantages are shared resources, enhance modularity and reduce memory usage.
 
+## Types of allocation
+Main memory stores operating system and user processes. They are placed into two different partitions:
+- Low memory or high memory for OS processes;
+- Resising space for user processes. This can be managed in two ways:
+  - we use the first available space eligible for processes size;
+  - divide into partitions the space and place the processes where it fits.
+
+### Contiguous allocation
+#### Contiguous memory allocation
+Each process is contained in a single section of memory that is contiguous to the section cointaing the next process.
+
+<add image slide 19>
+This means that a process must wait if there isn't enough space after the previous one.
+
+Here, the relocation registers are used to protect processes from each other. 
+<add image of slide 20>
+
+### Variable partition
+Assigning processes to variably size partitions where each partition may contain exactly one process. 
+So, initially, there is a large block because memory for user processes is available. When a process terminates, it release the memory and might create a **hole** that can be large enough to fit an arriving process.
+
+The dynamic storage-allocation problem refers to the search for a hole (understood as space available) large enough to contains the arriving process.
+There are three different approaches:
+- **first-fit** allocate the first hole that is big enough;
+- **best-fit** allocate the smallest hole big enough. So, it must search the entire list (unless it's ordered) but produces the smallest lefover hole;
+- **worst-fit** allocate the largest hole in order to leave a big hole that might be more useful than the smallest leftover. 
+First and best fit are better than the worst fit.
+
 
 
