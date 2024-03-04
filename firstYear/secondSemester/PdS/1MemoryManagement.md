@@ -72,6 +72,7 @@ Main memory stores operating system and user processes. They are placed into two
 Each process is contained in a single section of memory that is contiguous to the section cointaing the next process.
 
 <add image slide 19>
+
 This means that a process must wait if there isn't enough space after the previous one.
 
 Here, the relocation registers are used to protect processes from each other. 
