@@ -115,9 +115,29 @@ In this way, even if the space is not contiguous, processes can be executed by *
 ##### Address Translation Scheme
 With this approach, it's necessary to find another method to identify where all the pages of a process are mapped into the physical memory. For this reason, a logical address is divided into:
 - **page number(p)**, used as index to identify base address of each page frame. This information is retrieved by the page table;
-- **page offset(o)**, used to identify the location in the frame being referenced.
+- **page offset(d)**, used to identify the location in the frame being referenced.
 
 So, The MMU uses a support table called **page table**, which contains the frame (so the base address) corresponding to the page number.
 Combining base address of the frame and page offset, the physical memory address is obtained.
-
 ![Schermata del 2024-03-05 16-36-55](https://i.imgur.com/fYH7NPF.png)
+
+The value of d is the same as the size of pages and frames is the same. 
+
+This approach doesn't solve internal fragmentation. The first idea would be to reduce the size of the page but this would create an overhead of page table entry.
+
+##### Implementation of Page Table
+Information about Page table are stored in registers:
+- **Page-table base register (PTBR)** is the memory address pf the page table;
+- **Page-table length register** is the size of the table.
+
+Retriving these information means accessing two time in memory, one for page table and one for the data/instruction. This can be solved thanks to the **<span style="color:DarkOrange">translation look-aside buffer (TBLs)</span>**, which is a special **fast-lookup hardware cache** (here, the access is really faster and unique).
+
+![Schermata del 2024-03-05 17-11-31](https://i.imgur.com/4ON8GoL.png)
+
+The TLB contains few page table entries. In this way, the MMU first look for the page entry in TLB: if it's found, it's a <span style="color:DarkGreen">TLB hit</span>, otherwise address location is done as before, creating a <span style="color:red">TLB miss</span>. This implies that this page will be loaded in TLB in order to access faster next time is searched.
+Additionally, some instructions are wired down for permanent fast access.
+
+Making statistics on time and access memory:
+- **hit ratio** is the number of times that page number of interest is found in the TLB;
+- **Effective Access Time (EAT)**, given the value of time to access memory t, we will compute $$hitRatio \times t + (1-hitRatio) \times 2t$$
+
