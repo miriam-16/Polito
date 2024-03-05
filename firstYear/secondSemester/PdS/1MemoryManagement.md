@@ -64,8 +64,8 @@ We distinguish two types of linking:
 Main memory stores operating system and user processes. They are placed into two different partitions:
 - Low memory or high memory for OS processes;
 - Resising space for user processes. This can be managed in two ways:
-  - we use the first available space eligible for processes size;
-  - divide into partitions the space and place the processes where it fits.
+  - we use the first available space eligible for processes size (<span style="color:purple">method 1</span>);
+  - divide into partitions the space and place the processes where it fits (<span style="color:purple">method 2</span>).
 
 ### Contiguous allocation
 #### Contiguous memory allocation
@@ -89,5 +89,35 @@ There are three different approaches:
 - **worst-fit** allocate the largest hole in order to leave a big hole that might be more useful than the smallest leftover. 
 First and best fit are better than the worst fit.
 
+### Fragmentation
+The phenomenon in which there's available space but is not contiguous (due to the terminated processes), so it can't be used. We distinguish two types of fragmentation:
+- External, (result from <span style="color:purple">method 1</span>), when the sum of remaining space satisfies the request, but is not contiguous;
+- Internal, (result from <span style="color:purple">method 2</span>), when the sum of residing space from each partition can (even larger) satisfy the request, but the process can be divided into pieces.
 
+This is not an ideal situation, because we want to use as many memory as possible and to ensure that processes are executed in the least time. 
+Let's the solutions.
 
+#### Compaction
+Periodically, CPU moves all the processes together in one large available block, with the idea to create a contiguous space in which new processes can be executed. This solution is possible only if relocation is dynamic and done at execution time.
+<span style="color:red">Update periodically all the base registers of each processes; the CPU time is used for making this operation</span>.
+
+#### Paging
+Solution which allows the logic address space of a process to **not be contiguous**. <span style="color:DarkGreen">Avoids external fragmentation and needs for compaction</span>.
+
+Applying paging solution means to divide:
+- logical memory into **fixed-size blocks** called **<span style="color:DarkOrange">pages</span>**;
+- physical memory into blocks of the **same size** (it is not ensured that the number of blocks is equal to the the numbero of pages) called **<span style="color:DarkOrange">frames</span>**. 
+
+Size is a power of 2 and depends on the computer architecture.
+
+In this way, even if the space is not contiguous, processes can be executed by **loading pages into the available memory frames** (we can image frames and pages as rectangles not contiguous, in different position).
+
+##### Address Translation Scheme
+With this approach, it's necessary to find another method to identify where all the pages of a process are mapped into the physical memory. For this reason, a logical address is divided into:
+- **page number(p)**, used as index to identify base address of each page frame. This information is retrieved by the page table;
+- **page offset(o)**, used to identify the location in the frame being referenced.
+
+So, The MMU uses a support table called **page table**, which contains the frame (so the base address) corresponding to the page number.
+Combining base address of the frame and page offset, the physical memory address is obtained.
+
+![Schermata del 2024-03-05 16-36-55](https://i.imgur.com/fYH7NPF.png)
