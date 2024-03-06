@@ -1,0 +1,157 @@
+{
+  "main": {
+    "id": "ffd85880d2989625",
+    "type": "split",
+    "children": [
+      {
+        "id": "4e8eabfda5b229aa",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6ff016b2b4caa832",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Data Science and Data Base Technologies - Homework 4 - StudentID s332135.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c86f854c3aeedfc4",
+    "type": "split",
+    "children": [
+      {
+        "id": "d5b811e458673911",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ec0eff931a41c428",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e89720f0029a3e01",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "a593cff9b51f2d42",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1ca1685587cc950c",
+    "type": "split",
+    "children": [
+      {
+        "id": "0e4868b9bc8f42f1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3187d199ff98dab3",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Data Science and Data Base Technologies - Homework 4 - StudentID s332135.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "4bf3f8482db355e0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Data Science and Data Base Technologies - Homework 4 - StudentID s332135.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "18cfa292738abc9c",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "9c190d7184b73512",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Data Science and Data Base Technologies - Homework 4 - StudentID s332135.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Apri selezione rapida": false,
+      "graph:Apri vista grafo": false,
+      "canvas:Crea nuova lavagna": false,
+      "daily-notes:Apri nota del giorno": false,
+      "templates:Inserisci modello": false,
+      "command-palette:Apri riquadro comandi": false
+    }
+  },
+  "active": "6ff016b2b4caa832",
+  "lastOpenFiles": [
+    "Data Science and Data Base Technologies - Homework 4 - StudentID s332135.md",
+    "Pasted image 20231222174715.png",
+    "Pasted image 20231222143314.png",
+    "Pasted image 20231222143027.png",
+    "Pasted image 20231222132533.png"
+  ]
+}

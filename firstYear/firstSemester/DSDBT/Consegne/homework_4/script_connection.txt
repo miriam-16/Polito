@@ -1,0 +1,5 @@
+mongodb+srv://new_user_miriam:drcnFz6MXcy8ebyYTDxD@cluster0.pwucrov.mongodb.net/
+
+use db4
+
+db.bike_stations.find()
