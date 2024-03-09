@@ -1,13 +1,13 @@
-# 1 - Memory management
+# 1 — Memory management
 
 ## Background
-Usually, a program is on disk as a binary executable file. When  we have to run the program, it is transfered from disk to main memory, within a process, to be eligible for execution of the CPU. 
+Usually, a program is on disk as a binary executable file. When we have to run the program, it is transfered from disk to main memory, within a process, to be eligible for execution of the CPU. 
 
 (As we know, CPU has direct access to main memory and registers, so it's very important to transfer the code from memory to more accessable point for the CPU)
 
 ## Problems related to management of memory
 In this phase, there are problems related to:
-- Space, how much data has to be transfered;
+- Space, how many data has to be transfered;
 - Speed of loading and storing data;
 - Dealing with a lot of processes, each of them with theri data and information that has to be managed indipendently.
 
@@ -18,12 +18,12 @@ Protection of process's address space is perfomed by using registers called:
 - **base**, which specifies the smallest legal physical memory address;
 - **limit** specifies the size of the range. Added to base value, it identifies the biggest legal physical memory address.
 
-In particular cases (see later run time binding), the computations of the address legacy of a certain process is performed by a unit of the CPU, the **Memory Management Unit**, that is an hardware module that guarantee speed. 
+In particular cases (see later run time binding), the computations of the address legacy of a certain process is performed by a unit of the CPU, the **Memory Management Unit**, that is a hardware module that guarantee speed. 
 
 ![Schermata del 2024-03-05 17-38-02](https://i.imgur.com/CmojcKd.png)
 
 
-## Address  binding
+## Address binding
 The addresses in the source code are generally _symbolic_, so the compiler tipically binds these addresses to _relocatable_ addresses.
 The address binding is the process of assigning (mapping) a memory address to a program (or a process) at the time of execution. 
 
@@ -35,7 +35,7 @@ Running software programs implies three stages:
 
 Address binding can be perfomed in any of the stages, producing different results:
 - at compile time, the source code already refers to physical address, so the binding generates _absolute code_. This implies that by changing some allocation in the code, all the other address must be changed;
-- at load time, the compiler generates the relocatable code. When this code is loaded into memory, the binding od physical memory is performed.
+- at load time, the compiler generates the relocatable code. When this code is loaded into memory, the binding od physical memory is performed;
 - at execution time, binsing is performed only when the CPU is available to execute code. By this time, all the assignments are made.
 
 ## Definitions of addresses and properties
@@ -53,7 +53,7 @@ The base register is renamed as **relocation register** and its value is added t
 ![Schermata del 2024-03-05 17-38-58](https://i.imgur.com/1DeuGtd.png)
 
 ## Loading data of a program
-when program code is loaded into memory, how much data has to be transfered? 
+when program code is loaded into memory, how many data has to be transfered? 
 We know the entire program must be in memory in order to be executed. So, the **dynamic loading** loads all the libraries or modules into memory at run time, with the intention of load only necessary components when needed (efficiency) and speed up program (by reduce memory allocation).
 
 We distinguish two types of linking:
@@ -81,7 +81,7 @@ Here, the relocation registers are used to protect processes from each other.
 
 ### Variable partition
 Assigning processes to variably size partitions where each partition may contain exactly one process. 
-So, initially, there is a large block because memory for user processes is available. When a process terminates, it release the memory and might create a **hole** that can be large enough to fit an arriving process.
+So, initially, there is a large block because memory for user processes is available. When a process terminates, it releases the memory and might create a **hole** that can be large enough to fit an arriving process.
 
 The dynamic storage-allocation problem refers to the search for a hole (understood as space available) large enough to contains the arriving process.
 There are three different approaches:
@@ -95,8 +95,8 @@ The phenomenon in which there's available space but is not contiguous (due to th
 - External, (result from <span style="color:purple">method 1</span>), when the sum of remaining space satisfies the request, but is not contiguous;
 - Internal, (result from <span style="color:purple">method 2</span>), when the sum of residing space from each partition can (even larger) satisfy the request, but the process can be divided into pieces.
 
-This is not an ideal situation, because we want to use as many memory as possible and to ensure that processes are executed in the least time. 
-Let's the solutions.
+This is not an ideal situation, because we want to use as much memory as possible and to ensure that processes are executed in the least time. 
+Let's see the solutions.
 
 #### Compaction
 Periodically, CPU moves all the processes together in one large available block, with the idea to create a contiguous space in which new processes can be executed. This solution is possible only if relocation is dynamic and done at execution time.
@@ -107,11 +107,13 @@ Solution which allows the logic address space of a process to **not be contiguou
 
 Applying paging solution means to divide:
 - logical memory into **fixed-size blocks** called **<span style="color:DarkOrange">pages</span>**;
-- physical memory into blocks of the **same size** (it is not ensured that the number of blocks is equal to the the numbero of pages) called **<span style="color:DarkOrange">frames</span>**. 
+- physical memory into blocks of the **same size** (it is not ensured that the number of blocks is equal to the numbero of pages) called **<span style="color:DarkOrange">frames</span>**. 
 
 Size is a power of 2 and depends on the computer architecture.
 
 In this way, even if the space is not contiguous, processes can be executed by **loading pages into the available memory frames** (we can image frames and pages as rectangles not contiguous, in different position).
+
+Another advantage of paging is the possibility of **<span style= "color:DarkGreen">sharing common code</span>** among different processes. This kind of code is called **reentrant code**: it never changes during execution so it can be shared, optimizing execution of processes.
 
 ##### Address Translation Scheme
 With this approach, it's necessary to find another method to identify where all the pages of a process are mapped into the physical memory. For this reason, a logical address is divided into:
@@ -141,4 +143,28 @@ Additionally, some instructions are wired down for permanent fast access.
 Making statistics on time and access memory:
 - **hit ratio** is the number of times that page number of interest is found in the TLB;
 - **Effective Access Time (EAT)**, given the value of time to access memory t, we will compute $$hitRatio \times t + (1-hitRatio) \times 2t$$
+
+###### Structure of the page table 
+Although modern computers support large logical address space, this implies to store a large page table, which is allocated continously in main memory. 
+The best solution is to divide the page table into smaller unit, by using different approaches. 
+- **Hierarchical Page Table** uses one or two levels paging algorithm with the idea to divide the logical address space into multiple pages tables. It <span style="color:DarkGreen">takes less space</span> and if a process doesn't need all the space, it <span style="color:DarkGreen">occupies the table gradually</span>, from the top. The page number of the logical address is splitted in two or three (depending on how many levels) when the first part is the index of the outer page table and the following is the displacement within the page of the inner page.
+(In implementation with three levels, there's a unique inner page table and two outer ones);
+- **Hashed Page Table** used to handle addresses larger than 32 bits, with the hash value being the virtaul page number. Each entry of the page table consists on the virtual page number, the value of the mapped page frame and a pointer to the next element on a list that stores all the elements thaht hash to the same location. During the computation of the physical address, the virtual page number is hashed into the table and is compared to the elements of the list (if there's a match, frame number is retrieved, otherwise the research continues to the next element);
+- **Inverted Page Table** tracks all physical address space, by storing the virtual address and information about the process it belongs (process id). It <span style="color:DarkGreen">decreases memory needed</span> to store each table but <span style="color:Red">increases time to search</span>.
+
+
+##### Memory protection
+In a paged environment, adding protection bits allow to check some features on frames and pages: 
+- *read-write/read-only* bit is attached to each frame and allows to recognize the type of access to the frame;
+- *valid/invalid* bit is attached to each entry of the page table and identify if a page is in the process's logical address space in order to allow or disallow access to the page.
+
+## Swapping
+The act of moving processes between main memory and disk. This allows to oversubscribe the physical memory, so the system can accomodate more processes than there is actual physical memory.
+Since it would require a lot of time to move entire processes, swapping with paging allows process to transfer pages:
+- page out when a pege is moves from memory to the disk;
+- page in moves from disk to the main memory.
+
+There are different approaches to swapping:
+- *backing store* is a fast disk large enough to accomodate copies of all memory images for all users;
+- *roll out, roll in* is used for priority-based scheduling.
 
