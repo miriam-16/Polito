@@ -11,7 +11,6 @@
   const lyrics = ['head', ...parts, 'and', 'toes']; // ["head", "shoulders","knees", "and", "toes"] 
   ```
 
-  
 ## Strings
 - can be defined with ' or "
 - is **immutable**
@@ -19,3 +18,5 @@
 - concatenation operator with +
 - a list pf method given to obtain new string from the given one
 - backticks(`) can be used to format strings (creating templates)
+
+
