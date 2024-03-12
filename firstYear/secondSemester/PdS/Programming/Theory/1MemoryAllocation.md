@@ -29,3 +29,5 @@ Dinamic variables are managed thanks to the use of libraries and specified metho
 - `void *calloc(int n, size_t s)` (contiguous allocation) used to allocate s blocks of memory area and initialize them with '0';
 - `void *realloc(void* p, psize_t s)` (re-allocation) used to dynamically change the memory allocation of a previously allocated memory.
 In case of failure, NULL is returned. 
+
+In C++, the function `new TypeName{arguments}` calls the constructor of the class on a block allocated on the heap, in order to initialize its content. It returns the pointer to the object. Another version of the method is `new (std::nothrow) TypeName{args...}` and differs from the previous one because
