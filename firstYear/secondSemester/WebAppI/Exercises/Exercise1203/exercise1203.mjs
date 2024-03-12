@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 //mjs because it will be exported as a module. It enforces strict mode
 
 //build a constructor function 
