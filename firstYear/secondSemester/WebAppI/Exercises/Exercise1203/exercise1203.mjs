@@ -22,13 +22,15 @@ function Question(text, user, date){
   this.add = (answer) => {this.answers.push(answer)}
 }
 
-const a1 = new Answer('yes', 'm1', 5, '2024-03-12');
+const a1 = new Answer('yes', 'm1', 5, dayjs('2024-03-12'));
 console.log(a1);
 a1.voteUp();
 console.log(a1);
 
-const q1 = new Question('Are you happy?', 'm2', '2024-03-12');
+const q1 = new Question('Are you happy?', 'm2', dayjs('2024-03-12'));
 console.log(typeof q1);
+console.log(q1.constructor);
+console.log(q1 instanceof Question);
 console.log(q1);
 q1.add(a1);
 console.log(q1);
