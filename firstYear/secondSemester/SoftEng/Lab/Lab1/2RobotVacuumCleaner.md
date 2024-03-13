@@ -1,5 +1,5 @@
 # Robot Vacuum Cleaner 
-## Text
+#### Text
 Since several years, robot vacuum cleaners (RVC) are available. An RVC is capable of cleaning the floors of a house in autonomous mode.
 
 An RVC system is composed of the robot itself and a charging station. The charging station is connected to an electric socket in the house, and allows charging the battery on board of the robot.
@@ -16,3 +16,25 @@ Finally, on top of the robot there are three switches: on-off, start, learn.
 - The start button starts a cleaning procedure. The robot, starting from the charging station, covers and cleans all the space in the house, as mapped in the ‘learn’ procedure.
 
 In all cases when the charge of the battery is below a certain threshold, the robot returns to the charging station. When recharged, the robot completes the mission, then returns to the charging station and stops.
+
+## Business model
+Entry level product.
+## Stakeholders
+- User
+- Material Suppliers
+    - Software developers
+- Owners of company
+- Retailers (gross markets or web sites)
+- Competitors 
+- Regulatory Agencies / Compliance
+- Mainteners (warrenty)
+
+
+## System Context Diagram
+### Actors (for entry level product)
+- User
+- Power Supply
+
+
+
+## System Functional Requirements
