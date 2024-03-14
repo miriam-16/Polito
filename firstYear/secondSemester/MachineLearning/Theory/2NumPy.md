@@ -20,4 +20,8 @@ array([5, 6, 7])
 >>> x[1:2, 0:3]
 array([[5, 6, 7]])
 ```
+Slicing creates a view, in particular a numpy object pointed by the name of the variable. 
 
+Indexing though boolean array in order to filter the elements of the matrix.
+
+`x.flags.owndata` 
