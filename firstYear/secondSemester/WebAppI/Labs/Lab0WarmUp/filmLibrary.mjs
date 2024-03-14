@@ -10,13 +10,16 @@ function Film(id, title, pid=1, rating = -1, favorite = false , date = null){
 function FilmLibrary(){
     this.list  = [];
     this.addNewFilm = (film) => {this.list.push(film)};
+    this.printFilms = () => {
+        //define print
+    };
 }
 
-const f1 = new Film(1,'Pulp Fiction',1, true,'2024-03-10',5);
-const f2 = new Film(2,'21 Grams',1,true,'2024-03-17',4);
-const f3 = new Film(3,'Star Wars',1,null,null,0);
-const f4 = new Film(4,'Matrix',1,null,null,0);
-const f5 = new Film(5, 'Shrek',1, null, '2024-03-21', 3);
+const f1 = new Film(1,'Pulp Fiction',1,5, true,'2024-03-10');
+const f2 = new Film(2,'21 Grams',1,4, true,'2024-03-17');
+const f3 = new Film(3,'Star Wars',1,0);
+const f4 = new Film(4,'Matrix',1,0);
+const f5 = new Film(5, 'Shrek',1, 3, undefined, '2024-03-21');
 
 const listFilms = new FilmLibrary();
 listFilms.addNewFilm(f1);
