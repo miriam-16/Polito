@@ -35,6 +35,98 @@ Entry level product.
 - User
 - Power Supply
 
-
+### Interfaces
+|Actor|Logical Interface|Physical Interface|
+|---|---|---|
+|User|Switch on/off|   |   
+|Power Supply|   |   |
 
 ## System Functional Requirements
+- Clean a space autonmously
+    - Move covering the whole space
+    - Clean 
+    - Avoid obstacoles
+    - Recognize and avoid humans and pets
+    
+
+
+## Non Functional Requirements
+- Flat space
+- Min 80 square meters to be cleaned
+- No harm to humans and pets
+- Cost <300 euros
+- Recharge in <2 hours
+
+
+## System design level 0
+- System is made of 
+    - Robot
+    - Charging station
+
+
+### Robot (level 1)
+Necessary a context diagram for robot 
+- Context diagram
+    - Actor: user (3 buttons)
+    - Actor: charging station (plug to recharge battery) (20V, ?A, 2 poles)
+
+- Functional requirements <span style="color:Purple">(inherit all the functional requiremets)</span>
+    - Clean a space autonmously
+        - Move covering the whole space
+        - Clean 
+        - Avoid obstacoles
+        - Recognize and avoid humans and pets
+
+### Charging station
+- Context diagram
+    - Actor: power supply, 220
+    - Actor: Robot, 20V, 2 poles
+
+- Functional requirements
+    - Transform 220 to 20V
+
+### Robot design
+Robot is made of 
+- Infrared sensor for obstacoles
+- Infrared sensors for gaps
+- Battery
+- Sensor of battery
+- 4 wheels
+- Eletrical engine on 2 wheels
+- Vacuum pump
+- Switch to set pump on off
+- Computer (arduino) and firrmware 
+
+
+## Computer and firmware
+- Context diagram
+    - Actors
+        - Button on/off
+        - Button start
+        - Button learn
+        - Sensor infrared 1
+        - Sensor infrared 2
+        - Sensor battery
+        - Actual engine wheel 1
+        - Actual engine wheel 2
+        - Actual switch pump
+
+
+Functional requirements slit in Robot FR and Software FR. The software FR are: 
+- Set pump on/off (associated to the Robot FR: Clean)
+- Manage energy 
+
+#### Set pump on/off
+- Create map of space (learn)
+- Move
+    - Assume we already have a map of space
+    - Go to position (x,y)
+    - Stop
+    - MoveForwards (distance)
+    - MoveBackwards (distance)
+    - Turn (degrees)
+        - RotateWheel1(nturns)
+        - RotateWheel2(nturns)
+    - ComputeMyPosition
+    - RecognizeObstacles
+    - TurnAroundObstacle
