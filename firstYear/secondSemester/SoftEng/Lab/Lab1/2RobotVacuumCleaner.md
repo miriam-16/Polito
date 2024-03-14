@@ -117,7 +117,10 @@ Functional requirements slit in Robot FR and Software FR. The software FR are:
 - Manage energy 
 
 #### Set pump on/off
-- Create map of space (learn)
+- Create map of space (learn) (space is made of cells, each cell free or obstacle)
+    - Cancel previous map (if any)
+- Coverage 
+    - Set cell as clenaed/uncleaned
 - Move
     - Assume we already have a map of space
     - Go to position (x,y)
