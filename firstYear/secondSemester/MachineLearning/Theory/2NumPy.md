@@ -1,6 +1,15 @@
 # Numerical Libraries
 
 ## Numpy
+## numpy.array([array])
+creates arrays or matrixes where:
+- size is the total number of elements;
+- shape is the number of elements for each axis — m $/times$ n matrix will have shape (m, n)
+
+## Reshape((#rows, #cols))
+
+
+
 Enables create matrix and apply functions on it.
 It works by passing as parameter `axis = 0` for rows and `axis = 1` for colums. The return value is not a matrix but a one dimensional array.
 
