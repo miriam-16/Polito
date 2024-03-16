@@ -83,5 +83,6 @@ def plot_scatter(D, L):
 
 if __name__ == '__main__':
     D, L = load('iris.csv')
+    print(D)
     #plot_scatter(D, L)
     #plot_hist(D, L)
