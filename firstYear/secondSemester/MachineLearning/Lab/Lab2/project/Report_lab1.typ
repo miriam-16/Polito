@@ -70,12 +70,11 @@ How many modes are evident from the histograms (i.e., how many “peaks” can b
 )
 
 Looking at the histograms, we can notice in both features classes overlap for each value assumed by the feature. 
-For class Fake, mean of Feature 1 and Feature 2 are respectively 0.00287744 (0.003) and 0.01869316 (0.019); variance is 0.56958105 and 1.42086571
-For classe Genuine, mean of Feature 1 and Feature 2 are respectively 5.44547838e-04 (0.0005) and -8.52437392e-03 (-0.008); variance is 1.43023345 and 0.57827792
+Histograms have few peaks: in both features, peak is near 0, causing a class overlap around this value in the scatterplot.
+In particular, Feature 1's peak counts a larger number for fake detection, while Feature 2's peak is of genuine detection.  
 
-Histograms have few peaks: in both features, peak is near 0, causing a class overlap around this value in the scatterplot.  
-
-Looking at the scatterplot, we can see that classes overlap for Feature 1 and Feature 2, in particular in the interval [-1.5, 1.5] of Feature 2.
+For class Fake, mean of Feature 1 and Feature 2 is respectively 0.00287744 (0.003) and 0.01869316 (0.019); variance is 0.56958105 and 1.42086571.
+For classe Genuine, mean of Feature 1 and Feature 2 is respectively 5.44547838e-04 (0.0005) and -8.52437392e-03 (-0.008); variance is 1.43023345 and 0.57827792
 
 
 == Second question
@@ -91,7 +90,10 @@ Analyze the third and fourth features. What do you observe? Do the classes overl
   ) , 
   caption: "Analyse Feature 3 and Feature 4"
 )
-
+ 
+Looking at histograms, we can see classes overlap for both features in the [-2,2] interval. In both features, histograms show two peaks representing both classes.
+For class Fake, mean of Feature 3 and Feature 4 is respectively -0.68094016 and 0.6708362; variance is  0.54997702 and 0.53604266.
+For class Genuine, mean of Feature 3 and Feature 4 is respectively 6.65237846e-01 and -6.64195349e-01; variance is  0.5489026 and 0.55334275.
 
 
 == Third question
@@ -108,3 +110,5 @@ Analyze the last two features. What do you observe? Do the classes overlap? If s
   caption: "Analyse Feature 5 and Feature 6"
 )
 
+Looking at histograms, we can see class overlap for both features in intervals [-1.5, -0.5] and [0.5, 1.5]. In both features, histograms shows three peaks representing mostly Genuine class. 
+Looking at the scatter plot, we can notice four cluster for each class. Cluster of Genuine class are in the intervals [-2, -0.5] and [0.5, 2], while in the residing interval (in the centre) there are only clusters of Fake class. 
