@@ -11,7 +11,15 @@ function FilmLibrary(){
     this.list  = [];
     this.addNewFilm = (film) => {this.list.push(film)};
     this.printFilms = () => {
-        //define print
+        for(const f of this.list){
+            console.log('---------------')
+            console.log('id: %s', f.id)
+            console.log('Title: %s', f.title)
+            console.log('pId: %i', f.pid)
+            console.log('Favorite: ', f.favorite)
+            console.log('Date: %s', f.date)
+            console.log('Rating: %i', f.rating)
+        }
     };
 }
 
@@ -28,6 +36,4 @@ listFilms.addNewFilm(f3);
 listFilms.addNewFilm(f4);
 listFilms.addNewFilm(f5);
 
-for(const f of listFilms.list){
-    console.log(f);
-}
+listFilms.printFilms();
