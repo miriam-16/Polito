@@ -18,3 +18,18 @@ console.log(users) //pending
 users.then((rows) => {
     console.log(rows)
 }).catch((err) => {console.log("Error", err)});
+
+//---version 2
+//this function has only an instruction inside
+function get_users(){
+    return new Promise((resolve, reject) => {
+        db.all("select * from user", (err, rows) => {
+            if(err)
+                reject(err)
+            else 
+                resolve(rows)  //pratically, we are calling the function 'then'
+        })
+    });
+}
+
+get_users().then((rows) => {console.log(rows.length)})

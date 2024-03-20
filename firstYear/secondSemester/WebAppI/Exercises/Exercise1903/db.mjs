@@ -22,6 +22,21 @@ db.get("SELECT * FROM USER WHERE id=?", [userId], (err, row) => {
 })
 
 
+//-- version without the existence of promises. We have a method that is called directly, 
+//   while with promises we call implicity then and catch
+function get_users(callback){
+    db.all("SELECT * FROM user", (err, rows) => {
+        if(err)
+            callback(err);
+        else 
+            callback(none, rows)
+    }); //this callcback function is executed one time
+
+}
+
+get_users((erro, rows) => {
+    console.log(rows.length)
+})
 
 db.close() // be aware of when close the db connection, it must be after the execution of queries
 // we are scheduling two queries, we cannot ensure the order of the result because the order of the scheduler doesn't guarantee the order of the result
