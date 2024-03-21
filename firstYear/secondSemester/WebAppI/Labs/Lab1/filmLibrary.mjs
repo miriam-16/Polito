@@ -1,18 +1,29 @@
 import dayjs from 'dayjs';
 import sqlite3 from 'sqlite3'
+
+function printAll(array) {
+    return array.forEach((x) => console.log(`${x}`))
+}
 function Film(id, title, pid=1, rating = -1, favorite = false , date = null){
     this.id = id;
     this.title = title;
     this.pid = pid;
     this.favorite = favorite;
-    this. date = date;
+    this. date = dayjs(date);
     this.rating = rating;
+
+    this.toString = () => {
+        return `Id: ${this.id}, ` +
+        `Title: ${this.title}, Favorite: ${this.favorite}, ` +
+        `Watch date: ${this.date.format('YYYY-MM-DD')}, Score: ${this.rating}, ` +
+        `User: ${this.pid}` ;
+      }
 }
 
 function FilmLibrary(){
     this.list  = [];
     this.addNewFilm = (film) => {this.list.push(film)};
-    this.printFilms = () => {
+    /* this.printFilms = () => {
         for(const f of this.list){
             console.log('---------------')
             console.log('id: %s', f.id)
@@ -22,7 +33,7 @@ function FilmLibrary(){
             console.log('Date: %s', f.date == null ? 'Not defined' : f.date.toString())
             console.log('Rating: %i', f.rating)
         }
-    };
+    }; */
 
 //////////////////////////////
 //          Lab 2          //
@@ -34,6 +45,58 @@ function FilmLibrary(){
 
             db.all(sql, (err, rows) => {
                 if(err) reject(err)
+                else resolve(rows)
+            })
+        });
+    }
+
+    this.getFavorites = function(){
+        return new Promise((resolve, reject) => {
+            const sql = `select * from films where isFavorite = 1`
+            db.all(sql, (err, rows) => {
+                if(err) reject (err)
+                else resolve(rows)
+            })
+        });
+    }
+
+    this.getWatchedToday = function(){
+        return new Promise((resolve, reject) => {
+            const sql = `select * from films where watchDate = ?`
+            db.all(sql, [dayjs().format('YYYY-MM-DD')], (err, rows) => {
+                if(err) reject (err)
+                else resolve(rows)
+            })
+        });
+    }
+
+    this.getWatchedBeforeDate = function(date){
+        return new Promise((resolve, reject) => {
+            const sql = `select * from films where watchDate < ?`
+            db.all(sql, [date], (err, rows) => {
+                if(err) reject (err)
+                else resolve(rows)
+            })
+        });
+    }
+
+    this.getRatingGEThan = function(rating){
+        return new Promise((resolve, reject) => {
+            const sql = `select * from films where rating >= ?`
+            db.all(sql, [rating], (err, rows) => {
+                if(err) reject (err)
+                else resolve(rows)
+            })
+        });
+    }
+
+    this.getSearchFilm = function(title){
+        return new Promise((resolve, reject) => {
+            const sql = `select * 
+                from films 
+                where title LIKE ?`
+            db.all(sql, [`%${title}%`], (err, rows) => {
+                if(err) reject (err)
                 else resolve(rows)
             })
         });
@@ -66,4 +129,34 @@ listFilms.addNewFilm(f5);
 /////////////////////////////
 
 const db = new sqlite3.Database('films.db', (err) => {if(err) throw err});
-listFilms.getAllFilms().then((rows) => rows.forEach((r) => {console.log(r)}))
+listFilms.getAllFilms().then((rows) => {
+    const filmsAsArray = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchedDate))
+    //printAll(filmsAsArray)
+})
+
+listFilms.getFavorites().then((rows) => {
+    const favoritesArray = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchDate))
+    //printAll(favoritesArray)
+})
+
+listFilms.getWatchedToday().then((rows) => {
+    const watchedTodayArray = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchDate))
+    //printAll(watchedTodayArray)
+})
+
+listFilms.getWatchedBeforeDate(dayjs().format('YYYY-MM-DD')).then((rows) => {
+    const beforeDateArray = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchDate))
+    //printAll(beforeDateArray)
+})
+
+listFilms.getRatingGEThan(3).then((rows) => {
+    const ratingsGEArray = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchDate))
+    //printAll(ratingsGEArray)
+})
+
+listFilms.getSearchFilm("e").then((rows) => {
+    const searchedArray = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchDate))
+    printAll(searchedArray)
+})
+
+
