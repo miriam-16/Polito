@@ -96,8 +96,8 @@ this.insertMovie = function(f){
     return new Promise((resolve, reject) => {
         const sql = `insert into films(id, title, isFavorite, rating, watchDate, userId)
             values (?,?,?,?,?,?)`;
-
-        db.run(sql, [f.id, f.title, f.isFavorite ? 1:0, f.rating, f.date.format('YYYY-MM-DD'), f.pid], (err) => {
+        const isFavoriteInt = f.isFavorite ? 1 : 0;  // Convert boolean to integer
+        db.run(sql, [f.id, f.title, isFavoriteInt, f.rating, f.date.format('YYYY-MM-DD'), f.pid], (err) => {
             if(err) reject(err)
             else resolve()
         })
@@ -155,7 +155,7 @@ listFilms.addNewFilm(f5);
 const db = new sqlite3.Database('films_dump.db', (err) => {if(err) throw err});
 listFilms.getAllFilms().then((rows) => {
     const filmsAsArray = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchedDate))
-    //printAll(filmsAsArray)
+    printAll(filmsAsArray)
 })
 
 listFilms.getFavorites().then((rows) => {
@@ -183,11 +183,11 @@ listFilms.getSearchFilm("e").then((rows) => {
     printAll(searchedArray)
 })
 
-/* const f6 = new Film(9,'Dune',1,5, true,dayjs('2024-03-21'));
-listFilms.insertMovie(f6).then(() => {console.log("Movie added")}) */
+/* const f6 = new Film(12,'Dune',1,5, true,dayjs('2024-03-21'));
+listFilms.insertMovie(f6).then(() => {console.log("Movie added")})  */
 
-/* listFilms.deleteMovie(7).then(() => {console.log("Movie removed")})
+listFilms.deleteMovie(7).then(() => {console.log("Movie removed")})
 listFilms.deleteMovie(8).then(() => {console.log("Movie removed")})
-listFilms.deleteMovie(9).then(() => {console.log("Movie removed")}) */
+listFilms.deleteMovie(12).then(() => {console.log("Movie removed")})
 
 listFilms.setNullWatchDate().then(()=> {console.log("Set null all dates")})
