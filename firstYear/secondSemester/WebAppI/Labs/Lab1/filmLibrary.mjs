@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import sqlite3 from 'sqlite3'
 function Film(id, title, pid=1, rating = -1, favorite = false , date = null){
     this.id = id;
     this.title = title;
@@ -22,7 +23,28 @@ function FilmLibrary(){
             console.log('Rating: %i', f.rating)
         }
     };
+
+//////////////////////////////
+//          Lab 2          //
+/////////////////////////////
+
+    this.getAllFilms = function(){
+        return new Promise((resolve, reject) => {
+            const sql = `select * from films`
+
+            db.all(sql, (err, rows) => {
+                if(err) reject(err)
+                else resolve(rows)
+            })
+        });
+    }
+
+
 }
+
+//////////////////////////////
+//          Lab 1          //
+/////////////////////////////
 
 const f1 = new Film(1,'Pulp Fiction',1,5, true,dayjs('2024-03-10'));
 const f2 = new Film(2,'21 Grams',1,4, true,dayjs('2024-03-17'));
@@ -37,4 +59,11 @@ listFilms.addNewFilm(f3);
 listFilms.addNewFilm(f4);
 listFilms.addNewFilm(f5);
 
-listFilms.printFilms();
+//listFilms.printFilms();
+
+//////////////////////////////
+//          Lab 2          //
+/////////////////////////////
+
+const db = new sqlite3.Database('films.db', (err) => {if(err) throw err});
+listFilms.getAllFilms().then((rows) => rows.forEach((r) => {console.log(r)}))

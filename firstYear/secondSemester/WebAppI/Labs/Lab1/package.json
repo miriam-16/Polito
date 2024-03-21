@@ -9,6 +9,7 @@
   "author": "Miriam Lamari",
   "license": "ISC",
   "dependencies": {
-    "dayjs": "^1.11.10"
+    "dayjs": "^1.11.10",
+    "sqlite3": "^5.1.7"
   }
 }
