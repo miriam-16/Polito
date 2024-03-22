@@ -39,6 +39,15 @@ if __name__ == '__main__':
     C = (DC@DC.T)/150
     print("Mean:")
     print(mu)
-    
+
     print("Covariance")
     print(C)
+
+    s, U = numpy.linalg.eigh(C)
+    print("s")
+    print(s)
+
+    print("U")
+    print(U)
+
+    
