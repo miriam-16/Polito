@@ -15,7 +15,7 @@ app.get('/questions/:id', (req, res)=> {
     getQuestion(questionId).then((q) => {
         res.json(q)
     }).catch((err) => {
-        res.status(500).send("Database error: " + err)
+        res.statusCode(500).send("Database error: " + err)
     })
 })
 
