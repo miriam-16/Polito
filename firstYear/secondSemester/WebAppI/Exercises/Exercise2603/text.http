@@ -1,0 +1,14 @@
+# Show the result of the html page of the link passed
+
+GET http://localhost:3000/
+
+###
+
+GET http://localhost:3000/abc
+
+
+###
+
+POST http://localhost:3000/new_user
+
+This is the body of the post
