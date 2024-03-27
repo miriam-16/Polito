@@ -12,6 +12,10 @@ fn slugify(s: &str) -> String {
             }
         }
     }
+    if res.ends_with("-") && res.len()>1{
+        res.pop();
+    }
+    
     res
 
 }
@@ -47,7 +51,9 @@ fn main() {
 }
 
 #[test]
-fn my_first_test() {
+fn t1() {
     // valore = preparazione test
-    assert_eq!(slugify("1Hellè, world!⚞"), "1helle--world--")
+    assert_eq!(slugify("1Hellè, world!⚞"), "1helle-world");
+    assert_eq!(slugify("⚞"), "-");
+    assert_eq!(slugify("!!"), "-");
 }
