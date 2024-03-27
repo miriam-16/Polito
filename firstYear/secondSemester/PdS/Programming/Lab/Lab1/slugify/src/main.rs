@@ -1,3 +1,26 @@
+/*
+cargo run -- --help                         shows the attributes of the struct Args
+cargo run -- -s "Some text" -r 1 -v true
+cargo run -- --slug-in "Some text" --repeat 1 --verbose true
+*/
+
+use clap::Parser;
+
+
+
+
+#[derive(Parser, Debug)]
+struct Args{
+    #[arg (short, long, value_parser, num_args = 1.., value_delimiter = ' ')]
+    slug_in: Vec<String>,
+
+    #[arg(short, long)]
+    repeat: Option<u8>,
+
+    #[arg(short, long)]
+    verbose: Option<bool>,
+}
+
 fn slugify(s: &str) -> String {
     let mut res = String::from("");
     for ch in s.to_lowercase().chars() {
@@ -37,9 +60,10 @@ fn conv(c: char) -> char {
 }
 
 fn main() {
-    //let s = String::from("1Hellè, world!⚞");
-    let s = String::from("   ");
-    print!("{}", slugify(&s));
+    let args = Args::parse();
+    for s in args.slug_in.iter() {
+        print!("{}", slugify(s));
+    }
 }
 
 #[test]
