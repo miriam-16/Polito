@@ -2,20 +2,7 @@ use std::fs::read_to_string;
 use std::fs::read;
 use std::time::SystemTime;
 
-
-
-enum Error{
-    Simple(SystemTime),
-    Complex(SystemTime, String)
-}
-
-fn print_error(e: Error) -> (){
-    match e{
-        Error::Simple(_) => println!("it's a simple error"),
-        Error::Complex(_, _) => println!("It's a complex error"),
-    }
-}
-
+/* point 1 */
 fn read_file_as_string(path: &str) -> String {
     let f = read_to_string(path);
     match f{
@@ -29,8 +16,6 @@ fn read_file_as_string(path: &str) -> String {
         Err(_) => return "Non è possibile aprire il file.".to_string(),
     }
 } 
-
-
 
 fn read_file(path: &str) -> String {
     let f = read(path);
@@ -46,6 +31,33 @@ fn read_file(path: &str) -> String {
     }
 }
 
+/* point 2 */
+enum Error{
+    Simple(SystemTime),
+    Complex(SystemTime, String)
+}
+
+fn print_error(e: Error) -> (){
+    match e{
+        Error::Simple(_) => println!("it's a simple error"),
+        Error::Complex(_, _) => println!("It's a complex error"),
+    }
+}
+
+pub enum MulErr{Overflow, NegativeNumber}
+
+/* point 3 */
+pub fn mult(a: i32, b: i32) -> Result<u32, MulErr> {
+    if a < 0 || b < 0 {
+        Err(MulErr::NegativeNumber)
+    } else {
+        let result = a.checked_mul(b);
+        match result {
+            Some(value) => Ok(value as u32),
+            None => Err(MulErr::Overflow),
+        }
+    }
+}
 
 
 
@@ -60,4 +72,34 @@ fn main() {
 
     let error_complex = Error::Complex(SystemTime::now(), "Complex".to_string());
     print_error(error_complex);
+
+
+    let result1 = mult(5, 2);
+    match result1 {
+        Ok(value) => println!("Result 1: {}", value),
+        Err(err) => match err {
+            MulErr::Overflow => println!("Result 1: Overflow"),
+            MulErr::NegativeNumber => println!("Result 1: Negative Number"),
+        },
+    }
+
+    let result2 = mult(10333330, 200445455);
+    match result2 {
+        Ok(value) => println!("Result 2: {}", value),
+        Err(err) => match err {
+            MulErr::Overflow => println!("Result 2: Overflow"),
+            MulErr::NegativeNumber => println!("Result 2: Negative Number"),
+        },
+    }
+
+    let result3 = mult(-5, 10);
+    match result3 {
+        Ok(value) => println!("Result 3: {}", value),
+        Err(err) => match err {
+            MulErr::Overflow => println!("Result 3: Overflow"),
+            MulErr::NegativeNumber => println!("Result 3: Negative Number"),
+        },
+    }
+
+
 }
