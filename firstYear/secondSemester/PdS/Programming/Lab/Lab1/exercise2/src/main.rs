@@ -1,51 +1,54 @@
-use std::fs::read_to_string;
 use std::fs::read;
+use std::fs::read_to_string;
 use std::time::SystemTime;
 
 /* point 1 */
 fn read_file_as_string(path: &str) -> String {
     let f = read_to_string(path);
-    match f{
+    match f {
         Ok(value) => {
             let mut s = String::from("");
-            for ch in value.chars(){
+            for ch in value.chars() {
                 s.push_str(&format!("{}  ", ch));
             }
             s
-        },
+        }
         Err(_) => return "Non è possibile aprire il file.".to_string(),
     }
-} 
+}
 
 fn read_file(path: &str) -> String {
     let f = read(path);
     match f {
         Ok(value) => {
-        let mut s = String::from("");
-            for v in value.iter(){
+            let mut s = String::from("");
+            for v in value.iter() {
                 s.push_str(&format!("{:02x} ", v));
             }
-            s 
-        } 
+            s
+        }
         Err(_) => return "Non è possibile aprire il file.".to_string(),
     }
 }
 
 /* point 2 */
-enum Error{
+enum Error {
     Simple(SystemTime),
-    Complex(SystemTime, String)
+    Complex(SystemTime, String),
 }
 
-fn print_error(e: Error) -> (){
-    match e{
+fn print_error(e: Error) -> () {
+    match e {
         Error::Simple(_) => println!("it's a simple error"),
         Error::Complex(_, _) => println!("It's a complex error"),
     }
 }
 
 /* point 3 */
-pub enum MulErr{Overflow, NegativeNumber}
+pub enum MulErr {
+    Overflow,
+    NegativeNumber,
+}
 
 pub fn mult(a: i32, b: i32) -> Result<u32, MulErr> {
     if a < 0 || b < 0 {
@@ -60,40 +63,48 @@ pub fn mult(a: i32, b: i32) -> Result<u32, MulErr> {
 }
 
 /* point 4 */
-struct Node{
-    name: String, 
-    size: u32, 
+struct Node {
+    name: String,
+    size: u32,
     count: u32,
 }
 
 impl Node {
-    pub fn new(name: String) ->  Node {
-        Node {name: name, size: 0,count: 0 }
-        
+    pub fn new(name: String) -> Node {
+        Node {
+            name,
+            size: 0,
+            count: 0,
+        }
     }
 
-    pub fn size(&mut self, size: u32) -> &mut Node {
+    pub fn size(mut self, size: u32) -> Self {
         self.size = size;
         self
     }
 
-    pub fn count(&mut self, count: u32) -> &mut Node{
+    pub fn count(mut self, count: u32) -> Self {
         self.count = count;
         self
     }
 
-    pub fn grow(&mut self){
+    pub fn inc(&mut self) {
+        self.count = self.count + 1;
+    }
+
+    pub fn grow(&mut self) {
         self.size = self.size + 1
     }
-    
-    pub fn print(self) -> String{
-        format!("name:{}    size:{}     count:{}", self.name.to_string(), self.size.to_string(), self.count.to_string())
+
+    pub fn print(&self) -> String {
+        format!(
+            "name:{}    size:{}     count:{}",
+            self.name.to_string(),
+            self.size.to_string(),
+            self.count.to_string()
+        )
     }
 }
-
-
-
-
 
 fn main() {
     let f_string = read_file_as_string("src/text.txt");
@@ -106,7 +117,6 @@ fn main() {
 
     let error_complex = Error::Complex(SystemTime::now(), "Complex".to_string());
     print_error(error_complex);
-
 
     let result1 = mult(5, 2);
     match result1 {
@@ -126,18 +136,8 @@ fn main() {
         },
     }
 
-    let result3 = mult(-5, 10);
-    match result3 {
-        Ok(value) => println!("Result 3: {}", value),
-        Err(err) => match err {
-            MulErr::Overflow => println!("Result 3: Overflow"),
-            MulErr::NegativeNumber => println!("Result 3: Negative Number"),
-        },
-    }
-
-
-
-    let mut node = Node::new("Node1".to_string()).size(10).count(5);
+    let mut node = Node::new(String::from("nodo")).size(10).count(5);
     node.grow();
+    node.inc();
     println!("{}", node.print());
 }
