@@ -78,7 +78,7 @@ impl Node {
         }
     }
 
-    pub fn size(mut self, size: u32) -> Self {
+    pub fn size(mut self, size: u32) -> Self { //ritornare un tipo Self è necessario per fare funzioni innestate
         self.size = size;
         self
     }
