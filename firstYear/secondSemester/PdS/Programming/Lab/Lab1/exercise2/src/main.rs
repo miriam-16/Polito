@@ -44,9 +44,9 @@ fn print_error(e: Error) -> (){
     }
 }
 
+/* point 3 */
 pub enum MulErr{Overflow, NegativeNumber}
 
-/* point 3 */
 pub fn mult(a: i32, b: i32) -> Result<u32, MulErr> {
     if a < 0 || b < 0 {
         Err(MulErr::NegativeNumber)
@@ -58,6 +58,40 @@ pub fn mult(a: i32, b: i32) -> Result<u32, MulErr> {
         }
     }
 }
+
+/* point 4 */
+struct Node{
+    name: String, 
+    size: u32, 
+    count: u32,
+}
+
+impl Node {
+    pub fn new(name: String) ->  Node {
+        Node {name: name, size: 0,count: 0 }
+        
+    }
+
+    pub fn size(&mut self, size: u32) -> &mut Node {
+        self.size = size;
+        self
+    }
+
+    pub fn count(&mut self, count: u32) -> &mut Node{
+        self.count = count;
+        self
+    }
+
+    pub fn grow(&mut self){
+        self.size = self.size + 1
+    }
+    
+    pub fn print(self) -> String{
+        format!("name:{}    size:{}     count:{}", self.name.to_string(), self.size.to_string(), self.count.to_string())
+    }
+}
+
+
 
 
 
@@ -102,4 +136,8 @@ fn main() {
     }
 
 
+
+    let mut node = Node::new("Node1".to_string()).size(10).count(5);
+    node.grow();
+    println!("{}", node.print());
 }
