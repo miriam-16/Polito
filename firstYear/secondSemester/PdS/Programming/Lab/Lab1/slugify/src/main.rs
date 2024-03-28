@@ -1,7 +1,7 @@
 /*
-cargo run -- --help                         shows the attributes of the struct Args
+cargo run -- --help                                                          shows the attributes of the struct Args
 cargo run -- -s "Some text" -r 1 -v true
-cargo run -- --slug-in "Some text" --repeat 1 --verbose true
+cargo run -- --slug-in "Some text" --repeat 1 --verbose true                 
 */
 
 use clap::Parser;
@@ -62,7 +62,7 @@ fn conv(c: char) -> char {
 fn main() {
     let args = Args::parse();
     for s in args.slug_in.iter() {
-        print!("{}", slugify(s));
+        println!("{}", slugify(s));
     }
 }
 
