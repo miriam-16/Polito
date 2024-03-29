@@ -40,23 +40,21 @@ pub enum Commands {
     },
 }
 
-
-
 const bsize: usize = 20;
-pub struct  Board{
-    boats: [u8;bsize],
-    data: [[u8;bsize]; bsize],
+pub struct Board {
+    boats: [u8; bsize],
+    data: [[u8; bsize]; bsize],
 }
 
-pub enum Error{
-    Overlap, 
+pub enum Error {
+    Overlap,
     OutOfBounds,
     BoatCount,
 }
 
-pub enum Boat{
+pub enum Boat {
     Vertical(usize),
-    Horizontal(usize)
+    Horizontal(usize),
 }
 
 impl Board {
@@ -68,47 +66,62 @@ impl Board {
         }
     }
 
-/*     /* crea una board a partire da una stringa che rappresenta tutto il contenuto del file board.txt */
+    /*     /* crea una board a partire da una stringa che rappresenta tutto il contenuto del file board.txt */
     pub fn from(s: String) -> Board{}
 
     /* aggiunge la nave alla board, restituendo la nuova board se possibile */
     /* BONUS: provare a non *non copiare* data quando si crea e restituisce una nuova board con la barca, come si può fare? */
     pub fn add_boat(self, boat: Boat, pos: (usize, usize)) -> Result<Board, Error>{}
 
-    /* converte la board in una stringa salvabile su file */ 
+     converte la board in una stringa salvabile su file */
     pub fn to_string(&self) -> String{
-        
-    } */
-} 
+        format!(
+            "{:x?}",
+            self.boats
+        )
+
+    } 
+}
 
 fn main() {
+    /*
+    cargo run -- new board.txt 4,3,2,1
+    questo crea una nuova board vuota nel file board.txt e può ospitare 4 navi da 1, 3
+    navi da 2, 2 navi da 3, e una da 4.
+
+    cargo run -- add board.txt 3V 10,10
+    legge la board in board.txt, aggiunge una nave da 3 caselle in verticale, partendo
+    dalla casella (10,10) e andando giù 3 caselle, fino a (12,10). Possibili direzioni: H e V.
+    Aggiunta la nave, salva il risultato in board, aggiornando anche le navi disponibili
+    nella prima linea.
+    Gli indici iniziano da 1 fino a 20 */
     let args = Args::parse();
-    let mut board : Board;
+    let mut board: Board;
 
     match &args.command {
         Commands::New { file, boats } => {
             board = Board::new(
-                boats.split(",")
+                boats
+                    .split(",")
                     .map(|s| -> u8 { s.parse().unwrap() })
                     .collect::<Vec<u8>>()
                     .as_slice(),
             );
 
-            //fs::write(file, board.to_string());
+            let board_file = fs::write(file, board.to_string());
         }
-            
 
         Commands::Add { file, boat, start } => {
             let (size, direction) = boat.split_at(1);
             let boat = match direction {
-                "V" => Boat::Vertical(size.parse().unwrap()), 
+                "V" => Boat::Vertical(size.parse().unwrap()),
                 "H" => Boat::Horizontal(size.parse().unwrap()),
                 _ => panic!("Invalid direction!"),
             };
 
             let mut coordinates = start.split(",");
-            let x :i8 = coordinates.next().unwrap().parse().unwrap();
-            let y :i8 = coordinates.next().unwrap().parse().unwrap();
+            let x: i8 = coordinates.next().unwrap().parse().unwrap();
+            let y: i8 = coordinates.next().unwrap().parse().unwrap();
 
             // Use x and y as needed
 
