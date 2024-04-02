@@ -42,7 +42,7 @@ pub enum Commands {
 
 const bsize: usize = 20;
 pub struct Board {
-    boats: [u8; bsize],
+    boats: [u8; 4],
     data: [[u8; bsize]; bsize],
 }
 
@@ -60,11 +60,17 @@ pub enum Boat {
 impl Board {
     /* crea una board vuota con una disponibilità di navi */
     pub fn new(boats: &[u8]) -> Board {
+/*         if boats.len() != bsize {
+            panic!("Boat count must be equal to bsize.");
+        } */
+        println!("{:?}", boats);
         Board {
+            
             boats: boats.try_into().unwrap(),
             data: [[0; bsize]; bsize],
         }
     }
+
 
     /*     /* crea una board a partire da una stringa che rappresenta tutto il contenuto del file board.txt */
     pub fn from(s: String) -> Board{}
@@ -74,16 +80,31 @@ impl Board {
     pub fn add_boat(self, boat: Boat, pos: (usize, usize)) -> Result<Board, Error>{}
 
      converte la board in una stringa salvabile su file */
-    pub fn to_string(&self) -> String{
-        format!(
-            "{:x?}",
-            self.boats
-        )
+    pub fn to_string(&self) -> String {
+        let header = self
+            .boats
+            .iter()
+            .map(ToString::to_string)
+            .collect::<Vec<_>>()
+            .join(" ");
 
-    } 
+        let data = self
+            .data
+            .iter()
+            .map(|line| {
+                line.iter()
+                    .map(|x| if *x == 0 { " " } else { "B" })
+                    .collect::<Vec<_>>()
+                    .concat()
+            })
+            .collect::<Vec<_>>()
+            .join("\n");
+
+        [header, data].join("\n")
+    }
 }
 
-fn main() {
+fn main(){
     /*
     cargo run -- new board.txt 4,3,2,1
     questo crea una nuova board vuota nel file board.txt e può ospitare 4 navi da 1, 3
@@ -96,16 +117,17 @@ fn main() {
     nella prima linea.
     Gli indici iniziano da 1 fino a 20 */
     let args = Args::parse();
-    let mut board: Board;
 
     match &args.command {
         Commands::New { file, boats } => {
-            board = Board::new(
+            println!("{}", boats);
+
+            let board = Board::new(
                 boats
                     .split(",")
-                    .map(|s| -> u8 { s.parse().unwrap() })
-                    .collect::<Vec<u8>>()
-                    .as_slice(),
+                    .map(|s| s.parse::<u8>().unwrap())
+                    .collect::<Vec<_>>()
+                    .as_slice()
             );
 
             let board_file = fs::write(file, board.to_string());
