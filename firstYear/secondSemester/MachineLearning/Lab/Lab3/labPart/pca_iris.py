@@ -62,7 +62,9 @@ if __name__ == '__main__':
     mu = D.mean(1).reshape((D.shape[0], 1))
     DC = D - mu.reshape((mu.size, 1))
     
-    C = (DC@DC.T)/150
+    nRecords = D.shape[1]
+    
+    C = (DC@DC.T)/nRecords
     print("Mean:")
     print(mu)
 
