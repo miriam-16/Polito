@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import sqlite3 from 'sqlite3'
+import sqlite3 from 'sqlite3';
+import express from 'express';
 
 function printAll(array) {
     return array.forEach((x) => console.log(`${x}`))
@@ -189,3 +190,12 @@ listFilms.insertMovie(f6).then(() => {console.log("Movie added")})   */
 //listFilms.deleteMovie(6).then(() => {console.log("Movie removed")})
 
 //listFilms.setNullWatchDate().then(()=> {console.log("Set null all dates")})
+
+
+//////////////////////////////
+//          Lab 3          //
+/////////////////////////////
+const app = express();
+app.use(express.json());
+
+app.get()
