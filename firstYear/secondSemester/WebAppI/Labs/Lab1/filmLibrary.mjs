@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
 import sqlite3 from 'sqlite3';
 import express from 'express';
-import { favoriteFilms, getlistFilms, insertFilm, selectFilm } from './dao.mjs' //to add the method from da
+
+
+import { favoriteFilms, getlistFilms, insertFilm, selectFilm, updateRatingFilm, updateIsFavoriteFilm, deleteFilm } from './dao.mjs' //to add the method from dao
 
 function printAll(array) {
     return array.forEach((x) => console.log(`${x}`))
@@ -228,14 +230,53 @@ app.use(express.json());
     })
 }) */
 
- app.post('/addFilm', (req, res) => {
+/*  app.post('/addFilm', (req, res) => {
     const toInsert = new Film(7, req.body.title, req.body.pid, req.body.rating, req.favorite, dayjs(req.date));
     insertFilm(toInsert).then((f) => {
         res.json(f)
     }).catch((err) => {
         res.status(500).send("Database error: " + err)
     })
-})
+}) */
 
+/* app.put('/updateFilm/:id', (req, res) => {
+    const toUpdate = new Film(req.params.id, req.body.title, req.body.pid, req.body.rating, req.favorite, dayjs(req.date));
+    updateFilm(toUpdate).then((msg) => {
+        res.json(msg)
+    }).catch((err) => {
+        res.status(500).send("Database error: " + err)
+    })
+}) */
+
+
+/* app.put('/updateRating/:id', (req, res) => {
+    const filmId = req.params.id;
+    const newRating = req.body.rating;
+    updateRatingFilm(filmId, newRating).then((msg) => {
+        res.json(msg);
+    }).catch((err) => {
+        res.status(500).send("Database error: " + err);
+    });
+}); */
+
+/* app.put('/updateFavorite/:id', (req, res) => {
+    const filmId = req.params.id;
+    const newFavorite = req.body.favorite;
+    updateIsFavoriteFilm(filmId, newFavorite).then((msg) => {
+        res.json(msg);
+    }).catch((err) => {
+        res.status(500).send("Database error: " + err);
+    });
+});
+ */
+
+app.delete('/deleteFilm/:id', (req, res) => {
+    const filmId = req.params.id;
+    deleteFilm(filmId).then((msg) => {
+        res.json(msg);
+    }).catch((err) => {
+        res.status(500).send("Database error: " + err);
+    });
+});
 
 app.listen(3000, () => {console.log("Running!")})

@@ -110,3 +110,61 @@ export const insertFilm = (film) => {
         })
     }) 
 }
+
+
+/* Update an existing film, by providing its information, i.e., all the properties except the “id”.  */
+export const updateFilm = (film) => {
+    return new Promise((resolve, reject) => {
+        const query= 'update films set title = ?, isFavorite = ?, rating = ?, watchDate = DATE(?), userId = ? where id = ?';
+        db.run(query, [film.title, film.favorite, film.rating, film.date.toISOString(), film.pid, film.id], function (err) {
+            if (err)
+                reject(err)
+            else 
+                resolve({success: "Query modified."})
+        })
+    })
+} 
+
+/* Update the rating of a specific film, given its "id" */
+export const updateRatingFilm = (filmId, newRating) => {
+    return new Promise((resolve, reject) => {
+        const query = 'UPDATE films SET rating = ? WHERE id = ?';
+        db.run(query, [newRating, filmId], function (err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve({ success: "Film rating updated." });
+            }
+        });
+    });
+};
+
+
+/* Update the isFavorite value of a specific film, given its "id" */
+export const updateIsFavoriteFilm = (filmId, isFavorite) => {
+    return new Promise((resolve, reject) => {
+        const query = 'UPDATE films SET isFavorite = ? WHERE id = ?';
+        db.run(query, [isFavorite, filmId], function (err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve({ success: "Film isFavorite updated." });
+            }
+        });
+    });
+};
+
+
+/* Delete a specific film, given its "id" */
+export const deleteFilm = (filmId) => {
+    return new Promise((resolve, reject) => {
+        const query = 'DELETE FROM films WHERE id = ?';
+        db.run(query, [filmId], function (err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve({ success: "Film deleted." });
+            }
+        });
+    });
+};
