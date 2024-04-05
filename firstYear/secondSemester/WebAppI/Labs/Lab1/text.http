@@ -22,4 +22,8 @@ GET http://localhost:3000/unwatchedFilms
 ###
 GET http://localhost:3000/films/3
 
+###
+
+POST http://localhost:3000/addFilm/
+
 

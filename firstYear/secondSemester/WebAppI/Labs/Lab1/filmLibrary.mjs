@@ -219,7 +219,16 @@ app.use(express.json());
     })
 }); */
 
-app.get('/films/:id', (req, res) => {
+/* app.get('/films/:id', (req, res) => {
+    const filmId = req.params.id;
+    selectFilm(filmId).then((f) => {
+        res.json(f)
+    }).catch((err) => {
+        res.statusCode(500).send("Database error: " + err)
+    })
+}) */
+
+ app.post('/films', (req, res) => {
     const filmId = req.params.id;
     selectFilm(filmId).then((f) => {
         res.json(f)
@@ -227,5 +236,6 @@ app.get('/films/:id', (req, res) => {
         res.statusCode(500).send("Database error: " + err)
     })
 })
+
 
 app.listen(3000, () => {console.log("Running!")})
