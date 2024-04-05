@@ -101,8 +101,8 @@ export const selectFilm = (filmId) => {
 be automatically assigned by the back-end. */
 export const insertFilm = (film) => {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO films(title, isFavorite, rating, watchDate, userId) VALUES (?,?, ?, DATE(), ?)';
-        db.run(query, [film.title, film.isFavorite, film.rating, film.watchedDate.toISOString(), film.userId], function (err) {
+        const query = 'INSERT INTO films(title, isFavorite, rating, watchDate, userId) VALUES (?,?, ?, DATE(?), ?)';
+        db.run(query, [film.title, film.favorite, film.rating, film.date.toISOString(), film.pid], function (err) {
             if(err)
                 reject(err);
             else 

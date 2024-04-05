@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import sqlite3 from 'sqlite3';
 import express from 'express';
-import { favoriteFilms, getlistFilms, selectFilm } from './dao.mjs' //to add the method from da
+import { favoriteFilms, getlistFilms, insertFilm, selectFilm } from './dao.mjs' //to add the method from da
 
 function printAll(array) {
     return array.forEach((x) => console.log(`${x}`))
@@ -12,7 +12,7 @@ function Film(id, title, pid=1, rating = -1, favorite = false , date = null){
     this.title = title;
     this.pid = pid;
     this.favorite = favorite;
-    this. date = dayjs(date);
+    this.date = dayjs(date);
     this.rating = rating;
 
     this.toString = () => {
@@ -228,12 +228,12 @@ app.use(express.json());
     })
 }) */
 
- app.post('/films', (req, res) => {
-    const filmId = req.params.id;
-    selectFilm(filmId).then((f) => {
+ app.post('/addFilm', (req, res) => {
+    const toInsert = new Film(7, req.body.title, req.body.pid, req.body.rating, req.favorite, dayjs(req.date));
+    insertFilm(toInsert).then((f) => {
         res.json(f)
     }).catch((err) => {
-        res.statusCode(500).send("Database error: " + err)
+        res.status(500).send("Database error: " + err)
     })
 })
 

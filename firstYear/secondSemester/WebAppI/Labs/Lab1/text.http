@@ -24,6 +24,15 @@ GET http://localhost:3000/films/3
 
 ###
 
-POST http://localhost:3000/addFilm/
+POST http://localhost:3000/addFilm 
+Content-Type: application/json
+
+{ 
+    "title": "Anyone but you", 
+    "pid": 1,
+    "favorite": 1, 
+    "date": "2024-04-01",
+    "rating": 2
+}
 
 
