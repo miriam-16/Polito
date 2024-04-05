@@ -1,0 +1,71 @@
+GET http://localhost:3000/films
+
+###
+
+GET http://localhost:3000/favoriteFilms
+
+
+###
+
+GET http://localhost:3000/bestFilms
+
+###
+
+GET http://localhost:3000/seenLastMonthFilms
+
+
+###
+
+GET http://localhost:3000/unwatchedFilms
+
+
+###
+GET http://localhost:3000/films/3
+
+###
+
+POST http://localhost:3000/addFilm 
+Content-Type: application/json
+
+{ 
+    "title": "Anyone but you", 
+    "pid": 3,
+    "favorite": 1, 
+    "date": "2024-04-01",
+    "rating": 2
+}
+
+###
+
+PUT http://localhost:3000/updateFilm/6
+Content-Type: application/json
+
+{
+    "title": "Anyone but you", 
+    "pid": 1,
+    "favorite": 0, 
+    "date": "2024-04-01",
+    "rating": 1
+}
+
+###
+
+PUT http://localhost:3000/updateRating/6
+Content-Type: application/json
+
+{
+    "rating": 3
+}
+
+###
+
+PUT http://localhost:3000/updateFavorite/6
+Content-Type: application/json
+
+{
+    "favorite": 1
+}
+
+
+###
+DELETE http://localhost:3000/deleteFilm/7

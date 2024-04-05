@@ -200,7 +200,7 @@ export { Film, FilmLibrary };
 import { favoriteFilms, getlistFilms, insertFilm, selectFilm, updateRatingFilm, updateIsFavoriteFilm, deleteFilm } from './dao.mjs' //to add the method from dao
 
 import morgan from 'morgan';
-import { check, validationResult }  from 'express-validator'
+import { check, validationResult } from 'express-validator'
 
 const app = express();
 app.use(express.json());
@@ -209,30 +209,30 @@ app.use(express.json());
 app.use(express.json());
 app.use(morgan('dev'));
 
-/* app.get('/films', (req, res) => {
+app.get('/films', (req, res) => {
     getlistFilms().then((films) => {
         res.json(films)
     }).catch((err) => {
         res.statusCode(500).send("Database error: " + err)
     })
-}); */
+});
 
-/* app.get('/unwatchedFilms', (req, res) => {
+app.get('/unwatchedFilms', (req, res) => {
     favoriteFilms().then((films) => {
         res.json(films)
     }).catch((err) => {
         res.statusCode(500).send("Database error: " + err)
     })
-}); */
+});
 
-/* app.get('/films/:id', (req, res) => {
+app.get('/films/:id', (req, res) => {
     const filmId = req.params.id;
     selectFilm(filmId).then((f) => {
         res.json(f)
     }).catch((err) => {
         res.statusCode(500).send("Database error: " + err)
     })
-}) */
+})
 
 app.post('/addFilm', [
     check('title').isString(),
@@ -246,8 +246,8 @@ app.post('/addFilm', [
     if (!errors.isEmpty())
         return res.status(422).json({ error: errors.array() });
 
-        const { title, pid, rating, favorite, date } = req.body;
-        const toInsert = new Film(7, title, pid, rating, favorite, dayjs(date));
+    const { title, pid, rating, favorite, date } = req.body;
+    const toInsert = new Film(7, title, pid, rating, favorite, dayjs(date));
     insertFilm(toInsert).then((f) => {
         res.json(f)
     }).catch((err) => {
@@ -255,17 +255,36 @@ app.post('/addFilm', [
     })
 })
 
-/* app.put('/updateFilm/:id', (req, res) => {
-    const toUpdate = new Film(req.params.id, req.body.title, req.body.pid, req.body.rating, req.favorite, dayjs(req.date));
+app.put('/updateFilm/:id', [
+    check('title').isString(),
+    check('pid').isNumeric(),
+    check('rating').isNumeric(),
+    check('favorite').isBoolean(),
+    check('date').isISO8601()
+], (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty())
+        return res.status(422).json({ error: errors.array() });
+
+    const { title, pid, rating, favorite, date } = req.body;
+    const toUpdate = new Film(req.params.id, title, pid, rating, favorite, dayjs(date));
     updateFilm(toUpdate).then((msg) => {
         res.json(msg)
     }).catch((err) => {
         res.status(500).send("Database error: " + err)
     })
-}) */
+})
 
 
-/* app.put('/updateRating/:id', (req, res) => {
+app.put('/updateRating/:id', [
+    check('rating').isNumeric()
+], (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty())
+        return res.status(422).json({ error: errors.array() });
+
     const filmId = req.params.id;
     const newRating = req.body.rating;
     updateRatingFilm(filmId, newRating).then((msg) => {
@@ -273,9 +292,16 @@ app.post('/addFilm', [
     }).catch((err) => {
         res.status(500).send("Database error: " + err);
     });
-}); */
+});
 
-/* app.put('/updateFavorite/:id', (req, res) => {
+app.put('/updateFavorite/:id',[
+    check('favorite').isBoolean()
+], (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty())
+        return res.status(422).json({ error: errors.array() });
+
     const filmId = req.params.id;
     const newFavorite = req.body.favorite;
     updateIsFavoriteFilm(filmId, newFavorite).then((msg) => {
@@ -284,7 +310,7 @@ app.post('/addFilm', [
         res.status(500).send("Database error: " + err);
     });
 });
- */
+
 
 app.delete('/deleteFilm/:id', (req, res) => {
     const filmId = req.params.id;
@@ -295,4 +321,4 @@ app.delete('/deleteFilm/:id', (req, res) => {
     });
 });
 
-app.listen(3000, () => { console.log("Running!") })
+//app.listen(3000, () => { console.log("Running!") })

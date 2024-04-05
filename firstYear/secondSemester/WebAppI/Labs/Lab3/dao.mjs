@@ -1,7 +1,7 @@
 import sqlite from 'sqlite3';
-import { Film, FilmLibrary } from './filmLibrary.mjs';
+import { Film } from './structure.mjs';
 
-const db = new sqlite.Database('films.db', (err) => {
+const db = new sqlite.Database('./films.db', (err) => {
     if (err) throw err;
 });
 
@@ -15,8 +15,8 @@ export const getlistFilms = () => {
                 const films = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchedDate));
                 resolve(films);
             }
-        });
-    });
+        })
+    })
 };
 
 /* Retrieve a list of all the films that fulfill each of the following filters:
@@ -28,7 +28,7 @@ export const favoriteFilms = () => {
     return new Promise((resolve, reject) => {
         const query = "SELECT * FROM films where isFavorite = 1";
         db.all(query, (err, rows) => {
-            if (err) 
+            if (err)
                 reject(err);
             else {
                 const films = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchedDate));
@@ -54,7 +54,7 @@ export const bestFilms = () => {
 
 export const seenLastMonthFilms = () => {
     return new Promise((resolve, reject) => {
-        const query = "SELECT * FROM films where MONTH(watchDate) = 3";
+        const query = "SELECT * FROM films WHERE strftime('%m', watchDate) = strftime('%m', date('now', '-1 month'))";
         db.all(query, (err, rows) => {
             if (err)
                 reject(err);
@@ -86,14 +86,14 @@ export const selectFilm = (filmId) => {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM films WHERE id = ?';
         db.get(query, [filmId], (err, row) => {
-            if(err)
+            if (err)
                 reject(err);
             else if (row === undefined)
-                resolve({error: "Question not available, check the inserted id."});
+                resolve({ error: "Question not available, check the inserted id." });
             else
                 resolve(new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchedDate));
         })
-    }) 
+    })
 }
 
 
@@ -103,21 +103,21 @@ export const insertFilm = (film) => {
     return new Promise((resolve, reject) => {
         let checkUser = 'SELECT id from users where id = ?';
         db.get(checkUser, [film.pid], (err, row) => {
-            if(err)
+            if (err)
                 reject(err)
             else if (row === undefined)
-                resolve({error: "User provided not available."})
+                resolve({ error: "User provided not available." })
             else {
                 const query = 'INSERT INTO films(title, isFavorite, rating, watchDate, userId) VALUES (?,?, ?, DATE(?), ?)';
                 db.run(query, [film.title, film.favorite, film.rating, film.date.toISOString(), film.pid], function (err) {
-                    if(err)
+                    if (err)
                         reject(err);
-                    else 
+                    else
                         resolve(this.lastID);
                 })
             }
         })
-    }) 
+    })
 }
 
 
@@ -126,17 +126,17 @@ export const updateFilm = (film) => {
     return new Promise((resolve, reject) => {
         let checkUser = 'SELECT id from users where id = ?';
         db.get(checkUser, [film.pid], (err, row) => {
-            if(err)
+            if (err)
                 reject(err)
             else if (row === undefined)
-                resolve({error: "User provided not available."})
+                resolve({ error: "User provided not available." })
             else {
-                const query= 'update films set title = ?, isFavorite = ?, rating = ?, watchDate = DATE(?), userId = ? where id = ?';
+                const query = 'update films set title = ?, isFavorite = ?, rating = ?, watchDate = DATE(?), userId = ? where id = ?';
                 db.run(query, [film.title, film.favorite, film.rating, film.date.toISOString(), film.pid, film.id], function (err) {
                     if (err)
                         reject(err)
-                    else 
-                        resolve({success: "Query modified."})
+                    else
+                        resolve({ success: "Query modified." })
                 })
             }
         })
@@ -148,10 +148,10 @@ export const updateRatingFilm = (filmId, newRating) => {
     return new Promise((resolve, reject) => {
         let checkUser = 'SELECT id from users where id = ?';
         db.get(checkUser, [film.pid], (err, row) => {
-            if(err)
+            if (err)
                 reject(err)
             else if (row === undefined)
-                resolve({error: "User provided not available."})
+                resolve({ error: "User provided not available." })
             else {
                 const query = 'UPDATE films SET rating = ? WHERE id = ?';
                 db.run(query, [newRating, filmId], function (err) {
@@ -172,10 +172,10 @@ export const updateIsFavoriteFilm = (filmId, isFavorite) => {
     return new Promise((resolve, reject) => {
         let checkUser = 'SELECT id from users where id = ?';
         db.get(checkUser, [film.pid], (err, row) => {
-            if(err)
+            if (err)
                 reject(err)
             else if (row === undefined)
-                resolve({error: "User provided not available."})
+                resolve({ error: "User provided not available." })
             else {
                 const query = 'UPDATE films SET isFavorite = ? WHERE id = ?';
                 db.run(query, [isFavorite, filmId], function (err) {
@@ -199,7 +199,7 @@ export const deleteFilm = (filmId) => {
             if (err)
                 reject(err)
             else if (row === undefined)
-                resolve({error: "Film id provided not found."})
+                resolve({ error: "Film id provided not found." })
             else {
                 const query = 'DELETE FROM films WHERE id = ?';
                 db.run(query, [filmId], function (err) {
