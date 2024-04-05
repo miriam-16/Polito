@@ -1,10 +1,12 @@
 import dayjs from 'dayjs';
 import sqlite3 from 'sqlite3';
 import express from 'express';
+import { getlistFilms } from './dao.mjs' //to add the method from da
 
 function printAll(array) {
     return array.forEach((x) => console.log(`${x}`))
 }
+
 function Film(id, title, pid=1, rating = -1, favorite = false , date = null){
     this.id = id;
     this.title = title;
@@ -195,7 +197,18 @@ listFilms.insertMovie(f6).then(() => {console.log("Movie added")})   */
 //////////////////////////////
 //          Lab 3          //
 /////////////////////////////
+
+export {Film, FilmLibrary};
+
 const app = express();
 app.use(express.json());
 
-app.get()
+app.get('/films', (req, res) => {
+    getlistFilms().then((films) => {
+        res.json(films)
+    }).catch((err) => {
+        res.statusCode(500).send("Database error: " + err)
+    })
+});
+
+app.listen(3000, () => {console.log("Running!")})
