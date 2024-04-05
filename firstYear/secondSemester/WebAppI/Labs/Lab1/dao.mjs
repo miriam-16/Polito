@@ -101,12 +101,21 @@ export const selectFilm = (filmId) => {
 be automatically assigned by the back-end. */
 export const insertFilm = (film) => {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO films(title, isFavorite, rating, watchDate, userId) VALUES (?,?, ?, DATE(?), ?)';
-        db.run(query, [film.title, film.favorite, film.rating, film.date.toISOString(), film.pid], function (err) {
+        let checkUser = 'SELECT id from users where id = ?';
+        db.get(checkUser, [film.pid], (err, row) => {
             if(err)
-                reject(err);
-            else 
-                resolve(this.lastID);
+                reject(err)
+            else if (row === undefined)
+                resolve({error: "User provided not available."})
+            else {
+                const query = 'INSERT INTO films(title, isFavorite, rating, watchDate, userId) VALUES (?,?, ?, DATE(?), ?)';
+                db.run(query, [film.title, film.favorite, film.rating, film.date.toISOString(), film.pid], function (err) {
+                    if(err)
+                        reject(err);
+                    else 
+                        resolve(this.lastID);
+                })
+            }
         })
     }) 
 }

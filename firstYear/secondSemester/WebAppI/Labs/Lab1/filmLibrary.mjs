@@ -1,15 +1,11 @@
 import dayjs from 'dayjs';
 import sqlite3 from 'sqlite3';
-import express from 'express';
-
-
-import { favoriteFilms, getlistFilms, insertFilm, selectFilm, updateRatingFilm, updateIsFavoriteFilm, deleteFilm } from './dao.mjs' //to add the method from dao
 
 function printAll(array) {
     return array.forEach((x) => console.log(`${x}`))
 }
 
-function Film(id, title, pid=1, rating = -1, favorite = false , date = null){
+function Film(id, title, pid = 1, rating = -1, favorite = false, date = null) {
     this.id = id;
     this.title = title;
     this.pid = pid;
@@ -19,117 +15,117 @@ function Film(id, title, pid=1, rating = -1, favorite = false , date = null){
 
     this.toString = () => {
         return `Id: ${this.id}, ` +
-        `Title: ${this.title}, Favorite: ${this.favorite}, ` +
-        `Watch date: ${this.date.format('YYYY-MM-DD')}, Score: ${this.rating}, ` +
-        `User: ${this.pid}` ;
-      }
+            `Title: ${this.title}, Favorite: ${this.favorite}, ` +
+            `Watch date: ${this.date.format('YYYY-MM-DD')}, Score: ${this.rating}, ` +
+            `User: ${this.pid}`;
+    }
 }
 
-function FilmLibrary(){
-    this.list  = [];
-    this.addNewFilm = (film) => {this.list.push(film)};
+function FilmLibrary() {
+    this.list = [];
+    this.addNewFilm = (film) => { this.list.push(film) };
 
-//////////////////////////////
-//          Lab 2          //
-/////////////////////////////
+    //////////////////////////////
+    //          Lab 2          //
+    /////////////////////////////
 
-    this.getAllFilms = function(){
+    this.getAllFilms = function () {
         return new Promise((resolve, reject) => {
             const sql = `select * from films`
 
             db.all(sql, (err, rows) => {
-                if(err) reject(err)
+                if (err) reject(err)
                 else resolve(rows)
             })
         });
     }
 
-    this.getFavorites = function(){
+    this.getFavorites = function () {
         return new Promise((resolve, reject) => {
             const sql = `select * from films where isFavorite = 1`
             db.all(sql, (err, rows) => {
-                if(err) reject (err)
+                if (err) reject(err)
                 else resolve(rows)
             })
         });
     }
 
-    this.getWatchedToday = function(){
+    this.getWatchedToday = function () {
         return new Promise((resolve, reject) => {
             const sql = `select * from films where watchDate = ?`
             db.all(sql, [dayjs().format('YYYY-MM-DD')], (err, rows) => {
-                if(err) reject (err)
+                if (err) reject(err)
                 else resolve(rows)
             })
         });
     }
 
-    this.getWatchedBeforeDate = function(date){
+    this.getWatchedBeforeDate = function (date) {
         return new Promise((resolve, reject) => {
             const sql = `select * from films where watchDate < ?`
             db.all(sql, [date], (err, rows) => {
-                if(err) reject (err)
+                if (err) reject(err)
                 else resolve(rows)
             })
         });
     }
 
-    this.getRatingGEThan = function(rating){
+    this.getRatingGEThan = function (rating) {
         return new Promise((resolve, reject) => {
             const sql = `select * from films where rating >= ?`
             db.all(sql, [rating], (err, rows) => {
-                if(err) reject (err)
+                if (err) reject(err)
                 else resolve(rows)
             })
         });
     }
 
-    this.getSearchFilm = function(title){
+    this.getSearchFilm = function (title) {
         return new Promise((resolve, reject) => {
             const sql = `select * 
                 from films 
                 where title LIKE ?`
             db.all(sql, [`%${title}%`], (err, rows) => {
-                if(err) reject (err)
+                if (err) reject(err)
                 else resolve(rows)
             })
         });
     }
 
 
-this.insertMovie = function(f){
-    return new Promise((resolve, reject) => {
-        const sql = `insert into films(id, title, isFavorite, rating, watchDate, userId)
+    this.insertMovie = function (f) {
+        return new Promise((resolve, reject) => {
+            const sql = `insert into films(id, title, isFavorite, rating, watchDate, userId)
             values (?,?,?,?,?,?)`;
-        
-        db.run(sql, [f.id, f.title, f.favorite ? 1: 0, f.rating, f.date.format('YYYY-MM-DD'), f.pid], (err) => {
-            if(err) reject(err)
-            else resolve()
-        })
-    });
-}
 
-this.deleteMovie = function(filmId){
-    return new Promise((resolve, reject) => {
-        const sql = `delete from films where id=?`;
+            db.run(sql, [f.id, f.title, f.favorite ? 1 : 0, f.rating, f.date.format('YYYY-MM-DD'), f.pid], (err) => {
+                if (err) reject(err)
+                else resolve()
+            })
+        });
+    }
 
-        db.run(sql, [filmId], (err) => {
-            if(err) reject(err)
-            else resolve()
-        })
-    });
-}
+    this.deleteMovie = function (filmId) {
+        return new Promise((resolve, reject) => {
+            const sql = `delete from films where id=?`;
 
-this.setNullWatchDate = function(){
-    return new Promise((resolve, reject) => {
-        const sql = `update films set watchDate = null`;
+            db.run(sql, [filmId], (err) => {
+                if (err) reject(err)
+                else resolve()
+            })
+        });
+    }
 
-        db.run(sql, (err) => {
-            if(err) reject(err)
-            else resolve()
-        })
-    });
-}
+    this.setNullWatchDate = function () {
+        return new Promise((resolve, reject) => {
+            const sql = `update films set watchDate = null`;
+
+            db.run(sql, (err) => {
+                if (err) reject(err)
+                else resolve()
+            })
+        });
+    }
 
 
 }
@@ -138,11 +134,11 @@ this.setNullWatchDate = function(){
 //          Lab 1          //
 /////////////////////////////
 
-const f1 = new Film(1,'Pulp Fiction',1,5, true,dayjs('2024-03-10'));
-const f2 = new Film(2,'21 Grams',1,4, true,dayjs('2024-03-17'));
-const f3 = new Film(3,'Star Wars',1,0);
-const f4 = new Film(4,'Matrix',1,0);
-const f5 = new Film(5, 'Shrek',1, 3, undefined, dayjs('2024-03-21'));
+const f1 = new Film(1, 'Pulp Fiction', 1, 5, true, dayjs('2024-03-10'));
+const f2 = new Film(2, '21 Grams', 1, 4, true, dayjs('2024-03-17'));
+const f3 = new Film(3, 'Star Wars', 1, 0);
+const f4 = new Film(4, 'Matrix', 1, 0);
+const f5 = new Film(5, 'Shrek', 1, 3, undefined, dayjs('2024-03-21'));
 
 const listFilms = new FilmLibrary();
 listFilms.addNewFilm(f1);
@@ -157,7 +153,7 @@ listFilms.addNewFilm(f5);
 //          Lab 2          //
 /////////////////////////////
 
-const db = new sqlite3.Database('films_dump.db', (err) => {if(err) throw err});
+const db = new sqlite3.Database('films_dump.db', (err) => { if (err) throw err });
 listFilms.getAllFilms().then((rows) => {
     const filmsAsArray = rows.map(row => new Film(row.id, row.title, row.userId, row.rating, row.isFavorite, row.watchedDate))
     //printAll(filmsAsArray)
@@ -199,11 +195,19 @@ listFilms.insertMovie(f6).then(() => {console.log("Movie added")})   */
 //////////////////////////////
 //          Lab 3          //
 /////////////////////////////
+import express from 'express';
+export { Film, FilmLibrary };
+import { favoriteFilms, getlistFilms, insertFilm, selectFilm, updateRatingFilm, updateIsFavoriteFilm, deleteFilm } from './dao.mjs' //to add the method from dao
 
-export {Film, FilmLibrary};
+import morgan from 'morgan';
+import { check, validationResult }  from 'express-validator'
 
 const app = express();
 app.use(express.json());
+
+/* middleware */
+app.use(express.json());
+app.use(morgan('dev'));
 
 /* app.get('/films', (req, res) => {
     getlistFilms().then((films) => {
@@ -230,14 +234,26 @@ app.use(express.json());
     })
 }) */
 
-/*  app.post('/addFilm', (req, res) => {
-    const toInsert = new Film(7, req.body.title, req.body.pid, req.body.rating, req.favorite, dayjs(req.date));
+app.post('/addFilm', [
+    check('title').isString(),
+    check('pid').isNumeric(),
+    check('rating').isNumeric(),
+    check('favorite').isBoolean(),
+    check('date').isISO8601()
+], (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty())
+        return res.status(422).json({ error: errors.array() });
+
+        const { title, pid, rating, favorite, date } = req.body;
+        const toInsert = new Film(7, title, pid, rating, favorite, dayjs(date));
     insertFilm(toInsert).then((f) => {
         res.json(f)
     }).catch((err) => {
         res.status(500).send("Database error: " + err)
     })
-}) */
+})
 
 /* app.put('/updateFilm/:id', (req, res) => {
     const toUpdate = new Film(req.params.id, req.body.title, req.body.pid, req.body.rating, req.favorite, dayjs(req.date));
@@ -279,4 +295,4 @@ app.delete('/deleteFilm/:id', (req, res) => {
     });
 });
 
-app.listen(3000, () => {console.log("Running!")})
+app.listen(3000, () => { console.log("Running!") })
