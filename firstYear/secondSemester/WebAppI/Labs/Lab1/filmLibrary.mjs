@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import sqlite3 from 'sqlite3';
 import express from 'express';
-import { getlistFilms } from './dao.mjs' //to add the method from da
+import { favoriteFilms, getlistFilms, selectFilm } from './dao.mjs' //to add the method from da
 
 function printAll(array) {
     return array.forEach((x) => console.log(`${x}`))
@@ -203,12 +203,29 @@ export {Film, FilmLibrary};
 const app = express();
 app.use(express.json());
 
-app.get('/films', (req, res) => {
+/* app.get('/films', (req, res) => {
     getlistFilms().then((films) => {
         res.json(films)
     }).catch((err) => {
         res.statusCode(500).send("Database error: " + err)
     })
-});
+}); */
+
+/* app.get('/unwatchedFilms', (req, res) => {
+    favoriteFilms().then((films) => {
+        res.json(films)
+    }).catch((err) => {
+        res.statusCode(500).send("Database error: " + err)
+    })
+}); */
+
+app.get('/films/:id', (req, res) => {
+    const filmId = req.params.id;
+    selectFilm(filmId).then((f) => {
+        res.json(f)
+    }).catch((err) => {
+        res.statusCode(500).send("Database error: " + err)
+    })
+})
 
 app.listen(3000, () => {console.log("Running!")})

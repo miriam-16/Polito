@@ -1,2 +1,25 @@
 GET http://localhost:3000/films
 
+###
+
+GET http://localhost:3000/favoriteFilms
+
+
+###
+
+GET http://localhost:3000/bestFilms
+
+###
+
+GET http://localhost:3000/seenLastMonthFilms
+
+
+###
+
+GET http://localhost:3000/unwatchedFilms
+
+
+###
+GET http://localhost:3000/films/3
+
+
