@@ -79,3 +79,24 @@ The consequences of having two threads are:
 
 slide 75
 per ogni applicazione, c'è uno stack di thread sul kernel in modo tale da passare dalla modalità privilegiata e viceversa
+
+# Working with OS161
+- To execute kernel, run `sys161 kernel` in directory `$HOME/os161/root` 
+
+
+## Build a kernel 
+```bash
+cp DUMBVM HELLO
+./config HELLO
+```
+Run this commands in the directory `$HOME/os161-base-2.0.3/kern/conf`. This will create a new directory called HELLO in the same directory where commands were executed. 
+
+Inside directory `$HOME/os161-base-2.0.3/kern/compile/HELLO` execute:
+
+```bash
+bmake depend
+bmake
+bmake install
+```
+
+These commands will compile the kernel and install it in the directory `$HOME/os161/root`. In this way, by executing `sys161 kernel` in root directory, THIS kernel will be executed.
