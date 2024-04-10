@@ -43,7 +43,7 @@ def hist_plot(D, L):
         plt.legend()
         plt.tight_layout()
         plt.savefig('output/hist_%d.png' % (dIdx+1))
-    plt.show()
+    #plt.show()
 
 def scatter_plot(D, L):
     D0 = D[:, L==0]
@@ -69,9 +69,7 @@ def scatter_plot(D, L):
         #plt.show()
 
 
-if __name__ == '__main__':
-    D, L = load('trainData.txt')
-
+def pca(D, L):
     mu = D.mean(1).reshape((D.shape[0], 1))
     DC = D - mu.reshape((mu.size, 1))
     
@@ -98,10 +96,9 @@ if __name__ == '__main__':
     # U, s, Vh = numpy.linalg.svd(C)
     # P = U[:, 0:m]
     print(P)
-    DP = numpy.dot(P.T, D)
-    
+    return numpy.dot(P.T, D)
+
+if __name__ == '__main__':
+    D, L = load('trainData.txt')
+    DP = pca(D,L)
     hist_plot(DP, L)
-
-
-
-
