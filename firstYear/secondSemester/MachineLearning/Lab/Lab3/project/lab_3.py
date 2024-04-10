@@ -2,7 +2,10 @@ import numpy
 import sys
 import matplotlib
 import matplotlib.pyplot as plt
+import scipy.linalg
 numpy.set_printoptions(threshold=sys.maxsize)
+
+m = 6
 
 def mcol(v):
     return v.reshape((v.size, 1))
@@ -22,7 +25,7 @@ def load(fname):
                 pass
     return numpy.hstack(DList), numpy.array(labelList, dtype=numpy.int32)
 
-def hist_plot(D, L):
+def hist_plot(D, L, name):
     D0 = D[:, L==0]
     D1 = D[:, L==1]
 
@@ -42,7 +45,7 @@ def hist_plot(D, L):
         plt.hist(D1[dIdx, :], bins = 'rice', density= True, alpha = 0.4, label = 'Genuine')
         plt.legend()
         plt.tight_layout()
-        plt.savefig('output/hist_%d.png' % (dIdx+1))
+        plt.savefig('output/%s_hist_%d.png' % (name, (dIdx+1)))
     #plt.show()
 
 def scatter_plot(D, L):
@@ -89,16 +92,45 @@ def pca(D, L):
     print("U")
     print(U)
 
-
-    m = 6
-
     P = U[:,::-1][:, 0:m]
     # U, s, Vh = numpy.linalg.svd(C)
     # P = U[:, 0:m]
     print(P)
     return numpy.dot(P.T, D)
 
+def lda(D, L):
+    mu = D.mean(1).reshape((D.shape[0], 1))
+    DC = D - mu.reshape((mu.size, 1))
+    nFeatures = D.shape[0]
+    n_c = D.shape[1]
+
+    S_w = numpy.zeros((nFeatures, nFeatures))
+    S_b = numpy.zeros((nFeatures, nFeatures))
+
+    for i in numpy.unique(L):
+        Dc = DC[:, L == i]
+        n_c = Dc.shape[1]
+        mu_i = Dc.mean(1).reshape((Dc.shape[0], 1))
+        DCc = Dc - mu_i.reshape((mu_i.size, 1))
+        S_w += (DCc @ DCc.T) / n_c
+        S_b += (mu_i - mu) @ (mu_i - mu).T * n_c
+
+    print("Between-class scatter matrix (S_b):")
+    print(S_b)
+    print("Within-class scatter matrix (S_w):")
+    print(S_w)
+
+    s, U = scipy.linalg.eig(S_b, S_w)
+    W = U[:,::-1][:,0:m]
+
+    UW, _, _ = numpy.linalg.svd(W)
+    U = UW[:,0:m]
+
+
 if __name__ == '__main__':
     D, L = load('trainData.txt')
     DP = pca(D,L)
-    hist_plot(DP, L)
+    hist_plot(DP, L, 'pca')
+
+    W = lda(D, L)
+    hist_plot(W, L, 'lda')
