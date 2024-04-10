@@ -38,8 +38,8 @@ def hist_plot(D, L):
     for dIdx in range(6):
         plt.figure()
         plt.xlabel(hFea[dIdx])
-        plt.hist(D0[dIdx, :], bins = 10, density= True, alpha = 0.4, label = 'Fake')
-        plt.hist(D1[dIdx, :], bins = 10, density= True, alpha = 0.4, label = 'Genuine')
+        plt.hist(D0[dIdx, :], bins = 'rice', density= True, alpha = 0.4, label = 'Fake')
+        plt.hist(D1[dIdx, :], bins = 'rice', density= True, alpha = 0.4, label = 'Genuine')
         plt.legend()
         plt.tight_layout()
         plt.savefig('output/hist_%d.png' % (dIdx+1))
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     print(U)
 
 
-    m = 2
+    m = 6
 
     P = U[:,::-1][:, 0:m]
     # U, s, Vh = numpy.linalg.svd(C)
@@ -100,7 +100,7 @@ if __name__ == '__main__':
     print(P)
     DP = numpy.dot(P.T, D)
     
-    scatter_plot(DP, L)
+    hist_plot(DP, L)
 
 
 
