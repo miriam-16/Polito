@@ -20,7 +20,7 @@
     2. Looks for account name and pwd, <span style="color:green">matche ok</span> (system)
     3. User is authenticated as normal user (system)
 
-## au2
+## au2 
 - Preconditions: user has an account, premium user
 - Post conditions: user is authenticated as user (will be able to use service without ads)
 
@@ -40,7 +40,7 @@
 - *Precondition*: User has no account
 - *Post condition*: 
 
-- Scenarios
+- Scenarios:
     - Nominal: su1
     - Variants: su2
     - Excepetions: su3 (account name already exists), su4 (pwd rule not satisfied), su4 (email check failed)
@@ -49,22 +49,41 @@
 # Use case: Report price (write price)
 - *Informal description*: user insert price of fuel of a gas station
 - *Actor(s) involved*: user
-- *Precondition*: User has no account
+- *Precondition*: User has an account
 - *Post condition*: new price for gas station added
 
-- Scenarios
-    - Nominal: rp1
-    - Variants: rp2
-    - Excepetions: 
+- Scenarios:
+    - Nominal: rep1
+    - Variants: 
+    - Excepetions: rep2 (gas station price not updated), rep3 (gas station not found)
 
-## rp1
+## rep1
 - Preconditions: user is authenticated
-- Post conditions: new price for gas station added
+- Post conditions: prices for gas station G are updated 
 
 | Steps | Actor | System |
 |-------|-------|--------|
-|1|||
-|2|||
-|3|||
-|4|||
-|5|||
+|1|User selects gas station G||
+|2||Show empty price list with prices for gas station G|
+|3|Enter one or more prices|Validate price (**UC Validate Prices**)|
+|4||Register price for the gas station|
+
+
+
+## rep3 — Gas station not found
+- Preconditions: user is authenticated
+- Post conditions: no prices added
+
+| Steps | Actor | System |
+|-------|-------|--------|
+|1|Search the gas station in the map||
+|2||- No gas station found -Show ad|
+|3| Try again||
+|4||- No gas station found|
+
+
+# Use case: Validate prices
+- *Informal description*: decide if price list of gas should be refreshed or not, compute rating level of price
+- *Actor(s) involved*: user
+- *Precondition*: User has an account
+- *Post condition*: price is validated
