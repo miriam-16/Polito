@@ -1,18 +1,18 @@
 import sqlite from 'sqlite3'
-const db = new sqlite.Database('questions.sqlite', (err) => {if(err) throw err});
+const db = new sqlite.Database('questions.sqlite', (err) => { if (err) throw err });
 db.all("SELECT * FROM user", (err, rows) => { //it doesn't return nothing, requires a callback to execute after running the query
-    if(err)
+    if (err)
         throw err;
 
     //console.log(rows)
-    rows.forEach((r) => {console.log(r.name)}) //can get attrubutes of the rows
+    rows.forEach((r) => { console.log(r.name) }) //can get attrubutes of the rows
 }); //this callcback function is executed one time
 
 db.each("SELECT * FROM user", (err, row) => { //select onlu one row
-    if(err)
+    if (err)
         throw err;
 
-        console.log(row.id, row.name)  //this is a callback executed fdor each element, so they might happen in any order
+    console.log(row.id, row.name)  //this is a callback executed fdor each element, so they might happen in any order
 })
 
 const userId = 3
@@ -24,11 +24,11 @@ db.get("SELECT * FROM USER WHERE id=?", [userId], (err, row) => {
 
 //-- version without the existence of promises. We have a method that is called directly, 
 //   while with promises we call implicity then and catch
-function get_users(callback){
+function get_users(callback) {
     db.all("SELECT * FROM user", (err, rows) => {
-        if(err)
+        if (err)
             callback(err);
-        else 
+        else
             callback(none, rows)
     }); //this callcback function is executed one time
 

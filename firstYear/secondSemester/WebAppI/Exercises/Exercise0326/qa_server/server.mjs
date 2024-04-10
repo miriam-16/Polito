@@ -10,7 +10,7 @@ const app = express()
 app.use(morgan('common'))
 app.use(express.json())
 
-app.get('/questions/:id', (req, res)=> {
+app.get('/questions/:id', (req, res) => {
     const questionId = req.params.id
     getQuestion(questionId).then((q) => {
         res.json(q)
@@ -19,4 +19,4 @@ app.get('/questions/:id', (req, res)=> {
     })
 })
 
-app.listen(3000, () =>{console.log("Running!")})
+app.listen(3000, () => { console.log("Running!") })
