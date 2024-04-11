@@ -134,3 +134,62 @@ Functional requirements slit in Robot FR and Software FR. The software FR are:
     - ComputeMyPosition
     - RecognizeObstacles
     - TurnAroundObstacle
+
+
+# Use cases
+## UC: set up (to complete - as always)
+- *Informal description*: self test and configure at switch on
+- *Primary actor*: button on off
+- *Precondition*: robot in charging station
+- *Post condition*:  
+- *Scenarios*
+    - *Nominal*: su1
+    - *Variants*:
+    - *Exceptions*: 
+        - battery not full, wait for full charge
+        - robot not in charging station, trigger alarm
+        - one component broken, trigger alarm
+
+### su1
+- *Precondition*:
+- *Post condition*: robot in charging station, battery full, all components ok
+
+| Steps | Actor: button | System: robot |
+|-------|-------|--------|
+| 1 |Button pressed|Check that robot is on charging station - ok| 
+| 2 | | FR4.1 - Read battery level (function already written in documentation) - full charge | 
+| 3 | | FR5.1 — Do self check — all right | 
+
+
+
+## UC: start
+- *Informal description*: do cleaning of space
+- *Primary actor*: button start
+- *Precondition*: post condition of su1, map is ready
+- *Post condition*:  
+- *Scenarios*
+    - *Nominal*: st1
+    - *Variants*:
+    - *Exceptions*: 
+
+
+## UC: clean space
+- *Informal description*: clean a space
+- *Primary actor*: robot
+- *Precondition*: robot in charging station
+- *Post condition*:
+- *Scenarios*
+    - *Nominal*: cs1 (no obstacles)
+    - *Variants*: cs2 same as cs1 with obstacles not in map 
+    - *Exceptions*: 
+
+### cs1
+- *Precondition*: post condition of su1, map is ready
+- *Post condition*: all the space has been cleaned and robot is back in the charging station
+
+| Steps | Actor: button | System: robot |
+|-------|-------|--------|
+| 1 |Button pressed|FR 1.3 Compute coverage path| 
+| 2 | | FR 3.1 Go to position C1| 
+| 3 | | FR 3.1 Go to position D1; FR 3.2 Compute energy to do remaining path; FR 4.1 read battery level Energy required < battery level| 
+        
