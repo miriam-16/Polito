@@ -29,7 +29,13 @@ def load(fname):
 
     return numpy.hstack(DList), numpy.array(labelsList, dtype=numpy.int32)
 
-
+def logpdf_GAU_ND(x, mu, C):
+    n = x.shape[0]
+    d = x.shape[1]
+    logdetC = numpy.linalg.slogdet(C)[1]
+    invC = numpy.linalg.inv(C)
+    logpdf = -0.5 * (d * numpy.log(2 * numpy.pi) + logdetC + numpy.sum((x - mu.T) @ invC * (x - mu.T), axis=1))
+    return logpdf
 
 def main():
     D, L = load('iris.csv')
@@ -39,6 +45,9 @@ def main():
     nRecords = D.shape[1]
     
     C = (DC@DC.T)/nRecords
+    logpdf = logpdf_GAU_ND(D, mu, C)
+    print(logpdf)
+
 
 
 if __name__ == "__main__":
