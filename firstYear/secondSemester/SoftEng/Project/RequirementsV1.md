@@ -79,29 +79,37 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 |  ID   | Description |
 | :---: | :---------: |
-|  FR1  |Authentication|
-|  FR2  |             |
-| FRx.. |             |
+||**Manage session**|
+| FR1 | Allow users to log in|
+| FR2 | Allow users to log out|
+| FR3 | Fetch information of the logged user|
+||**Manage user**|
+| FR4 | Create a new user|
+| FR5 | Fetch a list of all users|
+| FR6 | Fetch a list of all users by role|
+| FR7 | Fetch a user form username|
+| FR8 | Delete a specific user by username|
+| FR9 | Delete all users (---- TODO: ask prof)|
+|| **Product Management**|
+| FR10 | Creating new products|
+| FR11 | Registering the arrivals of products that have the same model|
+| FR12 | Updating the status of the product sale|
+| FR13 | Fetching all of the products in the database|
+| FR14 | Fetch products by their unique code|
+| FR15 | Fetch products in a specific category|
+| FR16 | Fetch products with a specific model|
+| FR17 | Delete all products from the database (---- TODO: ask prof)|
+| FR18 | Fetch products by their unique code|
+||**Manage cart**|
+| FR19 | Fetch the current cart of the logged user|
+| FR20 | Add a product to the current cart of the logged user|
+| FR21 | Pays for the current cart of the logged user|
+| FR22 | Fetch the history of the paid carts of the logged user|
+| FR23 | Delete the current cart of the logged user|
+| FR24 | Delete all the carts (------ TODO: ask prof)|
 
-- Functional requirements
-  - FR1: Authentication
-    1. Manage user (create, delete, modify, get, define privileges)
-      - get all user
-      - get by role
-      - get by username
-      - delete all user
-      - delete by username
 
-  - FR2: Product magagement
-    1. Manage product (register, sell, get, delete)
-      - get by model
-      - get by category
-      - delete all product
-      - delete by name
-    2. Manage product sale
 
-  - FR3: Cart management
-    1. Manage cart (add, get, delete, remove from, set status to paid)
 
     
 
@@ -110,9 +118,9 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 \<Describe constraints on functional requirements>
 
-|   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
+|ID| Type (efficiency, reliability, ..) | Description | Refers to |
 | :-----: | :--------------------------------: | :---------: | :-------: |
-|  NFR1   |                                    |             |           |
+|  NFR1   |Portability|Available for different types of browsers(Chrome, Safari, etc.) ||
 |  NFR2   |                                    |             |           |
 |  NFR3   |                                    |             |           |
 | NFRx .. |                                    |             |           |
