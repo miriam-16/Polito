@@ -1,4 +1,4 @@
-trait MySlug{
+/* trait MySlug{
     fn is_slug(&self) -> bool;
     fn to_slug(&self) -> String;
 }
@@ -20,6 +20,25 @@ impl MySlug for &str {
     
     fn is_slug(&self) -> bool {
         *self == self.to_slug()
+    }
+} */
+
+trait Slug<T>{
+    fn is_slug(&self) -> bool;
+    fn to_slug(&self) -> String;
+}
+
+
+impl<T> Slug<T> for T
+where
+    T: AsRef<str>,
+{
+    fn to_slug(&self) -> String {
+        slugify(self.as_ref())
+    }
+
+    fn is_slug(&self) -> bool {
+        self.as_ref() == self.to_slug()
     }
 }
 
@@ -57,7 +76,6 @@ fn conv(c: char) -> char {
             break;
         }
     }
-
     res_converted
 }
 
