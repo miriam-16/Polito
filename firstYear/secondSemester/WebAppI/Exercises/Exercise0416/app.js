@@ -7,6 +7,63 @@ document.addEventListener('DOMContentLoaded', event => {
     //creatr/load the list of answers
     const question = getQuestion()
     loadAnswers(question)
+
+    //generate the table content starting from the list
+    for(const answer of question.answers){
+        const tr = document.createElement("tr")
+        table.appendChild(tr)
+        tr.innerHTML = `<td>${answer.date.format()}</td>
+        <td>${answer.text}</td>
+        <td>${answer.email}</td>
+        <td>${answer.score}</td>`
+    
+        /* const td_date = document.createElement('td')
+        tr.appendChild(td_date)
+        td_date.innerText = answer.date.format('YYYY-DD-MM')
+    
+        const td_text = document.createElement('td')
+        tr.appendChild(td_text)
+        td_text.innerText = answer.text
+    
+        const td_auth = document.createElement('td')
+        tr.appendChild(td_auth)
+        td_auth.innerText = answer.email
+      
+        const td_score = document.createElement('td')
+        tr.appendChild(td_score)
+        td_score.innerText = answer.score */
+    
+    
+        //this way for buttons it's better because we already create buttons 
+        //and they can be used for attacching the event listener
+        const td_actions = document.createElement('td')
+        tr.appendChild(td_actions)
+        const btn_vote = document.createElement('button')
+        btn_vote.classList.add('btn', 'btn-warning')
+        td_actions.appendChild(btn_vote)
+        const icon_vote = document.createElement('i')
+        icon_vote.classList.add('bi', 'bi-arrow-up')
+        btn_vote.appendChild(icon_vote)
+        btn_vote.id = 'answer-'+answer.id //in this way i put an id on the html element so that i distinguish the button i in the list of rows
+        btn_vote.answerId = answer.id
+        btn_vote.addEventListener('click', (event)=> {
+            console.log('up!', event.currentTarget)
+            console.log('storing in DOM node', event.currentTarget.answerId)
+            const the_answer = answer
+            console.log('remembering through closure', the_answer.id)
+          the_answer.score += 1
+          const the_score = event.currentTarget.parentNode.previousSibling
+          the_score.innerText = the_answer.score
+        })
+    
+    
+        //we can also copy the html directly
+        /* td_actions.innerHTML = `<button class="btn btn-warning"><i class='bi bi-arrow-up'></i></button>
+        // <button class="btn btn-primary"><i class='bi bi-pencil-square'></i></button>
+        // <button class="btn btn-danger"><i class='bi bi-trash'></i></button>` */
+    
+    }
+    
 })
 
 function getQuestion(){
@@ -18,49 +75,7 @@ function loadAnswers(question){
     question.add(new Answer(2, "Not in a million year", "guido.vanrussum@python.org", "2024-03-01", 5))
 }
 
-//generate the table content starting from the list
-for(const answer of question.answers){
-    const tr = document.createElement("tr")
-    table.appendChild(tr)
-    tr.innerHTML = `<td>${answer.date.format()}</td>
-    <td>${answer.text}</td>
-    <td>${answer.email}</td>
-    <td>${answer.score}</td>`
 
-
-
-    /* const td_date = document.createElement('td')
-    tr.appendChild(td_date)
-    td_date.innerText = answer.date.format('YYYY-DD-MM')
-
-    const td_text = document.createElement('td')
-    tr.appendChild(td_text)
-    td_text.innerText = answer.text
-
-    const td_auth = document.createElement('td')
-    tr.appendChild(td_auth)
-    td_auth.innerText = answer.email
-  
-    const td_score = document.createElement('td')
-    tr.appendChild(td_score)
-    td_score.innerText = answer.score */
-
-    const td_actions = document.createElement('td')
-    tr.appendChild(td_actions)
-    const btn_vote = document.createElement('button')
-    btn_vote.classList.add('btn', 'btn-warning')
-    td_actions.appendChild(btn_vote)
-    const icon_vote = document.createElement('i')
-    icon_vote.classList.add('bi', 'bi-arrow-up')
-    btn_vote.appendChild(icon_vote)
-
-
-    //we can also copy the html directly
-    /* td_actions.innerHTML = `<button class="btn btn-warning"><i class='bi bi-arrow-up'></i></button>
-    // <button class="btn btn-primary"><i class='bi bi-pencil-square'></i></button>
-    // <button class="btn btn-danger"><i class='bi bi-trash'></i></button>` */
-
-}
 
 function Answer(id, text, email, date, score = 0) {
     this.id = id;
