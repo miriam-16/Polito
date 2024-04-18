@@ -71,8 +71,8 @@ function getQuestion(){
 }
 
 function loadAnswers(question){
-    question.add(new Answer(1, "Yes", "luca.mannella@polito.it", '2024-02-15', -10))
-    question.add(new Answer(2, "Not in a million year", "guido.vanrussum@python.org", "2024-03-01", 5))
+    question.addAnswer(new Answer(1, "Yes", "luca.mannella@polito.it", '2024-02-15', -10))
+    question.addAnswer(new Answer(2, "Not in a million year", "guido.vanrussum@python.org", "2024-03-01", 5))
 }
 
 
