@@ -59,11 +59,17 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 |   Actor   | Logical Interface | Physical Interface |
 | :-------: | :---------------: | :----------------: |
-| Actor x.. |                   |                    |
+| User, Manager, Customer |GUI|PC|
+|Admin|GUI|PC|
 
 # Stories and personas
 
 \<A Persona is a realistic impersonation of an actor. Define here a few personas and describe in plain text how a persona interacts with the system>
+
+**Persona 1**: Customer Mario Rossi
+Mario Rossi is interested in buying a new smartphone. He prefers to buy it on a website and starts looking for it on EZElectronics. He searches "Iphone 13" on smartphone category and started to analyze all the offers of the different managers. He finds the best offer and adds it to the cart.
+
+**Persona 2**: Manager 
 
 \<Persona is-an-instance-of actor>
 
