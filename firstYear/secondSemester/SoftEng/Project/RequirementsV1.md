@@ -83,7 +83,7 @@ Mario Rossi is interested in buying a new smartphone. He prefers to buy it on a 
 
 \<they match to high level use cases>
 
-|  ID   | Description |
+|ID| Description |
 | :---: | :---------: |
 ||**Manage session**|
 | FR1 | Allow users to log in|
@@ -93,26 +93,23 @@ Mario Rossi is interested in buying a new smartphone. He prefers to buy it on a 
 | FR4 | Create a new user|
 | FR5 | Fetch a list of all users|
 | FR6 | Fetch a list of all users by role|
-| FR7 | Fetch a user form username|
+| FR7 | Fetch a user from username|
 | FR8 | Delete a specific user by username|
-| FR9 | Delete all users (---- TODO: ask prof)|
 || **Product Management**|
-| FR10 | Creating new products|
-| FR11 | Registering the arrivals of products that have the same model|
-| FR12 | Updating the status of the product sale|
-| FR13 | Fetching all of the products in the database|
-| FR14 | Fetch products by their unique code|
-| FR15 | Fetch products in a specific category|
-| FR16 | Fetch products with a specific model|
-| FR17 | Delete all products from the database (---- TODO: ask prof)|
-| FR18 | Fetch products by their unique code|
+| FR9 | Creating new products|
+| FR10 | Registering the arrivals of products that have the same model|
+| FR11 | Updating the status of the product sale|
+| FR12 | Fetching all products in the database|
+| FR13 | Fetch products by their unique code|
+| FR14 | Fetch products in a specific category|
+| FR15 | Fetch products with a specific model|
+|FR16| Delete a product by its unique code|
 ||**Manage cart**|
-| FR19 | Fetch the current cart of the logged user|
-| FR20 | Add a product to the current cart of the logged user|
-| FR21 | Pays for the current cart of the logged user|
-| FR22 | Fetch the history of the paid carts of the logged user|
-| FR23 | Delete the current cart of the logged user|
-| FR24 | Delete all the carts (------ TODO: ask prof)|
+| FR17 | Fetch the current cart of the logged user|
+| FR18 | Add a product to the current cart of the logged user|
+| FR19 | Pays for the current cart of the logged user|
+| FR20 | Fetch the history of the paid carts of the logged user|
+| FR21 | Delete the current cart of the logged user|
 
 
 
