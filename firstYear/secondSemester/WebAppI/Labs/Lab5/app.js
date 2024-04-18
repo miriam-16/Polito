@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', event => {
         const tr = document.createElement("tr");
         filmTable.appendChild(tr);
 
-        const template2 = `<h1>Ciao</h1>`
         const template = `<td>${film.title}</td>
             <td>
                 <div class="form-check">
@@ -23,6 +22,7 @@ document.addEventListener('DOMContentLoaded', event => {
             <td>${film.date != null ? film.date.format("YYYY-MM-DD") : ''}</td>
             <td>
                 <div class="d-grid d-md-block">`;
+//try template repeat 
                 for (let s = 1; s <= 5; s++) {
                     template += `<button class="btn" type="button"><i class="bi bi-star${film.rating >= s ? '-fill' : ''}"></i></button>`;
                 }
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 template+= `</div>
                 </td>
                 <td></td>`
+
 
             console.log(template)
             
