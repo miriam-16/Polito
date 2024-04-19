@@ -79,4 +79,36 @@ Rust implements pointers equals to C and C++'s (with all benefits and drawbacks)
 It is possible to access in read-only or read-write way inside **unsafe{..}** blocks, where the programmer is responsable for memory allocation and deallocation.
 
 ### Array
+Arrays are sequences of homogeneus elemets, whose size is fixed and known apriori and whose allocation is on the stack. 
+They are represented by `[T; N]` where T is the type of the elements and N is the number of elements.
 
+```rust
+let a: [i32; 5] = [1, 2, 3, 4, 5];
+let b = [0;5]       //initialize an array of 5 elements with 0
+let l = b.len();
+```
+
+### Slices
+Called also **flat pointer**, they are similar to arrays, but their length is not known apriori. They are represented by `&[T]` and they are a reference to a sequence of elements of type T. It is a type characterized by a pointer to the first element and the length of the slice. 
+
+They are used to access to a range of values of the slice.
+
+```rust
+let a = [ 1, 2, 3, 4 ];
+let s1: &[i32] = &a;  //s1 -> 1, 2, 3, 4
+let s2 = &a[0..2];    //s2 -> 1, 2
+let s3 = &a[2..];
+```
+
+### Vec<T>
+Dynamic array, whose size is not known apriori and whose allocation is on the heap. It is represented by `Vec<T>` and it is a pointer with possession. 
+It a tuple which contains:
+- pointer to buffer allocated on heap where elements are stored (ptr);
+- unsigned integer which represents the number of elements (size);
+- unsigned integer which represents the capacity of the buffer (capacity).
+It offers methods `push`, `remove`, `shrink_to_fit`: when the number of elements reaches the capacity, the buffer is reallocated with a new capacity. 
+
+```rust
+let v : Vec<i32> = Vec::new();
+let h = Vec::<i32>::with_capacity(10);
+```
