@@ -4,16 +4,21 @@ document.addEventListener('DOMContentLoaded', event => {
     console.log("Page loaded")
     const allFilms = loadFilms()
     showFilms(allFilms.list)
+
+    const titleFilter = document.getElementById("title-list");
     const filterAll = document.getElementById("filter-all").addEventListener('click', (event) => {
+        titleFilter.textContent = 'All';
         showFilms(allFilms.list);
     })
 
     const filterFavorite = document.getElementById("filter-favorite").addEventListener('click', (event) => {
+        titleFilter.textContent = 'Favorite';
         const favoriteFilms = allFilms.list.filter(film => film.favorite);
         showFilms(favoriteFilms);
     })
 
     const filterBestRated = document.getElementById("filter-best-rated").addEventListener('click', (event) => {
+        titleFilter.textContent = 'Best rated';
         const bestRatedFilms = allFilms.list.filter(film => film.rating == 5);
         showFilms(bestRatedFilms);
     })
@@ -33,6 +38,7 @@ document.addEventListener('DOMContentLoaded', event => {
             // Controlla se la data del film è compresa tra il primo giorno del mese scorso e il primo giorno del mese corrente
             return film.date && film.date.isAfter(firstDayOfLastMonth) && film.date.isBefore(firstDayOfCurrentMonth);
         });
+        titleFilter.textContent = 'Seen last month';
         showFilms(lastMonthFilms);
     })
 })
