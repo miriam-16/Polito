@@ -2,41 +2,39 @@
 
 document.addEventListener('DOMContentLoaded', event => {
     console.log("Page loaded")
-    const filmTable = document.getElementById("film-table")
-    const films = loadFilms()
-    
-    for(const film of films.list){
-        console.log(film);
-        const tr = document.createElement("tr");
-        filmTable.appendChild(tr);
-        let fullStars = `<button class="btn" type="button"><i class="bi bi-star-fill"></i></button>`;
-        let emplyStars = `<button class="btn" type="button"><i class="bi bi-star"></i></button>`;
+    const allFilms = loadFilms()
+    showFilms(allFilms.list)
+    const filterAll = document.getElementById("filter-all").addEventListener('click', (event) => {
+        showFilms(allFilms.list);
+    })
 
-        let template =  `<td>${film.title}</td>
-        <td>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" ${film.favorite ? 'checked' : ''}>
-                <label class="form-check-label" for="flexCheckChecked">
-                    Favorite
-                </label>
-            </div>
-        </td>
-        <td>${film.date != null ? film.date.format("YYYY-MM-DD") : ''}</td>`;
+    const filterFavorite = document.getElementById("filter-favorite").addEventListener('click', (event) => {
+        const favoriteFilms = allFilms.list.filter(film => film.favorite);
+        showFilms(favoriteFilms);
+    })
 
-        template += `
-        <td>
-            <div class="d-grid d-md-block">
-                ${fullStars.repeat(film.rating)}
-                ${emplyStars.repeat(5-film.rating)}
-            </div>
-        </td>
-        <td>
-            <button type="button" class="btn"><i class="bi bi-pencil"></i></button> 
-            <button type="button" class="btn"><i class="bi bi-trash3"></i></button> 
-        </td>`
-        tr.innerHTML = template;
-    }
-    
+    const filterBestRated = document.getElementById("filter-best-rated").addEventListener('click', (event) => {
+        const bestRatedFilms = allFilms.list.filter(film => film.rating == 5);
+        showFilms(bestRatedFilms);
+    })
+
+    const filterLastMonth = document.getElementById("filter-last-month").addEventListener('click', (event) => {
+        const today = dayjs();
+        const firstDayOfCurrentMonth = today.startOf('month');
+
+        // Calcola la data del primo giorno del mese precedente
+        const firstDayOfLastMonth = firstDayOfCurrentMonth.subtract(1, 'month');
+
+        // Calcola la data del primo giorno del mese successivo
+        const firstDayOfNextMonth = firstDayOfCurrentMonth.add(1, 'month');
+
+        // Filtra i film che sono stati visti nel mese scorso
+        const lastMonthFilms = allFilms.list.filter(film => {
+            // Controlla se la data del film è compresa tra il primo giorno del mese scorso e il primo giorno del mese corrente
+            return film.date && film.date.isAfter(firstDayOfLastMonth) && film.date.isBefore(firstDayOfCurrentMonth);
+        });
+        showFilms(lastMonthFilms);
+    })
 })
 
 function Film(id, title, pid = 1, rating = -1, favorite = false, date = null) {
@@ -55,12 +53,49 @@ function Film(id, title, pid = 1, rating = -1, favorite = false, date = null) {
     }
 }
 
+function showFilms(films) {
+    const filmTable = document.getElementById("film-table")
+    filmTable.innerHTML = ''; // Clear the content of the film table
+    let fullStars = `<button class="btn" type="button"><i class="bi bi-star-fill"></i></button>`;
+    let emplyStars = `<button class="btn" type="button"><i class="bi bi-star"></i></button>`;
+    
+    for (const film of films) {
+        const tr = document.createElement("tr");
+        filmTable.appendChild(tr);
+        let template = `<td>${film.title}</td>
+        <td>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" ${film.favorite ? 'checked' : ''}>
+                <label class="form-check-label" for="flexCheckChecked">
+                    Favorite
+                </label>
+            </div>
+        </td>
+        <td>${film.date != null ? film.date.format("YYYY-MM-DD") : ''}</td>`;
+
+        template += `
+        <td>
+            <div class="d-grid d-md-block">
+                ${fullStars.repeat(film.rating)}
+                ${emplyStars.repeat(5 - film.rating)}
+            </div>
+        </td>
+        <td>
+            <button type="button" class="btn"><i class="bi bi-pencil"></i></button> 
+            <button type="button" class="btn"><i class="bi bi-trash3"></i></button> 
+        </td>`
+        tr.innerHTML = template;
+    }
+}
+
+
+
 function FilmLibrary() {
     this.list = [];
     this.addNewFilm = (film) => { this.list.push(film) };
 }
 
-function loadFilms(){
+function loadFilms() {
     const f1 = new Film(1, 'Pulp Fiction', 1, 5, true, dayjs('2024-03-10'));
     const f2 = new Film(2, '21 Grams', 1, 4, true, dayjs('2024-03-17'));
     const f3 = new Film(3, 'Star Wars', 1, 0);

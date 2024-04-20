@@ -35,11 +35,10 @@
             <div id="main-container" class="row">
                 <div id="leftside" class="col-3">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action active" aria-current="true">All</button>
-                        <button type="button" class="list-group-item list-group-item-action">Favorite</button>
-                        <button type="button" class="list-group-item list-group-item-action">Best rated</button>
-                        <button type="button" class="list-group-item list-group-item-action">Seen last month</button>
-                        <button type="button" class="list-group-item list-group-item-action">Unseen</button>
+                        <button id="filter-all" type="button" class="list-group-item list-group-item-action active" aria-current="true">All</button>
+                        <button id="filter-favorite" type="button" class="list-group-item list-group-item-action">Favorite</button>
+                        <button id="filter-best-rated" type="button" class="list-group-item list-group-item-action">Best rated</button>
+                        <button id="filter-last-month" type="button" class="list-group-item list-group-item-action">Seen last month</button>
                     </div>
                 </div>
 
@@ -48,136 +47,6 @@
                     <div>
                         <table class="table">
                             <tbody id="film-table">
-                            <!--    <tr>
-                                    <td>Pulp fiction</td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                              Favorite
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>March, 10 2024</td>
-                                    <td>
-                                        <div class="d-grid d-md-block">
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn"><i class="bi bi-pencil"></i></button> 
-                                        <button type="button" class="btn"><i class="bi bi-trash3"></i></button> 
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>21 Grams</td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                              Favorite
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>March, 17 2024</td>
-                                    <td>
-                                        <div class="d-grid d-md-block">
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn"><i class="bi bi-pencil"></i></button> 
-                                        <button type="button" class="btn"><i class="bi bi-trash3"></i></button> 
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Star wars</td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                              Favorite
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="d-grid d-md-block">
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn"><i class="bi bi-pencil"></i></button> 
-                                        <button type="button" class="btn"><i class="bi bi-trash3"></i></button> 
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>Matrix</td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                              Favorite
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="d-grid d-md-block">
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star"></i></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn"><i class="bi bi-pencil"></i></button> 
-                                        <button type="button" class="btn"><i class="bi bi-trash3"></i></button> 
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Shrek</td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                              Favorite
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="d-grid d-md-block">
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                            <button class="btn" type="button"><i class="bi bi-star-fill"></i></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn"><i class="bi bi-pencil"></i></button> 
-                                        <button type="button" class="btn"><i class="bi bi-trash3"></i></button> 
-                                    </td>
-                                </tr>
-                            -->
                             </tbody>
                         </table>
                     </div>
