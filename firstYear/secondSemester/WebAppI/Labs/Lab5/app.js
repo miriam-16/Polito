@@ -10,7 +10,25 @@ document.addEventListener('DOMContentLoaded', event => {
         const tr = document.createElement("tr");
         filmTable.appendChild(tr);
 
-        const template = `<td>${film.title}</td>
+        tr.innerHTML =  `<td>${film.title}</td>
+        <td>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" ${film.favorite ? 'checked' : ''}>
+                <label class="form-check-label" for="flexCheckChecked">
+                    Favorite
+                </label>
+            </div>
+        </td>
+        <td>${film.date != null ? film.date.format("YYYY-MM-DD") : ''}</td>
+        <td>
+            <div class="d-grid d-md-block">
+                <button class="btn" type="button"><i class="bi bi-star-fill"></i></button> ${repeat(film.rating)}
+            </div>
+            </td>
+            <td></td>`
+
+
+/*         const template = `<td>${film.title}</td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" ${film.favorite ? 'checked' : ''}>
@@ -34,7 +52,7 @@ document.addEventListener('DOMContentLoaded', event => {
 
             console.log(template)
             
-            tr.innerHTML = template;
+            tr.innerHTML = template; */
         
     }
     
