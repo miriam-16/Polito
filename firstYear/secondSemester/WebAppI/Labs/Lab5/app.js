@@ -9,8 +9,10 @@ document.addEventListener('DOMContentLoaded', event => {
         console.log(film);
         const tr = document.createElement("tr");
         filmTable.appendChild(tr);
+        let fullStars = `<button class="btn" type="button"><i class="bi bi-star-fill"></i></button>`;
+        let emplyStars = `<button class="btn" type="button"><i class="bi bi-star"></i></button>`;
 
-        tr.innerHTML =  `<td>${film.title}</td>
+        let template =  `<td>${film.title}</td>
         <td>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" ${film.favorite ? 'checked' : ''}>
@@ -19,41 +21,20 @@ document.addEventListener('DOMContentLoaded', event => {
                 </label>
             </div>
         </td>
-        <td>${film.date != null ? film.date.format("YYYY-MM-DD") : ''}</td>
+        <td>${film.date != null ? film.date.format("YYYY-MM-DD") : ''}</td>`;
+
+        template += `
         <td>
             <div class="d-grid d-md-block">
-                <button class="btn" type="button"><i class="bi bi-star-fill"></i></button> ${repeat(film.rating)}
+                ${fullStars.repeat(film.rating)}
+                ${emplyStars.repeat(5-film.rating)}
             </div>
-            </td>
-            <td></td>`
-
-
-/*         const template = `<td>${film.title}</td>
-            <td>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" ${film.favorite ? 'checked' : ''}>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Favorite
-                    </label>
-                </div>
-            </td>
-            <td>${film.date != null ? film.date.format("YYYY-MM-DD") : ''}</td>
-            <td>
-                <div class="d-grid d-md-block">`;
-//try template repeat 
-                for (let s = 1; s <= 5; s++) {
-                    template += `<button class="btn" type="button"><i class="bi bi-star${film.rating >= s ? '-fill' : ''}"></i></button>`;
-                }
-                
-                template+= `</div>
-                </td>
-                <td></td>`
-
-
-            console.log(template)
-            
-            tr.innerHTML = template; */
-        
+        </td>
+        <td>
+            <button type="button" class="btn"><i class="bi bi-pencil"></i></button> 
+            <button type="button" class="btn"><i class="bi bi-trash3"></i></button> 
+        </td>`
+        tr.innerHTML = template;
     }
     
 })
