@@ -115,11 +115,6 @@ Mario Rossi is interested in buying a new smartphone. He prefers to buy it on a 
 | FR21 | Delete the current cart of the logged user|
 
 
-
-
-    
-
-
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
@@ -127,7 +122,7 @@ Mario Rossi is interested in buying a new smartphone. He prefers to buy it on a 
 |ID| Type (efficiency, reliability, ..) | Description | Refers to |
 | :-----: | :--------------------------------: | :---------: | :-------: |
 |  NFR1   |Portability|Available for different types of browsers(Chrome, Safari, etc.) ||
-|  NFR2   |                                    |             |           |
+|  NFR2   |Security|The data of the user are protected and no one can access to his carts|FR1 - FR3; FR17 - FR21|
 |  NFR3   |                                    |             |           |
 | NFRx .. |                                    |             |           |
 
