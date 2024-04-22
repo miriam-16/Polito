@@ -41,7 +41,10 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 | Stakeholder name | Description |
 | :--------------: | :---------: |
-| Stakeholder x..  |             |
+| Manager |             |
+| Customer |             |
+|Admin||
+
 
 # Context Diagram and interfaces
 
