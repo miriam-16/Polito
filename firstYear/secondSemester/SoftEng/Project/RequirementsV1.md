@@ -41,9 +41,9 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 | Stakeholder name | Description |
 | :--------------: | :---------: |
-| Manager |             |
-| Customer |             |
-|Admin||
+|User: Manager |Sell electronics products|
+| User: Customer |Puchase electronic products|
+|Admin|Manage the software application|
 
 
 # Context Diagram and interfaces
@@ -54,6 +54,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 \<actors are a subset of stakeholders>
 
+![context_diagram](https://i.imgur.com/ObJzh5Y.png)
 ## Interfaces
 
 \<describe here each interface in the context diagram>
@@ -62,7 +63,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 |   Actor   | Logical Interface | Physical Interface |
 | :-------: | :---------------: | :----------------: |
-| User, Manager, Customer |GUI|PC|
+| Manager, Customer |GUI|PC|
 |Admin|GUI|PC|
 
 # Stories and personas
@@ -73,6 +74,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 Mario Rossi is interested in buying a new smartphone. He prefers to buy it on a website and starts looking for it on EZElectronics. He searches "Iphone 13" on smartphone category and started to analyze all the offers of the different managers. He finds the best offer and adds it to the cart.
 
 **Persona 2**: Manager 
+Giuseppe Verdi is a manager of an electronics store. He wants to sell his products on the EZElectronics website. He logs in and adds his products. He also confirm purchase and update product information when it's sold.
 
 \<Persona is-an-instance-of actor>
 
@@ -134,12 +136,12 @@ Mario Rossi is interested in buying a new smartphone. He prefers to buy it on a 
 
 \<next describe here each use case in the UCD>
 
-### Use case 1, UC1
+### Use case 1, UC1 "Manage session"
 
-| Actors Involved  |                                                                      |
+| Actors Involved  |User|
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
+|   Precondition   | User has an account |
+|  Post condition  |  User accesses to his personal area   |
 | Nominal Scenario |         \<Textual description of actions executed by the UC>         |
 |     Variants     |                      \<other normal executions>                      |
 |    Exceptions    |                        \<exceptions, errors >                        |
@@ -180,6 +182,8 @@ Mario Rossi is interested in buying a new smartphone. He prefers to buy it on a 
 \<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
 
 \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
+
+![class_diagram_glossary](https://i.imgur.com/dwCzqrb.png)
 
 # System Design
 
