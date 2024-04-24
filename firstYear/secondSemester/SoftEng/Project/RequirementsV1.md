@@ -226,6 +226,33 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 |1|User asks to exit|
 |2|The system logs out the user
 
+### Use case 3, UC3 "Get information of the logged user"
+| Actors Involved  |User (Manager and Customer)|
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | Post condition of UC1  |
+|  Post condition  | Retrieved information of the user|
+| Nominal Scenario |3.1|
+|     Variants     |3.2|
+|    Exceptions    ||
+
+##### Scenario 3.1
+|  Scenario 3.1  |Customer user get his information|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| Post condition of UC1 |
+| Post condition | User get the desidered information|
+|Step#|Description|
+|1|User asks for its informations|
+|2|The system search the information of the user. The system gives the information. 
+
+##### Scenario 3.2
+|  Scenario 3.2 |Manager user get his information|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| Post condition of UC1 |
+| Post condition | User get the desidered information|
+|Step#|Description|
+|1|User asks for its informations|
+|2|The system search the information of the user. The system gives the information. 
+
 
 ### Use case x, UCx
 
