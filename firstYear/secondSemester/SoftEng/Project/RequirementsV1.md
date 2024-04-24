@@ -136,15 +136,15 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 
 \<next describe here each use case in the UCD>
 
-### Use case 1, UC1 "Manage session"
+### Use case 1, UC1 "Log in"
 
-| Actors Involved  |User|
+| Actors Involved  |User (Manager and Customer)|
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   | User has an account |
-|  Post condition  |  User accesses to his personal area   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|  Post condition  |  User accesses to his personal area|
+| Nominal Scenario |1.1|
+|     Variants     |1.2|
+|    Exceptions    |1.3 (wrong password), 1.4 (unknown username)|
 
 ##### Scenario 1.1
 
@@ -156,22 +156,76 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 
 \<only relevant scenarios should be described>
 
-|  Scenario 1.1  |                                                                            |
+|  Scenario 1.1  |Customer user logs in|
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+|Precondition| Customer has an account with username and password |
+| Post condition | Customer accesses to his personal area|
+|Step#|Description|
+|1|User enters account username and password|
+|2|The system looks for account name and password. Match ok|
+|3|User logs in as customer|
 
 ##### Scenario 1.2
+|  Scenario 1.2  |Manager user logs in|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| Manager has an account with username and password |
+| Post condition | Manager accesses to his personal area|
+|Step#|Description|
+|1|User enters account username and password|
+|2|The system looks for account name and password. Match ok|
+|3|User logs in as customer|
 
-##### Scenario 1.x
+##### Scenario 1.3
+|  Scenario 1.3  |User logs in but the password is wrong|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| User has an account with username and password |
+| Post condition | User is not able to access to his personal area|
+|Step#|Description|
+|1|User enters account username and password|
+|2|The system looks for account name and password. The password doesn't match|
+|3|The system ask for the password again|
+|4|The user enters password again|
+|5|The answer of the system is no match|
 
-### Use case 2, UC2
+##### Scenario 1.4
+|  Scenario 1.4  |User logs in but the username is unknown|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| User has an account with username and password |
+| Post condition | User is not able to access to his personal area|
+|Step#|Description|
+|1|User enters account username and password|
+|2|The system looks for account name and password. The username is not found|
+|3|The system ask for username and password again|
+|4|The user enters credentials again|
+|5|The answer of the system is no match|
 
-..
+### Use case 2, UC2 "Log out"
+| Actors Involved  |User (Manager and Customer)|
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | Post condition of UC1  |
+|  Post condition  |  User logs out from the software|
+| Nominal Scenario |2.1|
+|     Variants     |2.2|
+|    Exceptions    ||
+
+##### Scenario 2.1
+|  Scenario 2.1  |Customer user logs out|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| Post condition of UC1 |
+| Post condition | User exit from its account|
+|Step#|Description|
+|1|User asks to exit|
+|2|The system logs out the user
+
+##### Scenario 2.2
+|  Scenario 2.2  |Manager user logs out|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| Post condition of UC1 |
+| Post condition | User exit from its account|
+|Step#|Description|
+|1|User asks to exit|
+|2|The system logs out the user
+
 
 ### Use case x, UCx
 
