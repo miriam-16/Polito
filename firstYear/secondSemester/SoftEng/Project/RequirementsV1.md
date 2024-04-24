@@ -108,7 +108,7 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 | FR13 | Fetch products by their unique code|
 | FR14 | Fetch products in a specific category|
 | FR15 | Fetch products with a specific model|
-|FR16| Delete a product by its unique code|
+| FR16 | Delete a product by its unique code|
 ||**Manage cart**|
 | FR17 | Fetch the current cart of the logged user|
 | FR18 | Add a product to the current cart of the logged user|
