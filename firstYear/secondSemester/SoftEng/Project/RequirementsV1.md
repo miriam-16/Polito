@@ -254,6 +254,15 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 |2|The system search the information of the user. The system gives the information. 
 
 
+### Use case 4, UC4 "Create a new product"
+| Actors Involved  |Manager|
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | Post condition of UC1.2  |
+|  Post condition  | A new product is added|
+| Nominal Scenario |4.1|
+|     Variants     ||
+|    Exceptions    |4.2 (the code already exists), 4.3 (arrivalDate inconsistent)|
+
 ### Use case x, UCx
 
 ..
