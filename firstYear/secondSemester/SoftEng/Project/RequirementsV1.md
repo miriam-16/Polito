@@ -323,7 +323,7 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 | Post condition |No information are provided|
 |Step#|Description|
 |1|Admin asks for an user with the specified username|
-|2|The system searchs the user requested. It is not found.|
+|2|The system searchs the user requested. It is not found. The system returns error. |
 
 ### Use case 6, UC6 "Delete an user by its username"
 | Actors Involved  | Admin|
@@ -355,11 +355,102 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 ### Use case 7, UC7 "Register a new product"
 | Actors Involved  | Manager|
 | :--------------: |:------------------------------------------------------------------: |
-|   Precondition   |The future product of the manager doesn't already exists|
+|   Precondition   |Post condition of UC1.2|
 |  Post condition  |The product of the manager is registered|
-| Nominal Scenario |7.1, 7.3|
+| Nominal Scenario |7.1|
+|     Variants     |7.4|
+|    Exceptions    |7.2, 7.3|
+
+##### Scenario 7.1
+|  Scenario 7.1  |Register a new product|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product of the manager is registered|
+|Step#|Description|
+|1|Manager inserts all the requested information (code, model, category, selling price, arrivalDate, ..) for adding a new product|
+|2|The system check and store the information. Product added|
+
+##### Scenario 7.2
+|  Scenario 7.2  |Register a new product but code already exists|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is not registered|
+|Step#|Description|
+|1|Manager inserts all the requested information (code, model, category, selling price, arrivalDate, ..) for adding a new product
+|2|The system check the information. It gives an error because the code already exists.|
+
+##### Scenario 7.3
+|  Scenario 7.3  |Register a new product but arrival date given is after current date|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is not registered|
+|Step#|Description|
+|1|Manager inserts all the requested information (code, model, category, selling price, arrivalDate, ..) for adding a new product
+|2|The system check the information. It gives an error because the arrival date is after current date|
+
+##### Scenario 7.4
+|  Scenario 7.4  |Register a set of products of the same model|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The set of product is registered|
+|Step#|Description|
+|1|Manager enters the requested information (model, category, selling price, arrivalDate, ..) for adding a set of product of the same model
+|2|The system check and store the information. Products added|
+
+### Use case 8, UC8 "Mark a product as sold"
+| Actors Involved  | Manager|
+| :--------------: |:------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is registered as sold|
+| Nominal Scenario |8.1|
 |     Variants     ||
-|    Exceptions    |7.2|
+|    Exceptions    |8.2, 8.3, 8.4, 8.5|
+
+##### Scenario 8.1
+|  Scenario 8.1 |Change the product status to sold product|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is registered as sold|
+|Step#|Description|
+|1| Manager enters the code of the product which is sold and the sellingDate|
+|2| The system checks the code and the selling date. The product is marked as sold|
+
+##### Scenario 8.2
+|  Scenario 8.2 |Change the product status to sold product but the code is not found|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is not registered as sold|
+|Step#|Description|
+|1| Manager enters the code of the product which is sold and the sellingDate|
+|2| The system checks the code. The code doesn't exist. The system returns error. |
+
+##### Scenario 8.3
+|  Scenario 8.3 |Change the product status to sold product but the selling date is after current date|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is not registered as sold|
+|Step#|Description|
+|1| Manager enters the code of the product which is sold and the sellingDate|
+|2| The system checks the code and the selling date. The selling date is after the current date. The system returns error. |
+
+##### Scenario 8.4
+|  Scenario 8.4 |Change the product status to sold product but the selling date is before product's arrival date|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is not registered as sold|
+|Step#|Description|
+|1| Manager enters the code of the product which is sold and the sellingDate|
+|2| The system checks the code and the selling date. The selling date is after the arrival date of the product. The system returns error. |
+
+##### Scenario 8.5
+|  Scenario 8.4 |Change the product status to sold product but the product has already been sold|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |Product already registered as sold|
+|Step#|Description|
+|1| Manager enters the code of the product which is sold and the sellingDate|
+|2| The system checks the code and the selling date. The product has already been sold so the system returns error. |
+
 
 # Glossary
 
