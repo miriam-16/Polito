@@ -236,7 +236,7 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 |    Exceptions    ||
 
 ##### Scenario 3.1
-|  Scenario 3.1  |Customer user get his information|
+|  Scenario 3.1  |Customer user gets his information|
 | :------------: | :------------------------------------------------------------------------: |
 |Precondition| Post condition of UC1 |
 | Post condition | User get the desidered information|
@@ -245,7 +245,7 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 |2|The system search the information of the user. The system gives the information. 
 
 ##### Scenario 3.2
-|  Scenario 3.2 |Manager user get his information|
+|  Scenario 3.2 |Manager user gets his information|
 | :------------: | :------------------------------------------------------------------------: |
 |Precondition| Post condition of UC1 |
 | Post condition | User get the desidered information|
@@ -450,6 +450,90 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 |Step#|Description|
 |1| Manager enters the code of the product which is sold and the sellingDate|
 |2| The system checks the code and the selling date. The product has already been sold so the system returns error. |
+
+
+### Use case 9, UC9 "Fetch products"
+| Actors Involved  | Manager|
+| :--------------: |:------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |List of products requested returned|
+| Nominal Scenario |9.1|
+|     Variants     |9.2, 9.3, 9.4|
+|    Exceptions    |9.5|
+
+##### Scenario 9.1
+|  Scenario 9.1 |Fetch all products, eventually filtered in sold or not sold|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |List of requested products returned|
+|Step#|Description|8.2, 8.3, 8.4, 8.5
+|1| Manager asks for the list of all products, eventually asking for sold or not|
+|2| The system searchs all the products, filter in sold or not if specified, and returns the list.|
+
+##### Scenario 9.2
+|  Scenario 9.2 |Fetch products of a specific category|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |List of requested products returned|
+|Step#|Description|
+|1| Manager asks for the list of all products of a specific category, eventually asking for sold or not|
+|2| The system searchs all the products of the specified category, filter in sold or not if specified, and returns the list.|
+
+##### Scenario 9.3
+|  Scenario 9.3 |Fetch products of a specific model|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |List of requested products returned|
+|Step#|Description|
+|1| Manager asks for the list of all products of a specific model, eventually asking for sold or not|
+|2| The system searchs all the products of the specified model, filter in sold or not if specified, and returns the list.|
+
+##### Scenario 9.4
+|  Scenario 9.4 |Fetch products by their unique codes|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |List of requested products returned|
+|Step#|Description|
+|1| Manager asks for the list of products by their code|
+|2| The system searchs all the products bu their code. They are all found|
+|3|The system returns the list of products|
+
+##### Scenario 9.5
+|  Scenario 9.5 |Fetch products by their unique codes but the code is not found|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |Returns the list of products by their code found|
+|Step#|Description|
+|1| Manager asks for the list of products by their code|
+|2| The system searchs all the products bu their code. Some (or all) of them are not found so the system gives the warning.|
+|3|The system returns the list of product found|
+
+### Use case 10, UC10 "Delete product by its code"
+| Actors Involved  | Manager|
+| :--------------: |:------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is deleted|
+| Nominal Scenario |10.1|
+|     Variants     ||
+|    Exceptions    |10.2|
+
+##### Scenario 10.1
+|  Scenario 10.1 |Delete a product by its code|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is deleted|
+|Step#|Description|
+|1| Manager asks to delete a product by its code|
+|2| The system searchs the product by its code and delete it.|
+
+##### Scenario 10.2
+|  Scenario 10.2 |Delete a product by its code but the code is not found|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |Post condition of UC1.2|
+|  Post condition  |The product is not deleted|
+|Step#|Description|
+|1| Manager asks to delete a product by its code|
+|2| The system searchs the product by its code. The code is not found so the system returns error.|
 
 
 # Glossary
