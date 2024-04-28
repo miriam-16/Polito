@@ -253,19 +253,113 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 |1|User asks for its informations|
 |2|The system search the information of the user. The system gives the information. 
 
-
-### Use case 4, UC4 "Create a new product"
-| Actors Involved  |Manager|
+### Use case 4, UC4 "Creation of a new account"
+| Actors Involved  |User|
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | Post condition of UC1.2  |
-|  Post condition  | A new product is added|
+|   Precondition   |The user account doesn't already exist|
+|  Post condition  |The user has an account now|
 | Nominal Scenario |4.1|
 |     Variants     ||
-|    Exceptions    |4.2 (the code already exists), 4.3 (arrivalDate inconsistent)|
+|    Exceptions    |4.2|
 
-### Use case x, UCx
+##### Scenario 4.1
+|  Scenario 4.1  |Create a new account|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| The user account doesn't already exist |
+| Post condition | User has an account now|
+|Step#|Description|
+|1|User gives his information requested for creating an account|
+|2|The system checks for the information and create new user's account|
 
-..
+##### Scenario 4.2
+|  Scenario 4.2  |Create a new account but username already exists|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition|The user account doesn't already exist |
+| Post condition | User account is not created|
+|Step#|Description|
+|1|User gives his information requested for creating an account|
+|2|The system checks for the information. It finds an account with the same username|
+
+### Use case 5, UC5 "Fetch users"
+| Actors Involved  | Admin|
+| :--------------: |:------------------------------------------------------------------: |
+|   Precondition   ||
+|  Post condition  |List of users is retrieved|
+| Nominal Scenario |5.1. 5.3|
+|     Variants     |5.2||
+|    Exceptions    |5.4|
+
+##### Scenario 5.1
+|  Scenario 5.1  |Fetch a list of all users|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| |
+| Post condition |List of all users retrieved |
+|Step#|Description|
+|1|Admin asks for the list of all users|
+|2|The system searchs all the users and returns the list.|
+
+##### Scenario 5.2
+|  Scenario 5.2  |Fetch a list of all users by role|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| |
+| Post condition |List of all users with a certain role retrieved |
+|Step#|Description|
+|1|Admin asks for the list of all users of  certain role|
+|2|The system searchs the users requested and returns the list.|
+
+##### Scenario 5.3
+|  Scenario 5.3  |Fetch a user by its username|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| |
+| Post condition |User with the given username retrieved|
+|Step#|Description|
+|1|Admin asks for an user with the specified username|
+|2|The system searchs the user requested and returns its account.|
+
+##### Scenario 5.4
+|  Scenario 5.3  |Fetch a user by its username but the username is not found|
+| :------------: | :------------------------------------------------------------------------: |
+|Precondition| |
+| Post condition |No information are provided|
+|Step#|Description|
+|1|Admin asks for an user with the specified username|
+|2|The system searchs the user requested. It is not found.|
+
+### Use case 6, UC6 "Delete an user by its username"
+| Actors Involved  | Admin|
+| :--------------: |:------------------------------------------------------------------: |
+|   Precondition   |The user account with specified username exists|
+|  Post condition  |The user account doesn't exists anymore|
+| Nominal Scenario |6.1|
+|     Variants     ||
+|    Exceptions    |6.2|
+
+##### Scenario 6.1
+|  Scenario 6.1  |Delete an user by its username|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |The user account with specified username exists|
+|  Post condition  |The user account doesn't exist anymore|
+|Step#|Description|
+|1|Admin requests to delete the account of the user with the specified username|
+|2|The system searchs the user requested and delete it.|
+
+##### Scenario 6.2
+|  Scenario 6.2  |Delete an user by its username but it is not found|
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |The user account with specified username exists|
+|  Post condition  |Username not found, no operation|
+|Step#|Description|
+|1|Admin requests to delete the account of the user with the specified username|
+|2|The system searchs the user requested. It is not found so the account can't be deleted|
+
+### Use case 7, UC7 "Register a new product"
+| Actors Involved  | Manager|
+| :--------------: |:------------------------------------------------------------------: |
+|   Precondition   |The future product of the manager doesn't already exists|
+|  Post condition  |The product of the manager is registered|
+| Nominal Scenario |7.1, 7.3|
+|     Variants     ||
+|    Exceptions    |7.2|
 
 # Glossary
 
