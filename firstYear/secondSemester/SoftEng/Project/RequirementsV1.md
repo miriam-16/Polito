@@ -93,28 +93,24 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 ||**Manage session**|
 | FR1 | Allow users to log in|
 | FR2 | Allow users to log out|
-| FR3 | Fetch information of the logged user|
 ||**Manage user**|
+| FR3 | Fetch information of the logged user|
 | FR4 | Create a new user|
-| FR5 | ~~Fetch a list of all users~~|
-| FR6 | ~~Fetch a list of all users by role~~|
-| FR7 | ~~Fetch a user from username~~|
-| FR8 | ~~Delete a specific user by username~~|
 || **Product Management**|
-| FR9 | Creating new products|
-| FR10 | Registering the arrivals of products that have the same model|
-| FR11 | Updating the status of the product sale|
-| FR12 | Fetching all products in the database|
-| FR13 | Fetch products by their unique code|
-| FR14 | Fetch products in a specific category|
-| FR15 | Fetch products with a specific model|
-| FR16 | Delete a product by its unique code|
+| FR5 | Creating new products|
+| FR6 | Registering the arrivals of products that have the same model|
+| FR7 | Updating the status of the product sale|
+| FR8 | Fetching all products in the database|
+| FR9 | Fetch products by their unique code|
+| FR10 | Fetch products in a specific category|
+| FR11 | Fetch products with a specific model|
+| FR12 | Delete a product by its unique code|
 ||**Manage cart**|
-| FR17 | Fetch the current cart of the logged user|
-| FR18 | Add a product to the current cart of the logged user|
-| FR19 | Pays for the current cart of the logged user|
-| FR20 | Fetch the history of the paid carts of the logged user|
-| FR21 | Delete the current cart of the logged user|
+| FR13 | Fetch the current cart of the logged user|
+| FR14 | Add a product to the current cart of the logged user|
+| FR15 | Pays for the current cart of the logged user|
+| FR16 | Fetch the history of the paid carts of the logged user|
+| FR17 | Delete the current cart of the logged user|
 
 
 ## Non Functional Requirements
@@ -283,84 +279,14 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 |2|The system checks for the information. It finds an account with the same username|
 |3|The system gives error and can't create a new account|
 
-==5 and 6 TO REMOVE==
-### Use case 5, UC5 "Fetch users"
-| Actors Involved  | Admin|
-| :--------------: |:------------------------------------------------------------------: |
-|   Precondition   ||
-|  Post condition  |List of users is retrieved|
-| Nominal Scenario |5.1. 5.3|
-|     Variants     |5.2||
-|    Exceptions    |5.4|
+==Insert here the cart requirements==
 
-##### Scenario 5.1
-|  Scenario 5.1  |Fetch a list of all users|
-| :------------: | :------------------------------------------------------------------------: |
-|Precondition| |
-| Post condition |List of all users retrieved |
-|Step#|Description|
-|1|Admin asks for the list of all users|
-|2|The system searchs all the users and returns the list.|
-
-##### Scenario 5.2
-|  Scenario 5.2  |Fetch a list of all users by role|
-| :------------: | :------------------------------------------------------------------------: |
-|Precondition| |
-| Post condition |List of all users with a certain role retrieved |
-|Step#|Description|
-|1|Admin asks for the list of all users of  certain role|
-|2|The system searchs the users requested and returns the list.|
-
-##### Scenario 5.3
-|  Scenario 5.3  |Fetch a user by its username|
-| :------------: | :------------------------------------------------------------------------: |
-|Precondition| |
-| Post condition |User with the given username retrieved|
-|Step#|Description|
-|1|Admin asks for an user with the specified username|
-|2|The system searchs the user requested and returns its account.|
-
-##### Scenario 5.4
-|  Scenario 5.3  |Fetch a user by its username but the username is not found|
-| :------------: | :------------------------------------------------------------------------: |
-|Precondition| |
-| Post condition |No information are provided|
-|Step#|Description|
-|1|Admin asks for an user with the specified username|
-|2|The system searchs the user requested. It is not found. The system returns error. |
-
-### Use case 6, UC6 "Delete an user by its username"
-| Actors Involved  | Admin|
-| :--------------: |:------------------------------------------------------------------: |
-|   Precondition   |The user account with specified username exists|
-|  Post condition  |The user account doesn't exists anymore|
-| Nominal Scenario |6.1|
-|     Variants     ||
-|    Exceptions    |6.2|
-
-##### Scenario 6.1
-|  Scenario 6.1  |Delete an user by its username|
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |The user account with specified username exists|
-|  Post condition  |The user account doesn't exist anymore|
-|Step#|Description|
-|1|Admin requests to delete the account of the user with the specified username|
-|2|The system searchs the user requested and delete it.|
-
-##### Scenario 6.2
-|  Scenario 6.2  |Delete an user by its username but it is not found|
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |The user account with specified username exists|
-|  Post condition  |Username not found, no operation|
-|Step#|Description|
-|1|Admin requests to delete the account of the user with the specified username|
-|2|The system searchs the user requested. It is not found so the account can't be deleted|
 
 ### Use case 7, UC7 "Register a new product"
 | Actors Involved  | Manager|
 | :--------------: |:------------------------------------------------------------------: |
 |   Precondition   |Post condition of UC1.2|
-|  Post condition  |The product of the manager is registered|
+|  Post condition  ||
 | Nominal Scenario |7.1|
 |     Variants     |7.4|
 |    Exceptions    |7.2, 7.3|
@@ -371,7 +297,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 |   Precondition   |Post condition of UC1.2|
 |  Post condition  |The product of the manager is registered|
 |Step#|Description|
-|1|Manager inserts all the requested information (code, model, category, selling price, arrivalDate, ..) for adding a new product|
+|1|Manager enters all the requested information (code, model, category, selling price, arrivalDate, ..) for adding a new product|
 |2|The system check and store the information. Product added|
 
 ##### Scenario 7.2
@@ -396,7 +322,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 |  Scenario 7.4  |Register a set of products of the same model|
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |Post condition of UC1.2|
-|  Post condition  |The set of product is registered|
+|  Post condition  |The set of products is registered|
 |Step#|Description|
 |1|Manager enters the requested information (model, category, selling price, arrivalDate, ..) for adding a set of product of the same model
 |2|The system check and store the information. Products added|
@@ -405,7 +331,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 | Actors Involved  | Manager|
 | :--------------: |:------------------------------------------------------------------: |
 |   Precondition   |Post condition of UC1.2|
-|  Post condition  |The product is registered as sold|
+|  Post condition  ||
 | Nominal Scenario |8.1|
 |     Variants     ||
 |    Exceptions    |8.2, 8.3, 8.4, 8.5|
@@ -460,7 +386,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 | Actors Involved  | Manager|
 | :--------------: |:------------------------------------------------------------------: |
 |   Precondition   |Post condition of UC1.2|
-|  Post condition  |List of products requested returned|
+|  Post condition  ||
 | Nominal Scenario |9.1|
 |     Variants     |9.2, 9.3, 9.4|
 |    Exceptions    |9.5|
@@ -470,7 +396,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |Post condition of UC1.2|
 |  Post condition  |List of requested products returned|
-|Step#|Description|8.2, 8.3, 8.4, 8.5
+|Step#|Description|
 |1| Manager asks for the list of all products, eventually asking for sold or not|
 |2| The system searchs all the products, filter in sold or not if specified, and returns the list.|
 
@@ -478,7 +404,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 |  Scenario 9.2 |Fetch products of a specific category|
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |Post condition of UC1.2|
-|  Post condition  |List of requested products returned|
+|  Post condition  |List of products filtered by category returned|
 |Step#|Description|
 |1| Manager asks for the list of all products of a specific category, eventually asking for sold or not|
 |2| The system searchs all the products of the specified category, filter in sold or not if specified, and returns the list.|
@@ -487,7 +413,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 |  Scenario 9.3 |Fetch products of a specific model|
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |Post condition of UC1.2|
-|  Post condition  |List of requested products returned|
+|  Post condition  |List of products filtered by model returned|
 |Step#|Description|
 |1| Manager asks for the list of all products of a specific model, eventually asking for sold or not|
 |2| The system searchs all the products of the specified model, filter in sold or not if specified, and returns the list.|
