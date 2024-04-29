@@ -1,15 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Col, Container, Row } from 'react-bootstrap';
+import NavigationBar from './components/NavigationBar';
+import QuestionComponent from './components/Question';
+import {Question, Answer} from './QAModels.mjs';
+import { Answers } from './components/AnswerComponents';
+
+const fakeQuestion = new Question(1, 'What is your name?', 'juan@polito.it', '2024-02-07')
+fakeQuestion.init();
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <h1>Hello world</h1>
-    </>
+    <Container>
+      <NavigationBar qtnnumber={1} />
+      <QuestionComponent qtnnumber={fakeQuestion.id} question={fakeQuestion.text} email={fakeQuestion.email}></QuestionComponent>
+      <Answers answers={fakeQuestion.getAnswers()}></Answers>
+    </Container>
   )
 }
 
