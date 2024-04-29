@@ -96,10 +96,10 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 | FR3 | Fetch information of the logged user|
 ||**Manage user**|
 | FR4 | Create a new user|
-| FR5 | Fetch a list of all users|
-| FR6 | Fetch a list of all users by role|
-| FR7 | Fetch a user from username|
-| FR8 | Delete a specific user by username|
+| FR5 | ~~Fetch a list of all users~~|
+| FR6 | ~~Fetch a list of all users by role~~|
+| FR7 | ~~Fetch a user from username~~|
+| FR8 | ~~Delete a specific user by username~~|
 || **Product Management**|
 | FR9 | Creating new products|
 | FR10 | Registering the arrivals of products that have the same model|
@@ -125,8 +125,8 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 | :-----: | :--------------------------------: | :---------: | :-------: |
 |  NFR1   |Portability|Available for different types of browsers(Chrome, Safari, etc.) ||
 |  NFR2   |Security|The data of the user are protected and no one can access to his carts|FR1 - FR3; FR17 - FR21|
-|  NFR3   |                                    |             |           |
-| NFRx .. |                                    |             |           |
+|  NFR3   |Efficiency|Each function must be less then 0.05 sec|           |
+
 
 # Use case diagram and use cases
 
@@ -141,10 +141,12 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 | Actors Involved  |User (Manager and Customer)|
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   | User has an account |
-|  Post condition  |  User accesses to his personal area|
+|  Post condition  ||
 | Nominal Scenario |1.1|
 |     Variants     |1.2|
 |    Exceptions    |1.3 (wrong password), 1.4 (unknown username)|
+
+NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to the version 2.
 
 ##### Scenario 1.1
 
@@ -215,7 +217,7 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 | Post condition | User exit from its account|
 |Step#|Description|
 |1|User asks to exit|
-|2|The system logs out the user
+|2|The system logs out the user|
 
 ##### Scenario 2.2
 |  Scenario 2.2  |Manager user logs out|
@@ -224,13 +226,13 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 | Post condition | User exit from its account|
 |Step#|Description|
 |1|User asks to exit|
-|2|The system logs out the user
+|2|The system logs out the user|
 
-### Use case 3, UC3 "Get information of the logged user"
+### Use case 3, UC3 "User get his information"
 | Actors Involved  |User (Manager and Customer)|
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   | Post condition of UC1  |
-|  Post condition  | Retrieved information of the user|
+|  Post condition  | User retrieved desidered information|
 | Nominal Scenario |3.1|
 |     Variants     |3.2|
 |    Exceptions    ||
@@ -238,26 +240,26 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 ##### Scenario 3.1
 |  Scenario 3.1  |Customer user gets his information|
 | :------------: | :------------------------------------------------------------------------: |
-|Precondition| Post condition of UC1 |
+|Precondition| Post condition of UC1.1 |
 | Post condition | User get the desidered information|
 |Step#|Description|
-|1|User asks for its informations|
-|2|The system search the information of the user. The system gives the information. 
+|1|User asks for his informations|
+|2|The system search the information of the user. The system gives the requested information. 
 
 ##### Scenario 3.2
 |  Scenario 3.2 |Manager user gets his information|
 | :------------: | :------------------------------------------------------------------------: |
-|Precondition| Post condition of UC1 |
+|Precondition| Post condition of UC1.2 |
 | Post condition | User get the desidered information|
 |Step#|Description|
-|1|User asks for its informations|
-|2|The system search the information of the user. The system gives the information. 
+|1|User asks for his informations|
+|2|The system search the information of the user. The system gives the requested information. 
 
 ### Use case 4, UC4 "Creation of a new account"
 | Actors Involved  |User|
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |The user account doesn't already exist|
-|  Post condition  |The user has an account now|
+|  Post condition  ||
 | Nominal Scenario |4.1|
 |     Variants     ||
 |    Exceptions    |4.2|
@@ -279,7 +281,9 @@ Giuseppe Verdi is a manager of an electronics store. He wants to sell his produc
 |Step#|Description|
 |1|User gives his information requested for creating an account|
 |2|The system checks for the information. It finds an account with the same username|
+|3|The system gives error and can't create a new account|
 
+==5 and 6 TO REMOVE==
 ### Use case 5, UC5 "Fetch users"
 | Actors Involved  | Admin|
 | :--------------: |:------------------------------------------------------------------: |
