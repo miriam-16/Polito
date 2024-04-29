@@ -483,3 +483,4 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 # Deployment Diagram
 
 \<describe here deployment diagram >
+![deployment_diagram.drawio](https://i.imgur.com/8LigqGH.png)
