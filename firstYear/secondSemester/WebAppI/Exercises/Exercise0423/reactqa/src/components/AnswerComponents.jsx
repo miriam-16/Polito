@@ -10,7 +10,7 @@ function Answers(props) {
       </Row>
       <Row>
         <Col lg={10} className="mx-auto">
-          <AnswerTable answers={props.answers}></AnswerTable>
+          <AnswerTable answers={props.answers} deleteAnswer={props.deleteAnswer}></AnswerTable>
         </Col> 
       </Row>
     </>
@@ -49,7 +49,10 @@ AnswerTable.propTypes = {
 
 function AnswerRow(props) {
   return(
-    <tr><AnswerData answer={props.answer}/><AnswerActions /></tr>
+    <tr>
+      <AnswerData answer={props.answer}/>
+      <AnswerActions  deleteAnswer={props.deleteAnswer} id={props.answer.id} voteUp={props.voteUp}/>
+    </tr>
   );
 }
 
@@ -72,11 +75,11 @@ AnswerData.propTypes = {
   answer: PropTypes.object
 }
 
-function AnswerActions() {
+function AnswerActions(props) {
   return <td>
-    <Button variant='warning'><ArrowUp/></Button>
+    <Button variant='warning' onClick={()=> {props.voteUp(props.id)}}><ArrowUp/></Button>
     <Button variant='primary' className='mx-1'><PencilSquare/></Button> 
-    <Button variant='danger'><Trash/></Button>
+    <Button variant='danger' onClick={() => {props.deleteAnswer(props.id)}}><Trash/></Button>
   </td>
 }
 
