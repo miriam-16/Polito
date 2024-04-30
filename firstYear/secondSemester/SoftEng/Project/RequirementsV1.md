@@ -160,7 +160,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 | Post condition | Customer accesses to his personal area|
 |Step#|Description|
 |1|User enters account username and password|
-|2|The system looks for account name and password. Match ok|
+|2|The system looks for account username and password. Match ok|
 |3|User logs in as customer|
 
 ##### Scenario 1.2
@@ -170,7 +170,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 | Post condition | Manager accesses to his personal area|
 |Step#|Description|
 |1|User enters account username and password|
-|2|The system looks for account name and password. Match ok|
+|2|The system looks for account username and password. Match ok|
 |3|User logs in as customer|
 
 ##### Scenario 1.3
@@ -200,7 +200,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 ### Use case 2, UC2 "Log out"
 | Actors Involved  |User (Manager and Customer)|
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | Post condition of UC1  |
+|   Precondition   | User is logged in |
 |  Post condition  |  User logs out from the software|
 | Nominal Scenario |2.1|
 |     Variants     |2.2|
@@ -209,7 +209,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 ##### Scenario 2.1
 |  Scenario 2.1  |Customer user logs out|
 | :------------: | :------------------------------------------------------------------------: |
-|Precondition| Post condition of UC1 |
+|Precondition| Post condition of UC1.1 |
 | Post condition | User exit from its account|
 |Step#|Description|
 |1|User asks to exit|
@@ -218,7 +218,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 ##### Scenario 2.2
 |  Scenario 2.2  |Manager user logs out|
 | :------------: | :------------------------------------------------------------------------: |
-|Precondition| Post condition of UC1 |
+|Precondition| Post condition of UC1.2 |
 | Post condition | User exit from its account|
 |Step#|Description|
 |1|User asks to exit|
@@ -383,9 +383,9 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 
 
 ### Use case 9, UC9 "Fetch products"
-| Actors Involved  | Manager|
+| Actors Involved  | Manager, Customer|
 | :--------------: |:------------------------------------------------------------------: |
-|   Precondition   |Post condition of UC1.2|
+|   Precondition   |User is logged in|
 |  Post condition  ||
 | Nominal Scenario |9.1|
 |     Variants     |9.2, 9.3, 9.4|
@@ -394,7 +394,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 ##### Scenario 9.1
 |  Scenario 9.1 |Fetch all products, eventually filtered in sold or not sold|
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |Post condition of UC1.2|
+|   Precondition   |User is logged in|
 |  Post condition  |List of requested products returned|
 |Step#|Description|
 |1| Manager asks for the list of all products, eventually asking for sold or not|
@@ -403,7 +403,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 ##### Scenario 9.2
 |  Scenario 9.2 |Fetch products of a specific category|
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |Post condition of UC1.2|
+|   Precondition   |User is logged in|
 |  Post condition  |List of products filtered by category returned|
 |Step#|Description|
 |1| Manager asks for the list of all products of a specific category, eventually asking for sold or not|
@@ -412,7 +412,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 ##### Scenario 9.3
 |  Scenario 9.3 |Fetch products of a specific model|
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |Post condition of UC1.2|
+|   Precondition   |User is logged in|
 |  Post condition  |List of products filtered by model returned|
 |Step#|Description|
 |1| Manager asks for the list of all products of a specific model, eventually asking for sold or not|
@@ -421,7 +421,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 ##### Scenario 9.4
 |  Scenario 9.4 |Fetch products by their unique codes|
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |Post condition of UC1.2|
+|   Precondition   |user is logged in|
 |  Post condition  |List of requested products returned|
 |Step#|Description|
 |1| Manager asks for the list of products by their code|
@@ -431,7 +431,7 @@ NOTE: Exceptions are not mentioned in APIs. So I could ignore them and add to th
 ##### Scenario 9.5
 |  Scenario 9.5 |Fetch products by their unique codes but the code is not found|
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |Post condition of UC1.2|
+|   Precondition   |User is logged in|
 |  Post condition  |Returns the list of products by their code found|
 |Step#|Description|
 |1| Manager asks for the list of products by their code|
