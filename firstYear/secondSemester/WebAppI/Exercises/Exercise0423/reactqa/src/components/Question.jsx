@@ -1,24 +1,30 @@
 import { Container, Col, Row } from "react-bootstrap";
 import PropTypes from 'prop-types';
+import { useState } from "react";
 
 
 function QuestionComponent(props) {
+
 
   const number = props.qtnnumber;
   const question = props.question;
   const email = props.email
 
+
   return (
     <Container>
       <Row>
-        <Col md={4}>
+        <Col md={3}>
           <p>{number}</p>
         </Col>
-        <Col md={4}>
+        <Col md={3}>
           <p>{question}</p>
         </Col>
-        <Col md={4}>
+        <Col md={3}>
           <p>{email}</p>
+        </Col>
+        <Col onClick={props.increaseLikes}>
+          <p>Likes: {likes}</p>
         </Col>
       </Row>
     </Container>
