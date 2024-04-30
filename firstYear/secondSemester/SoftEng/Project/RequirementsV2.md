@@ -101,7 +101,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR5 |Payment for premium service|
 | FR6 |Update the information of the user|
 || **Product Management**|
-| FR7 | Creating new products|
+| FR7 | Creating new product|
 | FR8 | Registering the arrivals of products that have the same model|
 | FR9 | Updating the status of the product sale|
 | FR10 | Fetching all products in the database|
