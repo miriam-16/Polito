@@ -48,7 +48,9 @@ def hist_plot(D, L, name):
         plt.savefig('output/%s_hist_%d.png' % (name, (dIdx+1)))
     #plt.show()
 
-def scatter_plot(D, L):
+
+
+def scatter_plot(D, L, name):
     D0 = D[:, L==0]
     D1 = D[:, L==1]
 
@@ -68,7 +70,7 @@ def scatter_plot(D, L):
     plt.scatter(D1[x, :], D1[y, :], alpha=0.5, label = 'Genuine')
     plt.legend()
     plt.tight_layout()
-    plt.savefig('output/scatter_%d_%d.png' % (x,y))
+    plt.savefig('output/%s_scatter_%d_%d.png' % (name, x,y))
         #plt.show()
 
 
@@ -131,6 +133,7 @@ if __name__ == '__main__':
     D, L = load('trainData.txt')
     DP = pca(D,L)
     hist_plot(DP, L, 'pca')
+    scatter_plot(DP, L, 'pca')
 
-    W = lda(D, L)
-    hist_plot(W, L, 'lda')
+"""     W = lda(D, L)
+    hist_plot(W, L, 'lda') """

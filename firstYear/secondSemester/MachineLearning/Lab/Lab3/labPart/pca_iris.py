@@ -78,7 +78,7 @@ if __name__ == '__main__':
     print("U")
     print(U)
 
-    m = 2
+    m = 4
 
     P = U[:,::-1][:, 0:m]
     # U, s, Vh = numpy.linalg.svd(C)
