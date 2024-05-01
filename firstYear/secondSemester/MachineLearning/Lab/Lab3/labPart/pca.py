@@ -18,7 +18,6 @@ import matplotlib.pyplot as plt
 import scipy.linalg
 
 def load_iris():
-
     import sklearn.datasets
     return sklearn.datasets.load_iris()['data'].T, sklearn.datasets.load_iris()['target']
 
@@ -42,6 +41,25 @@ def compute_pca(D, m):
 
 def apply_pca(P, D):
     return P.T @ D
+
+def plot_histogram(D, L):
+    hFea = {
+        0: 'Sepal length',
+        1: 'Sepal width',
+        2: 'Petal length',
+        3: 'Petal width'
+    }
+    for i in range(D.shape[0]):
+        plt.figure()
+        plt.hist(D[i, L==0], alpha=0.5, label='Setosa')
+        plt.hist(D[i, L==1], alpha=0.5, label='Versicolor')
+        plt.hist(D[i, L==2], alpha=0.5, label='Virginica')
+        plt.xlabel(hFea[i])
+        plt.ylabel('Frequency')
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig('histogram_%d.pdf' % i)
+        #plt.show()
     
 
 if __name__ == '__main__':
@@ -54,3 +72,4 @@ if __name__ == '__main__':
     print(P)
     PSol = numpy.load('IRIS_PCA_matrix_m4.npy') # May have different signs for the different directions
     print(PSol)
+    plot_histogram(apply_pca(P, D), L)

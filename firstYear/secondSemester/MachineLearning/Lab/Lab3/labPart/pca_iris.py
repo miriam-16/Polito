@@ -63,9 +63,9 @@ def plot_histogram(D, L):
     }
     for i in range(D.shape[0]):
         plt.figure()
-        plt.hist(D[i, L==0], bins='10', alpha=0.5, label='Setosa')
-        plt.hist(D[i, L==1], bins='10', alpha=0.5, label='Versicolor')
-        plt.hist(D[i, L==2], bins='10', alpha=0.5, label='Virginica')
+        plt.hist(D[i, L==0], alpha=0.5, label='Setosa')
+        plt.hist(D[i, L==1], alpha=0.5, label='Versicolor')
+        plt.hist(D[i, L==2], alpha=0.5, label='Virginica')
         plt.xlabel(hFea[i])
         plt.ylabel('Frequency')
         plt.legend()
@@ -99,7 +99,7 @@ if __name__ == '__main__':
     print("U")
     print(U)
 
-    m = 2
+    m = 4
 
     P = U[:,::-1][:, 0:m]
     # U, s, Vh = numpy.linalg.svd(C)
