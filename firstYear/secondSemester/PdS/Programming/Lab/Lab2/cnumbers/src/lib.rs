@@ -1,5 +1,3 @@
-use std::ops::Add;
-
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
@@ -16,7 +14,7 @@ mod tests {
 }
 
 pub mod solution {
-    use std::ops::Add;
+    use std::ops::{Add, AddAssign};
 
     pub struct ComplexNumber {
         real: f64,
@@ -41,7 +39,7 @@ pub mod solution {
         }
 
         pub fn to_tuple(&self) -> (f64, f64) {
-            return (self.real, self.imag);
+            (self.real, self.imag)
         }
     }
 
@@ -52,6 +50,42 @@ pub mod solution {
                 real: self.real + rhs.real,
                 imag: self.imag + rhs.imag,
             }
+        }
+    }
+
+    impl Add<f64> for ComplexNumber {
+        type Output = ComplexNumber;
+
+        fn add(self, rhs: f64) -> ComplexNumber {
+            ComplexNumber {
+                real: self.real + rhs,
+                imag: self.imag,
+            }
+        }
+    }
+
+    impl AddAssign for ComplexNumber {
+        fn add_assign(&mut self, rhs: Self) {
+            self.real = self.real + rhs.real;
+            self.imag = self.imag + rhs.imag;
+        }
+    }
+
+    impl Add<&ComplexNumber> for ComplexNumber {
+        type Output = ComplexNumber;
+        fn add(self, rhs: &ComplexNumber) -> ComplexNumber {
+            ComplexNumber {
+                real: self.real + rhs.real,
+                imag: self.imag + self.imag,
+            }
+        }
+    }
+
+    impl<'a, 'b> Add<&'b ComplexNumber> for &'a ComplexNumber {
+        type Output = ComplexNumber;
+
+        fn add(self, other: &'b ComplexNumber) -> ComplexNumber {
+            ComplexNumber::new(self.real() + other.real(), self.imag() + other.imag())
         }
     }
 }

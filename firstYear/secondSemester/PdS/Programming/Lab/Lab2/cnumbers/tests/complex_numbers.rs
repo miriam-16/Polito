@@ -31,7 +31,6 @@ pub fn test_add() {
     assert_eq!(c.to_tuple(), (2.0, 4.0));
 }
 
-/*
 #[test]
 pub fn test_add_with_real() {
     // set RHS (rihgt hand side) type for Add!!! It's default value is Self, but it can be changed to anything
@@ -40,11 +39,10 @@ pub fn test_add_with_real() {
 
     assert_eq!(b.to_tuple(), (11.0, 2.0))
 }
-
 #[test]
 pub fn test_inc_add() {
     let mut a = ComplexNumber::new(1.0, 2.0);
-    a +=  ComplexNumber::new(2.0, 4.0);
+    a += ComplexNumber::new(2.0, 4.0);
 
     assert_eq!(a.to_tuple(), (3.0, 6.0))
 }
@@ -64,9 +62,15 @@ pub fn test_add_with_reference() {
 #[test]
 pub fn test_add_reference_with_reference() {
     // write yourself the test and adjust traits
-    assert!(true);
+    let a = ComplexNumber::new(1.0, 2.0);
+    let b = ComplexNumber::new(1.0, 2.0);
+
+    let c = &a + &b;
+
+    assert_eq!(c.to_tuple(), (2.0, 4.0))
 }
 
+/*
 
 #[test]
 pub fn test_enable_copy(){
