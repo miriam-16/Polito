@@ -1,4 +1,4 @@
-use complex_numbers::solution::ComplexNumber;
+use cnumbers::solution::ComplexNumber;
 
 // for this execise see https://doc.rust-lang.org/beta/std/primitive.f64.html
 // you can find examples for all the traits that must be implemented
@@ -10,7 +10,7 @@ pub fn test_create() {
     assert_eq!(a.imag(), 2.0);
 }
 
-/* #[test]
+#[test]
 pub fn test_create_from_real() {
     let a = ComplexNumber::from_real(10.0);
     assert_eq!(a.real(), 10.0);
@@ -31,6 +31,7 @@ pub fn test_add() {
     assert_eq!(c.to_tuple(), (2.0, 4.0));
 }
 
+/*
 #[test]
 pub fn test_add_with_real() {
     // set RHS (rihgt hand side) type for Add!!! It's default value is Self, but it can be changed to anything
