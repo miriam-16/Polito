@@ -58,7 +58,6 @@ pub fn test_add_with_reference() {
     assert_eq!(c.to_tuple(), (2.0, 4.0))
 }
 
-
 #[test]
 pub fn test_add_reference_with_reference() {
     // write yourself the test and adjust traits
@@ -70,10 +69,8 @@ pub fn test_add_reference_with_reference() {
     assert_eq!(c.to_tuple(), (2.0, 4.0))
 }
 
-/*
-
 #[test]
-pub fn test_enable_copy(){
+pub fn test_enable_copy() {
     // why this code won't compile? Read carefully the error message
     // what do we nee to do to make it work?
     let a = ComplexNumber::new(1.0, 2.0);
@@ -81,8 +78,9 @@ pub fn test_enable_copy(){
     let b = a + a;
 
     assert_eq!(b.to_tuple(), (2.0, 4.0));
-}
 
+    // ComplexNumbers now implement traits Copy and Clone, in order to let work this test
+}
 
 #[test]
 pub fn test_default_values() {
@@ -95,14 +93,12 @@ pub fn test_default_values() {
     }
 }
 
-
 #[test]
 pub fn test_convert_into_real() {
     let a = ComplexNumber::from_real(1.0);
     let b: f64 = a.into();
 
     assert_eq!(b, 1.0);
-
 }
 
 #[test]
@@ -121,9 +117,21 @@ pub fn test_panic_when_impossible_to_convert_to_real() {
 pub fn test_try_into_f64() {
     // write trait and a test for the Trait TryInto for converting into f64
     // the test must check both success and error conditions
+    let a = ComplexNumber::new(1.0, 2.0);
+    let b = ComplexNumber::new(3.0, 0.0);
+
+    // Test success condition
+    let a_f64: Result<f64, _> = a.try_into();
+    assert_eq!(a_f64, Ok(1.0));
+
+    // Test error condition
+    let b_f64: Result<f64, _> = b.try_into();
+    assert!(b_f64.is_err());
+
     assert!(true);
 }
 
+/*
 #[test]
 pub fn test_try_form_f64() {
     // write a trait allowing let complex = f64.into()

@@ -16,6 +16,7 @@ mod tests {
 pub mod solution {
     use std::ops::{Add, AddAssign};
 
+    #[derive(Clone, Copy)]
     pub struct ComplexNumber {
         real: f64,
         imag: f64,
@@ -86,6 +87,30 @@ pub mod solution {
 
         fn add(self, other: &'b ComplexNumber) -> ComplexNumber {
             ComplexNumber::new(self.real() + other.real(), self.imag() + other.imag())
+        }
+    }
+
+    impl Default for ComplexNumber {
+        fn default() -> Self {
+            ComplexNumber {
+                real: 0.0,
+                imag: 0.0,
+            }
+        }
+    }
+
+    /* impl Into<f64> for ComplexNumber {
+        fn into(self) -> f64 {
+            self.real
+        }
+    } */
+
+    impl From<ComplexNumber> for f64 {
+        fn from(num: ComplexNumber) -> Self {
+            if num.imag != 0.0 {
+                panic!("Cannot convert ComplexNumber with non-zero imaginary part to f64");
+            }
+            num.real
         }
     }
 }
