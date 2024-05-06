@@ -16,7 +16,7 @@ mod tests {
 pub mod solution {
     use std::ops::{Add, AddAssign};
 
-    #[derive(Clone, Copy)]
+    #[derive(Debug, Clone, Copy)]
     pub struct ComplexNumber {
         real: f64,
         imag: f64,
@@ -41,6 +41,12 @@ pub mod solution {
 
         pub fn to_tuple(&self) -> (f64, f64) {
             (self.real, self.imag)
+        }
+    }
+
+    impl PartialEq for ComplexNumber {
+        fn eq(&self, other: &Self) -> bool {
+            self.real == other.real && self.imag == other.imag
         }
     }
 
@@ -100,17 +106,47 @@ pub mod solution {
     }
 
     /* impl Into<f64> for ComplexNumber {
-        fn into(self) -> f64 {
-            self.real
+           fn into(self) -> f64 {
+               self.real
+           }
+       }
+    */
+
+    /*     impl TryInto<f64> for ComplexNumber {
+        type Error = &'static str;
+        fn try_into(self) -> Result<f64, Self::Error> {
+            if self.real != 0.0 {
+                Ok(self.real)
+            } else {
+                Err("Errore")
+            }
         }
     } */
 
-    impl From<ComplexNumber> for f64 {
-        fn from(num: ComplexNumber) -> Self {
-            if num.imag != 0.0 {
-                panic!("Cannot convert ComplexNumber with non-zero imaginary part to f64");
+    impl TryFrom<ComplexNumber> for f64 {
+        type Error = &'static str;
+
+        fn try_from(value: ComplexNumber) -> Result<Self, Self::Error> {
+            if value.imag != 0.0 {
+                Ok(value.real)
+            } else {
+                Err("Error")
             }
-            num.real
+        }
+    }
+
+    impl TryFrom<f64> for ComplexNumber {
+        type Error = &'static str;
+
+        fn try_from(value: f64) -> Result<Self, Self::Error> {
+            if value != 0.0 {
+                Ok(ComplexNumber {
+                    real: value,
+                    imag: value,
+                })
+            } else {
+                Err("Error")
+            }
         }
     }
 }
