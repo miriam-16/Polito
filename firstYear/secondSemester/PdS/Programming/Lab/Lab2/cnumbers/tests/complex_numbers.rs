@@ -143,18 +143,19 @@ pub fn test_try_from_f64() {
     assert!(b_cn.is_err());
 }
 
-/*
-
 #[test]
 pub fn test_comparison() {
     let c = ComplexNumber::new(3.0, 6.0);
-    let mut v = vec![ComplexNumber::new(1.0, 2.0), ComplexNumber::new(2.0, 4.0), c];
+    let mut v = vec![
+        ComplexNumber::new(1.0, 2.0),
+        ComplexNumber::new(2.0, 4.0),
+        c,
+    ];
 
     v.retain(|el| *el == c);
 
     assert_eq!(v.len(), 1);
 }
-
 
 #[test]
 pub fn test_sorting() {
@@ -166,6 +167,7 @@ pub fn test_sorting() {
     // use cmp from f64 to implement Ord for ComplexNumber
     // However f64 has total_cmp which produces total ordering
     // https://doc.rust-lang.org/beta/std/primitive.f64.html#method.total_cmp
+
 
     let a = ComplexNumber::new(1.0, 2.0);
     let b = ComplexNumber::new(2.0, 4.0);
@@ -179,6 +181,7 @@ pub fn test_sorting() {
     assert_eq!(v[2], c);
 }
 
+/*
 #[test]
 pub fn test_as_ref() {
     // implement AsRef<f64> for ComplexNumber
