@@ -14,8 +14,10 @@ mod tests {
 }
 
 pub mod solution {
-    use std::ops::{Add, AddAssign};
-
+    use std::{
+        hash::{Hash, Hasher},
+        ops::{Add, AddAssign},
+    };
     #[derive(Debug, Clone, Copy)]
     pub struct ComplexNumber {
         real: f64,
@@ -42,11 +44,9 @@ pub mod solution {
         pub fn to_tuple(&self) -> (f64, f64) {
             (self.real, self.imag)
         }
-    }
 
-    impl PartialEq for ComplexNumber {
-        fn eq(&self, other: &Self) -> bool {
-            self.real == other.real && self.imag == other.imag
+        pub fn modulus(&self) -> f64 {
+            f64::sqrt(self.real.powi(2) + self.imag.powi(2))
         }
     }
 
@@ -105,12 +105,11 @@ pub mod solution {
         }
     }
 
-    /* impl Into<f64> for ComplexNumber {
-           fn into(self) -> f64 {
-               self.real
-           }
-       }
-    */
+    /*     impl Into<f64> for ComplexNumber {
+        fn into(self) -> f64 {
+            self.real
+        }
+    } */
 
     /*     impl TryInto<f64> for ComplexNumber {
         type Error = &'static str;
@@ -149,4 +148,52 @@ pub mod solution {
             }
         }
     }
+
+    impl Eq for ComplexNumber {}
+    impl PartialEq for ComplexNumber {
+        fn eq(&self, other: &Self) -> bool {
+            self.real == other.real && self.imag == other.imag
+        }
+    }
+
+    impl Ord for ComplexNumber {
+        fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+            self.modulus().total_cmp(&other.modulus())
+        }
+    }
+
+    impl PartialOrd for ComplexNumber {
+        fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+            Some(self.modulus().total_cmp(&other.modulus()))
+        }
+    }
+
+    impl AsRef<f64> for ComplexNumber {
+        fn as_ref(&self) -> &f64 {
+            &self.real
+        }
+    }
+
+    impl AsMut<f64> for ComplexNumber {
+        fn as_mut(&mut self) -> &mut f64 {
+            &mut self.real
+        }
+    }
+
+    impl Hash for ComplexNumber {
+        fn hash<H: Hasher>(&self, hasher: &mut H) {
+            hasher.write_u64(self.real.to_bits());
+            hasher.write_u64(self.imag.to_bits());
+        }
+    }
+
+    //for single test test_hash_with_hash_map()
+    /*     impl From<f64> for ComplexNumber {
+        fn from(value: f64) -> Self {
+            ComplexNumber {
+                real: value,
+                imag: value,
+            }
+        }
+    } */
 }
