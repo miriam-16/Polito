@@ -13,7 +13,7 @@ fakeQuestion.init();
 function App() {
 
   const [question, setQuestion] = useState({
-    id: fakeQuestion.id,
+    id: fakeQuestion.id, 
     text: fakeQuestion.text,
     email: fakeQuestion.email,
     date: fakeQuestion.date,
@@ -31,7 +31,7 @@ function App() {
 
   // const voteUp = (answerId) => { setQuestion( (oldQuestion) => {return totally new Object,
   //    identical to the previous one (oldQuestion), except for the score of this specific answer}}
-
+  
   const deleteAnswer = (id) => {
     setAnswers(oldAnswers => oldAnswers.filter((a)=>(a.id != id)))
   }
@@ -48,7 +48,7 @@ function App() {
   }
   */
 
-  const voteUp = id => { setAnswers(oldAnswers =>
+  const voteUp = id => { setAnswers(oldAnswers => 
     oldAnswers.map( a => a.id==id ? {...a, score: a.score+1} : a))}
 
   return (
