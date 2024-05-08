@@ -48,6 +48,24 @@ function App() {
   }
   */
 
+  const addAnswer = (answer) =>{
+    setAnswers((oldAnswers) => {
+      const newId = Math.max(...oldAnswers.map(ans=>ans.id))+1;
+      const newAnswer = new Answer(newId, answer.text, answer.email, answer.data, 0);
+      return [...oldAnswers, newAnswer];
+    })
+  }
+
+  const updateAnswer = (answer) => {
+    setAnswers(oldAnswers => {
+      return oldAnswers.map((ans) => {
+        if(ans.id === answer.id){
+          return new Answer(answer.id, answer.text, answer.email, answer.date, ans.score);
+        } else return ans;
+      });
+    });
+  }
+
   const voteUp = id => { setAnswers(oldAnswers =>
     oldAnswers.map( a => a.id==id ? {...a, score: a.score+1} : a))}
 
@@ -55,7 +73,7 @@ function App() {
     <Container>
       <NavigationBar qtnnumber={1} />
       <QuestionComponent likes={likes} increaseLikes={increaseLikes} qtnnumber={question.id} question={question.text} email={question.email}></QuestionComponent>
-      <Answers answers={answers} deleteAnswer={deleteAnswer} voteUp={voteUp}></Answers>
+      <Answers answers={answers} deleteAnswer={deleteAnswer} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer}></Answers>
     </Container>
   )
 }

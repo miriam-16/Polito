@@ -5,6 +5,14 @@ import { useState } from 'react';
 import {AnswerForm} from './AnswerForm'
 
 function Answers(props) {
+  const [mode, setMode] = useState('default');
+  const [editableAnswer, setEditableAnswer]= useState();
+
+  const handleEdit = (answer) => {
+    setEditableAnswer(answer);
+    setMode('edit');
+  }
+
   return (
     <>
       <Row>
@@ -12,10 +20,20 @@ function Answers(props) {
       </Row>
       <Row>
         <Col lg={10} className="mx-auto">
-          <AnswerTable answers={props.answers} deleteAnswer={props.deleteAnswer} voteUp={props.voteUp}></AnswerTable>
+          <AnswerTable answers={props.answers} deleteAnswer={props.deleteAnswer} voteUp={props.voteUp} handleEdit={handleEdit}></AnswerTable>
         </Col>
       </Row>
-      <AnswerForm></AnswerForm>
+      {mode === 'add' &&<AnswerForm addAnswer={(answer) => props.addAnswer(answer)} cancel = {() => setMode('default')}></AnswerForm>}
+
+      {mode === 'edit' &&
+      <AnswerForm
+      key={editableAnswer.id}
+      mode={mode}
+      answer={editableAnswer}
+      updateAnswer={(answer) => {props.updateAnswer(answer); setMode('default');}}
+      cancel = {() => setMode('default')}></AnswerForm>}
+
+      {mode === 'default' &&   <Button variant='primary' onClick={() => setMode('add')}>Add</Button>}
     </>
   );
 }
@@ -59,7 +77,7 @@ function AnswerTable(props) {
       <tbody>
         {
           //3.here, we have sortedAnswers
-          sortedAnswers.map((ans) => <AnswerRow answer={ans} key={ans.id} deleteAnswer={props.deleteAnswer} voteUp={props.voteUp}/>)
+          sortedAnswers.map((ans) => <AnswerRow answer={ans} key={ans.id} deleteAnswer={props.deleteAnswer} voteUp={props.voteUp} handleEdit={props.handleEdit}/>)
         }
       </tbody>
     </Table>
@@ -76,7 +94,7 @@ function AnswerRow(props) {
   return (
     <tr>
       <AnswerData answer={props.answer} />
-      <AnswerActions deleteAnswer={props.deleteAnswer} voteUp={props.voteUp} id={props.answer.id} />
+      <AnswerActions deleteAnswer={props.deleteAnswer} voteUp={props.voteUp} id={props.answer.id} handleEdit = {props.handleEdit} answer={props.answer} />
     </tr>
   );
 }
@@ -103,7 +121,7 @@ AnswerData.propTypes = {
 function AnswerActions(props) {
   return <td>
     <Button variant='warning' onClick={()=>{props.voteUp(props.id)}}><ArrowUp /></Button>
-    <Button variant='primary' className='mx-1'><PencilSquare /></Button>
+    <Button variant='primary' className='mx-1' onClick={()=> props.handleEdit(props.answer)}><PencilSquare /></Button>
     <Button variant='danger' onClick={()=>{props.deleteAnswer(props.id)}}><Trash /></Button>
   </td>
 }
