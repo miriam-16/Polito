@@ -8,7 +8,7 @@ function FilmForm(props){
     const [rating, setRating] = useState('');
 
     const handleSubmit = (event) => {
-        event.preventDefault(); //to remove refreshing of page at submit click
+        //event.preventDefault();
         const film = {title, favorite, date, rating};
         props.addFilm(film);
     }
@@ -27,7 +27,7 @@ function FilmForm(props){
                 <Form.Label>
                     Favorite
                 </Form.Label>
-                <Form.Control type='text' minLength={2} value={favorite} onChange={(event)=>setFavorite(event.target.value)}>
+                <Form.Control type='text' minLength={2} value={favorite} onChange={(event)=>setFavorite(event.target.value == "true" ? 'true' : 'false' )}>
                 </Form.Control>
             </Form.Group>
 

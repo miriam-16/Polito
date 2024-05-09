@@ -58,7 +58,10 @@ function App() {
         setFilms((oldFilms) => {
           const newId = Math.max(...oldFilms.map(ans=>ans.id))+1;
           const newFilm = new Film(newId, film.title, film.favorite, film.data, film.rating);
+          console.log(newFilm);
+          console.log([...oldFilms, newFilm]);
           return [...oldFilms, newFilm];
+
         })
       }
 
