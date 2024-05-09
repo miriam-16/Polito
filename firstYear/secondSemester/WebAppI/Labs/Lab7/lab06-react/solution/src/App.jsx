@@ -5,7 +5,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
-import {INITIAL_FILMS} from "./films.mjs";
+import {INITIAL_FILMS, Film} from "./films.mjs";
 
 import dayjs from 'dayjs';
 
@@ -14,6 +14,8 @@ import {Button, Collapse, Col, Container, Row} from 'react-bootstrap/';
 import Filters from './components/Filters';
 import Header from "./components/Header.jsx";
 import FilmList from "./components/FilmList.jsx";
+import { FilmForm } from './components/FilmForm.jsx';
+import { propTypes } from 'react-bootstrap/esm/Image.js';
 
 function App() {
     /**
@@ -48,6 +50,19 @@ function App() {
     // This state controls the expansion of the sidebar (on small breakpoints only)
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
+    const [films, setFilms] = useState(
+        INITIAL_FILMS
+    );
+
+    const addFilm = (film) =>{
+        setFilms((oldFilms) => {
+          const newId = Math.max(...oldFilms.map(ans=>ans.id))+1;
+          const newFilm = new Film(newId, film.title, film.favorite, film.data, film.rating);
+          return [...oldFilms, newFilm];
+        })
+      }
+
+
     return (
         <div className="min-vh-100 d-flex flex-column">
             <Header isSidebarExpanded={isSidebarExpanded} setIsSidebarExpanded={setIsSidebarExpanded}/>
@@ -63,7 +78,9 @@ function App() {
                     </Collapse>
                     <Col md={9} className="pt-3">
                         <h1><span id="filter-title">{filters[activeFilter].label}</span> films</h1>
-                        <FilmList films={visibleFilms}/>
+                        <FilmList films={visibleFilms} addFilm={addFilm}/>
+                        <FilmForm addFilm={addFilm}></FilmForm>
+
                     </Col>
                 </Row>
                 <Button

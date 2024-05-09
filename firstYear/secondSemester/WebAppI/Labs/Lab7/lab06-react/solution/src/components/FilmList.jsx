@@ -3,13 +3,15 @@ import {Col, Row} from 'react-bootstrap/';
 
 import PropTypes from 'prop-types';
 import {ListGroup, ListGroupItem} from "react-bootstrap";
+import { FilmForm } from './FilmForm';
 
 function FilmList(props) {
     const {films} = props;
 
     return (<ListGroup id="films-list" variant="flush">
         {films.map((film) => <FilmInList filmData={film} key={film.id}/>)}
-    </ListGroup>);
+    </ListGroup>
+    );
 }
 
 FilmList.propTypes = {
@@ -18,7 +20,8 @@ FilmList.propTypes = {
 
 function FilmInList({filmData}) {
 
-    return (<ListGroupItem>
+    return (
+    <ListGroupItem>
         <Row className="gy-2">
 
             <Col xs={6} xl={3} className="favorite-title d-flex gap-2 align-items-center">
@@ -49,7 +52,9 @@ function FilmInList({filmData}) {
                     <i className="bi bi-trash"></i>
                 </div>
             </Col>
-        </Row></ListGroupItem>);
+        </Row></ListGroupItem>
+
+        );
 }
 
 FilmInList.propTypes = {
