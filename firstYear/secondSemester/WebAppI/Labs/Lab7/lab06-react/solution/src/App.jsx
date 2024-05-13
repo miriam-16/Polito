@@ -51,19 +51,18 @@ function App() {
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
     const [films, setFilms] = useState(
-        INITIAL_FILMS
+        INITIAL_FILMS.filter(filters[activeFilter].filterFunction)
     );
+
 
     const addFilm = (film) =>{
         setFilms((oldFilms) => {
           const newId = Math.max(...oldFilms.map(ans=>ans.id))+1;
-          const newFilm = new Film(newId, film.title, film.favorite, film.data, film.rating);
+          const newFilm = new Film(newId, film.title, film.favorite, film.date, film.rating);
           console.log(newFilm);
-          console.log([...oldFilms, newFilm]);
           return [...oldFilms, newFilm];
-
         })
-      }
+    }
 
 
     return (
@@ -83,7 +82,6 @@ function App() {
                         <h1><span id="filter-title">{filters[activeFilter].label}</span> films</h1>
                         <FilmList films={visibleFilms} addFilm={addFilm}/>
                         <FilmForm addFilm={addFilm}></FilmForm>
-
                     </Col>
                 </Row>
                 <Button

@@ -3,12 +3,12 @@ import {Form, Button} from 'react-bootstrap'
 
 function FilmForm(props){
     const [title, setTitle] = useState('');
-    const [favorite, setFavorite] = useState('');
+    const [favorite, setFavorite] = useState(false);
     const [date, setDate] = useState('');
     const [rating, setRating] = useState('');
 
     const handleSubmit = (event) => {
-        //event.preventDefault();
+        event.preventDefault();
         const film = {title, favorite, date, rating};
         props.addFilm(film);
     }
@@ -23,12 +23,13 @@ function FilmForm(props){
                 </Form.Control>
             </Form.Group>
 
-             <Form.Group className='mb-2'>
-                <Form.Label>
-                    Favorite
-                </Form.Label>
-                <Form.Control type='text' minLength={2} value={favorite} onChange={(event)=>setFavorite(event.target.value == "true" ? 'true' : 'false' )}>
-                </Form.Control>
+            <Form.Group className='mb-2'>
+                <Form.Check
+                    type='checkbox'
+                    label='Favorite'
+                    checked={favorite}
+                    onChange={(event) => setFavorite(event.target.checked)}
+                />
             </Form.Group>
 
             <Form.Group className='mb-2'>
