@@ -5,12 +5,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
-import {INITIAL_FILMS, Film} from "./films.mjs";
+import { INITIAL_FILMS, Film } from "./films.mjs";
 
 import dayjs from 'dayjs';
 
-import {useState} from 'react';
-import {Button, Collapse, Col, Container, Row} from 'react-bootstrap/';
+import { useState } from 'react';
+import { Button, Collapse, Col, Container, Row } from 'react-bootstrap/';
 import Filters from './components/Filters';
 import Header from "./components/Header.jsx";
 import FilmList from "./components/FilmList.jsx";
@@ -26,9 +26,9 @@ function App() {
      * - A filter function applied before passing the films to the FilmTable component
      */
     const filters = {
-        'filter-all': {label: 'All', id: 'filter-all', filterFunction: () => true},
-        'filter-favorite': {label: 'Favorites', id: 'filter-favorite', filterFunction: film => film.favorite},
-        'filter-best': {label: 'Best Rated', id: 'filter-best', filterFunction: film => film.rating >= 5},
+        'filter-all': { label: 'All', id: 'filter-all', filterFunction: () => true },
+        'filter-favorite': { label: 'Favorites', id: 'filter-favorite', filterFunction: film => film.favorite },
+        'filter-best': { label: 'Best Rated', id: 'filter-best', filterFunction: film => film.rating >= 5 },
         'filter-lastmonth': {
             label: 'Seen Last Month',
             id: 'filter-lastmonth',
@@ -38,7 +38,7 @@ function App() {
                 return diff <= 0 && diff > -1;
             }
         },
-        'filter-unseen': {label: 'Unseen', id: 'filter-unseen', filterFunction: film => !film?.watchDate}
+        'filter-unseen': { label: 'Unseen', id: 'filter-unseen', filterFunction: film => !film?.watchDate }
     };
 
     // This state contains the active filter
@@ -51,23 +51,25 @@ function App() {
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
     const [films, setFilms] = useState(
-        INITIAL_FILMS.filter(filters[activeFilter].filterFunction)
+        INITIAL_FILMS
     );
 
+    const [mode, setMode] = useState('default');
 
-    const addFilm = (film) =>{
+
+    const addFilm = (film) => {
         setFilms((oldFilms) => {
-          const newId = Math.max(...oldFilms.map(ans=>ans.id))+1;
-          const newFilm = new Film(newId, film.title, film.favorite, film.date, film.rating);
-          console.log(newFilm);
-          return [...oldFilms, newFilm];
+            const newId = Math.max(...oldFilms.map(ans => ans.id)) + 1;
+            const newFilm = new Film(newId, film.title, film.favorite, film.date, film.rating);
+            console.log(newFilm);
+            return [...oldFilms, newFilm];
         })
     }
 
 
     return (
         <div className="min-vh-100 d-flex flex-column">
-            <Header isSidebarExpanded={isSidebarExpanded} setIsSidebarExpanded={setIsSidebarExpanded}/>
+            <Header isSidebarExpanded={isSidebarExpanded} setIsSidebarExpanded={setIsSidebarExpanded} />
 
             {/* Main */}
             <Container fluid className="flex-grow-1 d-flex flex-column">
@@ -75,21 +77,25 @@ function App() {
                     <Collapse id="films-filters" in={isSidebarExpanded} className="col-md-3 bg-light d-md-block">
                         <div className="py-4">
                             <h5 className="mb-3">Filters</h5>
-                            <Filters items={filters} selected={activeFilter} onSelect={setActiveFilter}/>
+                            <Filters items={filters} selected={activeFilter} onSelect={setActiveFilter} />
                         </div>
                     </Collapse>
                     <Col md={9} className="pt-3">
                         <h1><span id="filter-title">{filters[activeFilter].label}</span> films</h1>
                         <FilmList films={visibleFilms} addFilm={addFilm}/>
-                        <FilmForm addFilm={addFilm}></FilmForm>
+                        {mode === 'add' && <FilmForm addFilm={addFilm} cancel={() => setMode('default')}></FilmForm>}
+                        {mode === 'edit' && <FilmForm cancel={() => setMode('default')}></FilmForm>}
                     </Col>
                 </Row>
-                <Button
-                    variant="primary"
-                    className="rounded-circle fixed-right-bottom"
-                >
-                    <i className="bi bi-plus"></i>
-                </Button>
+                {mode !== 'add' && (
+                    <Button
+                        variant="primary"
+                        className="rounded-circle fixed-right-bottom"
+                        onClick={() => { setMode('add'); }}
+                    >
+                        <i className="bi bi-plus"></i>
+                    </Button>
+                )}
             </Container>
         </div>);
 }

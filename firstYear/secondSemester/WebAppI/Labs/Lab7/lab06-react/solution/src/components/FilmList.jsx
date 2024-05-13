@@ -4,6 +4,7 @@ import {Col, Row} from 'react-bootstrap/';
 import PropTypes from 'prop-types';
 import {ListGroup, ListGroupItem} from "react-bootstrap";
 import { FilmForm } from './FilmForm';
+import { useState } from 'react';
 
 function FilmList(props) {
     const {films} = props;
@@ -19,6 +20,9 @@ FilmList.propTypes = {
 };
 
 function FilmInList({filmData}) {
+
+
+
 
     return (
     <ListGroupItem>
