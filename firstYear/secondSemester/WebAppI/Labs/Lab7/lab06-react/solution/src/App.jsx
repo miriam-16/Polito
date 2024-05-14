@@ -18,13 +18,27 @@ import { FilmForm } from './components/FilmForm.jsx';
 import { propTypes } from 'react-bootstrap/esm/Image.js';
 
 function App() {
+    // This state contains the active filter
+    const [activeFilter, setActiveFilter] = useState('filter-all');
+
+    // This is not optimal - better ways will be introduced in the upcoming labs
+
+    // This state controls the expansion of the sidebar (on small breakpoints only)
+    const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+
+    const [films, setFilms] = useState(
+        INITIAL_FILMS
+    );
+
+    const [mode, setMode] = useState('default');
+
     /**
      * Defining a structure for Filters
      * Each filter is identified by a unique name and is composed by the following fields:
      * - A label to be shown in the GUI
      * - An ID (equal to the unique name), used as key during the table generation
      * - A filter function applied before passing the films to the FilmTable component
-     */
+    */
     const filters = {
         'filter-all': { label: 'All', id: 'filter-all', filterFunction: () => true },
         'filter-favorite': { label: 'Favorites', id: 'filter-favorite', filterFunction: film => film.favorite },
@@ -41,20 +55,7 @@ function App() {
         'filter-unseen': { label: 'Unseen', id: 'filter-unseen', filterFunction: film => !film?.watchDate }
     };
 
-    // This state contains the active filter
-    const [activeFilter, setActiveFilter] = useState('filter-all');
-
-    // This is not optimal - better ways will be introduced in the upcoming labs
-    const visibleFilms = INITIAL_FILMS.filter(filters[activeFilter].filterFunction);
-
-    // This state controls the expansion of the sidebar (on small breakpoints only)
-    const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
-
-    const [films, setFilms] = useState(
-        INITIAL_FILMS
-    );
-
-    const [mode, setMode] = useState('default');
+    const visibleFilms = films.filter(filters[activeFilter].filterFunction);
 
 
     const addFilm = (film) => {
@@ -82,7 +83,7 @@ function App() {
                     </Collapse>
                     <Col md={9} className="pt-3">
                         <h1><span id="filter-title">{filters[activeFilter].label}</span> films</h1>
-                        <FilmList films={visibleFilms} addFilm={addFilm}/>
+                        <FilmList films={visibleFilms} addFilm={addFilm} />
                         {mode === 'add' && <FilmForm addFilm={addFilm} cancel={() => setMode('default')}></FilmForm>}
                         {mode === 'edit' && <FilmForm cancel={() => setMode('default')}></FilmForm>}
                     </Col>
