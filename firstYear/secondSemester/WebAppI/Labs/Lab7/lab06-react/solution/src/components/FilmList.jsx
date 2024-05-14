@@ -9,7 +9,7 @@ function FilmList(props) {
     const { films } = props;
 
     return (<ListGroup id="films-list" variant="flush">
-        {films.map((film) => <FilmInList filmData={film} key={film.id} />)}
+        {films.map((film) => <FilmInList filmData={film} key={film.id} updateFilm={props.updateFilm} />)}
     </ListGroup>
     );
 }
@@ -18,14 +18,14 @@ FilmList.propTypes = {
     films: PropTypes.array.isRequired,
 };
 
-function FilmInList({ filmData }) {
+function FilmInList(props) {
 
     return (
         <ListGroupItem>
             <Row className="gy-2">
 
                 <Col xs={6} xl={3} className="favorite-title d-flex gap-2 align-items-center">
-                    {filmData.title}
+                    {props.filmData.title}
                     <div className="d-xl-none actions">
                         <i className="bi bi-pencil"></i>
                         <i className="bi bi-trash"></i>
@@ -34,21 +34,21 @@ function FilmInList({ filmData }) {
                 <Col xs={6} xl={3} className="text-end text-xl-center">
                     <span className="custom-control custom-checkbox">
                         <span className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" defaultChecked={filmData.favorite} />
+                            <input type="checkbox" className="custom-control-input" defaultChecked={props.filmData.favorite} />
                             <label className="custom-control-label">Favorite</label>
                         </span>
                     </span>
                 </Col>
 
                 <Col xs={4} xl={3} className="text-xl-center">
-                    {filmData.formatWatchDate()}
+                    {props.filmData.formatWatchDate()}
                 </Col>
                 <Col xs={8} xl={3} className="actions-container text-end">
                     <div className="rating">
-                        <Rating rating={filmData.rating} maxStars={5} />
+                        <Rating rating={props.filmData.rating} maxStars={5} />
                     </div>
                     <div className="d-none d-xl-flex actions">
-                        <Button variant='primary'><Pencil /></Button>
+                        <Button variant='primary' onClick={() => updateFilm}><Pencil /></Button>
                         <Button variant='danger'><Trash /></Button>
                     </div>
                 </Col>

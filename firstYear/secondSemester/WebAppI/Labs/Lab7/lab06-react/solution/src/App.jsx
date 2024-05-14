@@ -67,6 +67,21 @@ function App() {
         })
     }
 
+    const updateFilm = (film) => {
+        setFilms(oldFilm => {
+            return oldFilm.map((f) => {
+                console.log("Enter updateFilm");
+                if (f.id === film.id) {
+                    console.log("f.id===film.id")
+                    return new Film(film.id, film.title, film.favorite, film.date, film.rating);
+                }
+                else
+                    return f;
+            });
+        });
+    }
+
+
 
     return (
         <div className="min-vh-100 d-flex flex-column">
@@ -83,7 +98,7 @@ function App() {
                     </Collapse>
                     <Col md={9} className="pt-3">
                         <h1><span id="filter-title">{filters[activeFilter].label}</span> films</h1>
-                        <FilmList films={visibleFilms} addFilm={addFilm} />
+                        <FilmList films={visibleFilms} updateFilm={updateFilm} />
                         {mode === 'add' && <FilmForm addFilm={addFilm} cancel={() => setMode('default')}></FilmForm>}
                         {mode === 'edit' && <FilmForm cancel={() => setMode('default')}></FilmForm>}
                     </Col>

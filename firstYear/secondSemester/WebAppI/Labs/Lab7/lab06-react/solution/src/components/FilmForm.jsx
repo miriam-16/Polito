@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import {Form, Button} from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 
-function FilmForm(props){
+function FilmForm(props) {
     const [title, setTitle] = useState('');
     const [favorite, setFavorite] = useState(false);
     const [date, setDate] = useState('');
@@ -9,8 +9,16 @@ function FilmForm(props){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const film = {title, favorite, date, rating};
-        props.addFilm(film);
+        const film = { title, favorite, date, rating };
+
+        if (props.film) {
+            props.updateFilm({ id: props.film.id, ...film });
+        }
+        else {
+            props.addFilm(film);
+        }
+
+
     }
 
     return (
@@ -19,7 +27,7 @@ function FilmForm(props){
                 <Form.Label>
                     Title
                 </Form.Label>
-                <Form.Control type='text' required={true} minLength={2} value={title} onChange={(event)=>setTitle(event.target.value)}>
+                <Form.Control type='text' required={true} minLength={2} value={title} onChange={(event) => setTitle(event.target.value)}>
                 </Form.Control>
             </Form.Group>
 
@@ -36,7 +44,7 @@ function FilmForm(props){
                 <Form.Label>
                     Date
                 </Form.Label>
-                <Form.Control type='date' minLength={2} value={date} onChange={(event)=>setDate(event.target.value)}>
+                <Form.Control type='date' minLength={2} value={date} onChange={(event) => setDate(event.target.value)}>
                 </Form.Control>
             </Form.Group>
 
@@ -44,7 +52,7 @@ function FilmForm(props){
                 <Form.Label>
                     Rating
                 </Form.Label>
-                <Form.Control type='number' required={true} min={0} max={5} value={rating} onChange={(event)=>setRating(event.target.value)}>
+                <Form.Control type='number' required={true} min={0} max={5} value={rating} onChange={(event) => setRating(event.target.value)}>
                 </Form.Control>
             </Form.Group>
             <Button variant='primary' type='Submit'>Add</Button>{''}
@@ -53,4 +61,4 @@ function FilmForm(props){
     )
 }
 
-export {FilmForm};
+export { FilmForm };
