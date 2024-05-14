@@ -88,21 +88,18 @@ function App() {
         <NavigationBar qtnnumber={1} language={language} toggleLanguage={toggleLanguage} />
         <Routes>
           <Route path='/' element={
-            <p>
-              List of questions -
-              <Link to='/questions/3'>
-                Go to 3
-              </Link>
-            </p>}
-          />
-          <Route path='/questions/:qid' element={<QuestionComponent likes={likes} question={question} increaseLikes={increaseLikes}></QuestionComponent>} />
-          <Route path='add' element={<AnswerForm addAnswer={addAnswer} mode='add' />} />
-          <Route index element={<Answers answers={answers} deleteAnswer={deleteAnswer} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer} />} />
+            <p> List of questions -
+              <Link to='/questions/3'>Go to 3</Link></p>
+          } />
+          <Route path='/questions/:qid' element={
+            <QuestionComponent likes={likes} question={question} increaseLikes={increaseLikes}></QuestionComponent>
+          } >
+            <Route path='add' element={<AnswerForm addAnswer={addAnswer} mode='add' />} />
+            <Route index element={<Answers answers={answers} deleteAnswer={deleteAnswer} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer} />} />
+          </Route>
         </Routes>
-        {/*<QuestionComponent likes={likes} increaseLikes={increaseLikes} qtnnumber={question.id} question={question.text} email={question.email}></QuestionComponent>
-      <Answers answers={answers} deleteAnswer={deleteAnswer} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer}></Answers>*/}
       </Container>
-    </LanguageContext.Provider>
+    </LanguageContext.Provider >
   )
 }
 
