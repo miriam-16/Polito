@@ -4,6 +4,7 @@ import { ArrowUp, PencilSquare, Trash } from 'react-bootstrap-icons';
 import { useContext, useState } from 'react';
 import AnswerForm from './AnswerForm';
 import LanguageContext from '../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 function Answers(props) {
 
@@ -12,6 +13,8 @@ function Answers(props) {
   const [editableAnswer, setEditableAnswer] = useState();
 
   const language = useContext(LanguageContext);
+
+  const navigate = useNavigate();
 
   const handleEdit = (answer) => {
     setEditableAnswer(answer);
@@ -30,8 +33,8 @@ function Answers(props) {
       </Row>
       {mode === 'add' &&
         <AnswerForm
-          mode = {mode}
-          addAnswer={(answer) => {props.addAnswer(answer); setMode('default');}}
+          mode={mode}
+          addAnswer={(answer) => { props.addAnswer(answer); setMode('default'); }}
           cancel={() => setMode('default')}
         />
       }
@@ -46,7 +49,7 @@ function Answers(props) {
         />
       }
 
-      {mode === 'default' && <Button variant='primary' onClick={() => {setMode('add');}}>{language==='IT'? 'Aggiungi' :'Add'}</Button>}
+      {mode === 'default' && <Button variant='primary' onClick={() => { navigate('add'); }}>{language === 'IT' ? 'Aggiungi' : 'Add'}</Button>}
 
       <h5>{mode}</h5>
     </>

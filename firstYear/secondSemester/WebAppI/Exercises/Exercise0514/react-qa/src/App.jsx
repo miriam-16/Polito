@@ -8,6 +8,8 @@ import { Like } from './components/Like';
 import { useState } from 'react';
 import LanguageContext from './contexts/LanguageContext';
 import { Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import AnswerForm from './components/AnswerForm';
 
 const fakeQuestion = new Question(1, 'What is your name?', 'juan@polito.it', '2024-02-07')
 fakeQuestion.init();
@@ -91,15 +93,11 @@ function App() {
               <Link to='/questions/3'>
                 Go to 3
               </Link>
-            </p>} />
-          <Route path='/questions/:qid' element={
-            <p>
-              List of answers to one question -
-              <Link to='/'>
-                Back
-              </Link>
-            </p>} />
-
+            </p>}
+          />
+          <Route path='/questions/:qid' element={<QuestionComponent likes={likes} question={question} increaseLikes={increaseLikes}></QuestionComponent>} />
+          <Route path='add' element={<AnswerForm addAnswer={addAnswer} mode='add' />} />
+          <Route index element={<Answers answers={answers} deleteAnswer={deleteAnswer} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer} />} />
         </Routes>
         {/*<QuestionComponent likes={likes} increaseLikes={increaseLikes} qtnnumber={question.id} question={question.text} email={question.email}></QuestionComponent>
       <Answers answers={answers} deleteAnswer={deleteAnswer} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer}></Answers>*/}
