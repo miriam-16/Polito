@@ -7,6 +7,7 @@ import { Answers } from './components/AnswerComponents';
 import { Like } from './components/Like';
 import { useState } from 'react';
 import LanguageContext from './contexts/LanguageContext';
+import { Route, Routes } from 'react-router-dom';
 
 const fakeQuestion = new Question(1, 'What is your name?', 'juan@polito.it', '2024-02-07')
 fakeQuestion.init();
@@ -28,7 +29,7 @@ function App() {
 
   const [language, setLanguage] = useState('IT');
 
-  const toggleLanguage = () => {setLanguage(language==='IT' ? 'EN' : 'IT')};
+  const toggleLanguage = () => { setLanguage(language === 'IT' ? 'EN' : 'IT') };
 
   const [comment, setComment] = useState('ok');
 
@@ -65,7 +66,7 @@ function App() {
   const updateAnswer = (answer) => {
     setAnswers(oldAnswers => {
       return oldAnswers.map((ans) => {
-        if(ans.id === answer.id) {
+        if (ans.id === answer.id) {
           return new Answer(answer.id, answer.text, answer.email, answer.date, ans.score);
         }
         else
@@ -81,11 +82,28 @@ function App() {
 
   return (
     <LanguageContext.Provider value={language}>
-    <Container>
-      <NavigationBar qtnnumber={1} language={language} toggleLanguage={toggleLanguage}/>
-      <QuestionComponent likes={likes} increaseLikes={increaseLikes} qtnnumber={question.id} question={question.text} email={question.email}></QuestionComponent>
-      <Answers answers={answers} deleteAnswer={deleteAnswer} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer}></Answers>
-    </Container>
+      <Container>
+        <NavigationBar qtnnumber={1} language={language} toggleLanguage={toggleLanguage} />
+        <Routes>
+          <Route path='/' element={
+            <p>
+              List of questions -
+              <Link to='/questions/3'>
+                Go to 3
+              </Link>
+            </p>} />
+          <Route path='/questions/:qid' element={
+            <p>
+              List of answers to one question -
+              <Link to='/'>
+                Back
+              </Link>
+            </p>} />
+
+        </Routes>
+        {/*<QuestionComponent likes={likes} increaseLikes={increaseLikes} qtnnumber={question.id} question={question.text} email={question.email}></QuestionComponent>
+      <Answers answers={answers} deleteAnswer={deleteAnswer} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer}></Answers>*/}
+      </Container>
     </LanguageContext.Provider>
   )
 }
