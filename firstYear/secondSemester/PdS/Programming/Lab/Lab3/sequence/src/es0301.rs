@@ -5,22 +5,30 @@
 
 // suggestion: write a function find_sub(&str, &str) -> Option<(usize, &str)> that finds the first subsequence in a string, you can use it in all the following functions
 
-fn subsequences1(s: &str, seq: &str) -> Vec<(usize, &str)> {
-    unimplemented!()
-}
+use std::fmt::format;
 
-fn find_sub(s: &str, seq: &str) -> Option<(usize, &str)> {}
+use regex::Regex;
 
-fn split_seq(seq: &str) -> Vec<str, i32, i32> {
-    let res: Vec<&str> = Vec::new();
-    let letter = "";
-    let min = 0;
-    let max = 0;
-    for i in seq.split(",").collect() {
-        for j in i.split("-").collect(){
-            
-        }
-    }
+fn subsequences1<'a>(s: &'a str, seq: &str) -> Vec<(usize, &'a str)> {
+    let pattern = seq.split(",").map(|n| {
+        let (base, range) = n.split_at(0);
+        let (min, max) = range.split_once("-").unwrap();
+        let min = min.parse::<usize>().unwrap();
+        let max = max.parse::<usize>().unwrap();
+        (base, min, max)
+    });
+
+    let regex = Regex::new(
+        &pattern
+            .map(|(base, min, max)| format!("{}{{{},{}}}", base, min, max))
+            .collect::<String>(),
+    )
+    .unwrap();
+
+    regex
+        .find_iter(s)
+        .map(|m| (m.start(), &s[m.start()..m.end()]))
+        .collect()
 }
 
 pub fn demo1() {
