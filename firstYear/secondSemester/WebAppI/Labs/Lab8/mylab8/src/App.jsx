@@ -5,15 +5,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
-import {INITIAL_FILMS} from "./films.mjs";
+import { INITIAL_FILMS } from "./films.mjs";
 
 import dayjs from 'dayjs';
 
-import {useState} from 'react';
-import {Collapse, Col, Container, Row} from 'react-bootstrap/';
+import { useState } from 'react';
+import { Collapse, Col, Container, Row } from 'react-bootstrap/';
 import Filters from './components/Filters';
 import Header from "./components/Header.jsx";
 import FilmPage from "./components/FilmPage.jsx";
+import { Route, Routes, Navigate } from 'react-router-dom';
+import FilmLibraryLayout from './components/FilmLibraryLayout.jsx';
 
 function App() {
     /**
@@ -24,9 +26,9 @@ function App() {
      * - A filter function applied before passing the films to the FilmTable component
      */
     const filters = {
-        'filter-all': {label: 'All', id: 'filter-all', filterFunction: () => true},
-        'filter-favorite': {label: 'Favorites', id: 'filter-favorite', filterFunction: film => film.favorite},
-        'filter-best': {label: 'Best Rated', id: 'filter-best', filterFunction: film => film.rating >= 5},
+        'filter-all': { label: 'All', id: 'filter-all', filterFunction: () => true },
+        'filter-favorite': { label: 'Favorites', id: 'filter-favorite', filterFunction: film => film.favorite },
+        'filter-best': { label: 'Best Rated', id: 'filter-best', filterFunction: film => film.rating >= 5 },
         'filter-lastmonth': {
             label: 'Seen Last Month',
             id: 'filter-lastmonth',
@@ -36,7 +38,7 @@ function App() {
                 return diff <= 0 && diff > -1;
             }
         },
-        'filter-unseen': {label: 'Unseen', id: 'filter-unseen', filterFunction: film => !film?.watchDate}
+        'filter-unseen': { label: 'Unseen', id: 'filter-unseen', filterFunction: film => !film?.watchDate }
     };
 
     // This state contains the active filter
@@ -52,14 +54,14 @@ function App() {
     const saveNewFilm = (newFilm) => {
         const newFilmId = Math.max(...films.map(film => film.id)) + 1;
         newFilm.id = newFilmId;
-        setFilms( (films) => [...films, newFilm] );
+        setFilms((films) => [...films, newFilm]);
     }
 
     // This function updates a film already stored into the FilmLibrary array
     const updateFilm = (film) => {
         setFilms(oldFilms => {
             return oldFilms.map(f => {
-                if(film.id === f.id)
+                if (film.id === f.id)
                     return { "id": film.id, "title": film.title, "favorite": film.favorite, "watchDate": film.watchDate, "rating": film.rating };
                 else
                     return f;
@@ -69,9 +71,10 @@ function App() {
 
     return (
         <div className="min-vh-100 d-flex flex-column">
-            <Header isSidebarExpanded={isSidebarExpanded} setIsSidebarExpanded={setIsSidebarExpanded}/>
 
-            {/* Main */}
+            <Header isSidebarExpanded={isSidebarExpanded} setIsSidebarExpanded={setIsSidebarExpanded} />
+
+            {/*
             <Container fluid className="flex-grow-1 d-flex flex-column">
                 <Row className="flex-grow-1">
                     <Collapse id="films-filters" in={isSidebarExpanded} className="col-md-3 bg-light d-md-block">
@@ -89,7 +92,12 @@ function App() {
                         />
                     </Col>
                 </Row>
-            </Container>
+            </Container> */}
+
+            <Routes>
+                <Route index path="/" element={<Navigate to="/all" />} />
+                <Route path="/:filter" element={<FilmLibraryLayout filters={filters} films={films} />} />
+            </Routes>
         </div>);
 }
 

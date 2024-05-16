@@ -39,11 +39,13 @@ def logpdf_GAU_ND(x, mu, C):
 
 def main():
     D, L = load('iris.csv')
+
+
     mu = D.mean(1).reshape((D.shape[0], 1))
     DC = D - mu.reshape((mu.size, 1))
-    
+
     nRecords = D.shape[1]
-    
+
     C = (DC@DC.T)/nRecords
     logpdf = logpdf_GAU_ND(D, mu, C)
     print(logpdf)
