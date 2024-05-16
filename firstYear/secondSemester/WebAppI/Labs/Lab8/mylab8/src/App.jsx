@@ -10,7 +10,7 @@ import { INITIAL_FILMS } from "./films.mjs";
 import dayjs from 'dayjs';
 
 import { useState } from 'react';
-import { Collapse, Col, Container, Row } from 'react-bootstrap/';
+import { Collapse, Col, Container, Row, Button } from 'react-bootstrap/';
 import Filters from './components/Filters';
 import Header from "./components/Header.jsx";
 import FilmPage from "./components/FilmPage.jsx";
