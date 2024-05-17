@@ -1,30 +1,16 @@
-/*
- * 01UDFOV Applicazioni Web I / 01TXYOV Web Applications I
- * Lab 7 - 2024
- */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 import { INITIAL_FILMS } from "./films.mjs";
 
 import dayjs from 'dayjs';
-
 import { useState } from 'react';
-import { Collapse, Col, Container, Row, Button } from 'react-bootstrap/';
-import Filters from './components/Filters';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Header from "./components/Header.jsx";
-import FilmPage from "./components/FilmPage.jsx";
-import { Route, Routes, Navigate } from 'react-router-dom';
 import FilmLibraryLayout from './components/FilmLibraryLayout.jsx';
+import FilmForm from './components/FilmForm.jsx';
 
 function App() {
-    /**
-     * Defining a structure for Filters
-     * Each filter is identified by a unique name and is composed by the following fields:
-     * - A label to be shown in the GUI
-     * - An ID (equal to the unique name), used as key during the table generation
-     * - A filter function applied before passing the films to the FilmTable component
-     */
     const filters = {
         'filter-all': { label: 'All', id: 'filter-all', filterFunction: () => true },
         'filter-favorite': { label: 'Favorites', id: 'filter-favorite', filterFunction: film => film.favorite },
@@ -41,64 +27,32 @@ function App() {
         'filter-unseen': { label: 'Unseen', id: 'filter-unseen', filterFunction: film => !film?.watchDate }
     };
 
-    // This state contains the active filter
-    const [activeFilter, setActiveFilter] = useState('filter-all');
-
-    // This state controls the expansion of the sidebar (on small breakpoints only)
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
-
-    // This state contains the list of movie. It will be updated when a movie is modified or a new movie is added.
     const [films, setFilms] = useState(INITIAL_FILMS);
+    const navigate = useNavigate();
 
-    // This function add the new film into the FilmLibrary array
     const saveNewFilm = (newFilm) => {
         const newFilmId = Math.max(...films.map(film => film.id)) + 1;
         newFilm.id = newFilmId;
         setFilms((films) => [...films, newFilm]);
-    }
+        navigate('/');
+    };
 
-    // This function updates a film already stored into the FilmLibrary array
     const updateFilm = (film) => {
-        setFilms(oldFilms => {
-            return oldFilms.map(f => {
-                if (film.id === f.id)
-                    return { "id": film.id, "title": film.title, "favorite": film.favorite, "watchDate": film.watchDate, "rating": film.rating };
-                else
-                    return f;
-            });
-        });
-    }
+        setFilms(oldFilms => oldFilms.map(f => (film.id === f.id ? film : f)));
+    };
 
     return (
         <div className="min-vh-100 d-flex flex-column">
-
             <Header isSidebarExpanded={isSidebarExpanded} setIsSidebarExpanded={setIsSidebarExpanded} />
-
-            {/*
-            <Container fluid className="flex-grow-1 d-flex flex-column">
-                <Row className="flex-grow-1">
-                    <Collapse id="films-filters" in={isSidebarExpanded} className="col-md-3 bg-light d-md-block">
-                        <div className="py-4">
-                            <h5 className="mb-3">Filters</h5>
-                            <Filters items={filters} selected={activeFilter} onSelect={setActiveFilter}/>
-                        </div>
-                    </Collapse>
-                    <Col md={9} className="pt-3">
-                        <h1><span id="filter-title">{filters[activeFilter].label}</span> films</h1>
-                        <FilmPage
-                            films={films.filter(filters[activeFilter].filterFunction)}
-                            addFilm={saveNewFilm}
-                            editFilm={updateFilm}
-                        />
-                    </Col>
-                </Row>
-            </Container> */}
-
             <Routes>
-                <Route index path="/" element={<Navigate to="/all" />} />
-                <Route path="/:filter" element={<FilmLibraryLayout filters={filters} films={films} />} />
+                <Route path="/" element={<Navigate to="/filter-all" />} />
+                <Route path="/:filter/*" element={<FilmLibraryLayout filters={filters} films={films} isSidebarExpanded={isSidebarExpanded} />} />
+                <Route path="/add-film/*" element={<FilmForm addFilm={saveNewFilm} />} />
+                <Route path="/edit-film/:id/*" element={<FilmLibraryLayout filters={filters} films={films} isSidebarExpanded={isSidebarExpanded} editFilm={updateFilm} />} />
             </Routes>
-        </div>);
+        </div>
+    );
 }
 
 export default App;
