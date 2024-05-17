@@ -43,14 +43,14 @@ function FilmLibraryLayout(props) {
                                     />
                                 </>
                             } />
-                            <Route path="/add-film" element={
+                            {/*                             <Route path="/add-film" element={
                                 <FilmForm
                                     film={editableFilm}
                                     addFilm={(film) => { props.addFilm(film); navigate('/'); }}
                                     editFilm={(film) => { props.editFilm(film); navigate('/'); }}
                                     cancel={() => navigate('/')}
                                 />
-                            } />
+                            } /> */}
                             <Route path="/edit-film/:id" element={
                                 <FilmForm
                                     film={editableFilm}
