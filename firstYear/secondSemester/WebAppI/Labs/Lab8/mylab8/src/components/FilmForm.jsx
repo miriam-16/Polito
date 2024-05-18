@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-function FilmForm({ film, addFilm, editFilm, cancel }) {
+function FilmForm({ films, addFilm, editFilm, cancel }) {
+  const { id } = useParams();
+  const film = films.find(film => film.id === parseInt(id));
   const [title, setTitle] = useState(film ? film.title : '');
   const [favorite, setFavorite] = useState(film ? film.favorite : false);
   const [watchDate, setWatchDate] = useState(film ? film.watchDate : '');

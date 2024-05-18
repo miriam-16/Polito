@@ -51,14 +51,14 @@ function FilmLibraryLayout(props) {
                                     cancel={() => navigate('/')}
                                 />
                             } /> */}
-                            <Route path="/edit-film/:id" element={
+                            {/* <Route path="/edit-film/:id" element={
                                 <FilmForm
                                     film={editableFilm}
                                     addFilm={(film) => { props.addFilm(film); navigate('/'); }}
                                     editFilm={(film) => { props.editFilm(film); navigate('/'); }}
                                     cancel={() => navigate('/')}
                                 />
-                            } />
+                            } /> */}
                         </Routes>
                     </Col>
                 </Row>

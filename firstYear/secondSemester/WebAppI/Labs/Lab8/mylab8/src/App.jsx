@@ -40,6 +40,7 @@ function App() {
 
     const updateFilm = (film) => {
         setFilms(oldFilms => oldFilms.map(f => (film.id === f.id ? film : f)));
+        navigate('/');
     };
 
     return (
@@ -48,8 +49,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<Navigate to="/filter-all" />} />
                 <Route path="/:filter/*" element={<FilmLibraryLayout filters={filters} films={films} isSidebarExpanded={isSidebarExpanded} />} />
-                <Route path="/add-film/*" element={<FilmForm addFilm={saveNewFilm} />} />
-                <Route path="/edit-film/:id/*" element={<FilmLibraryLayout filters={filters} films={films} isSidebarExpanded={isSidebarExpanded} editFilm={updateFilm} />} />
+                <Route path="/add-film/*" element={<FilmForm films={films} addFilm={saveNewFilm} cancel={() => navigate('/')} />} />
+                <Route path="/edit-film/:id/*" element={<FilmForm films={films} editFilm={updateFilm} cancel={() => navigate('/')} />} />
             </Routes>
         </div>
     );
